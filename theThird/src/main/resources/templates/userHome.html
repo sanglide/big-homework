@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--用户的首页界面-->
+<head>
+    <meta charset="UTF-8">
+    <title>电影</title>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userHome.css"/>
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/userHome.js"></script>
+
+</head>
+<body>
+    <div class="nav-top-container">
+        <div class="nav-logo title">NJU-Se电影购票系统</div>
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="#">首页</a></li>
+            <li role="presentation"><a href="/user/movie">电影</a></li>
+        </ul>
+        <div class="btn-group">
+            <button class="nav-user-container btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="avatar-sm" src="/images/defaultAvatar.jpg" />
+                <span class="gray-text" style="vertical-align: middle">用户A&nbsp;<span class="caret"></span></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="/user/buy">电影票</a></li>
+                <li><a href="/user/member">卡包</a></li>
+                <li><a href="/user/buyHistory">历史记录</a></li>
+                <li id="logout"><a href="#">登出</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 可能不需要的功能 -->
+    <div class="content-container">
+        <div class="movie-contianer">
+            <p class="title primary-text">热映电影</p>
+            <ul class="movie-on-list card">
+<!--https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3068515273,684536771&fm=26&gp=0.jpg" id='picture1'>-->
+<!--https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558521781831&di=435e45496b8fed8a22c8074a57945424&imgtype=0&src=http%3A%2F%2Fb4-q.mafengwo.net%2Fs11%2FM00%2FA8%2F91%2FwKgBEFsiNPSAEPDPADClLyE6Q4086.jpeg" -->
+<!--https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558521781824&di=704f6e81684982591a6f660cd708abca&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F15ff4ef325c777904d05f2d3635d687fa2866505.jpg" -->
+<!--https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558521781812&di=0942d27296b1054a2d76e65a5e54d764&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2Fent%2Fpics%2Fhv1%2F148%2F59%2F2065%2F134291818.png" -->
+<!--                    <div class="row">-->
+<!--                        <div class="col-sm-6 col-md-4">-->
+<!--                            <div class="thumbnail">-->
+<!--                                <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3068515273,684536771&fm=26&gp=0.jpg" alt="...">-->
+<!--                                <div class="caption">-->
+<!--                                    <h3>Thumbnail label</h3>-->
+<!--                                    <p>...</p>-->
+<!--                                    <p><a href="/user/movieDetail" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+            </ul>
+            <p class="title primary-text">即将上映</p>
+            <ul class="movie-off-list card">
+            </ul>
+        </div>
+<!--        <div class="statistic-container">-->
+<!--            <p class="title primary-text">票房统计</p>-->
+<!--            <ul class="top-sell-list card">-->
+<!--                <div class="statistic-item">-->
+<!--                    <span>电影1</span>-->
+<!--                    <span class="error-text">99</span>-->
+<!--                </div>-->
+<!--                <div class="statistic-item">-->
+<!--                    <span>电影1</span>-->
+<!--                    <span class="error-text">99</span>-->
+<!--                </div>-->
+<!--                <div class="statistic-item">-->
+<!--                    <span>电影1</span>-->
+<!--                    <span class="error-text">99</span>-->
+<!--                </div>-->
+<!--            </ul>-->
+<!--            <p class="title primary-text">最受欢迎</p>-->
+<!--            <ul class="top-expectation-list card">-->
+<!--                <div class="statistic-item">-->
+<!--                    <span>电影1</span>-->
+<!--                    <span class="error-text">99</span>-->
+<!--                </div>-->
+<!--                <div class="statistic-item">-->
+<!--                    <span>电影1</span>-->
+<!--                    <span class="error-text">99</span>-->
+<!--                </div>-->
+<!--                <div class="statistic-item">-->
+<!--                    <span>电影1</span>-->
+<!--                    <span class="error-text">99</span>-->
+<!--                </div>-->
+<!--            </ul>-->
+<!--        </div>-->
+    </div>
+</body>
+</html>
