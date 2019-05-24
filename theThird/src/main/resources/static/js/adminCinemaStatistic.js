@@ -87,6 +87,8 @@ $(document).ready(function() {
                 var nameList = data.map(function (item) {
                     return item.name;
                 });
+                console.log(tableData);
+                console.log(nameList);
                 var option = {
                     title : {
                         text: '所有电影票房',
