@@ -1,5 +1,10 @@
 package com.example.cinema.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class HallForm {
     /**
      * 影院名称

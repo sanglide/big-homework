@@ -73,19 +73,18 @@ $(document).ready(function() {
         //这里需以后注释掉
         getCinemaHalls();
         $("#hallModal").modal('hide');
-
-
+        console.log(formData);
         //以下与后端交互真方法
-        // postRequest(
-        //     '/hall/add',//这里待传
-        //     formData,//上传表单
-        //     function (res) {
-        //         getCinemaHalls();
-        //         $("#hallModal").modal('hide');//表单隐藏
-        //     },
-        //     function (error) {
-        //         alert(error);
-        //     });
+         postRequest(
+            '/hall/add',//这里待传
+             formData,//上传表单
+             function (res) {
+                 getCinemaHalls();
+                $("#hallModal").modal('hide');//表单隐藏
+             },
+             function (error) {
+                 alert(error);
+             });
 
 
     });
