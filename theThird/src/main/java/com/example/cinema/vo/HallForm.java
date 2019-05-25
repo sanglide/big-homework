@@ -3,8 +3,8 @@ package com.example.cinema.vo;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class HallForm {
     /**
      * 影院名称
