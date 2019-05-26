@@ -135,7 +135,7 @@ $(document).ready(function() {
             form,//上传表单
             function (res) {
                 getCinemaHalls();
-                $("#hallModal").modal('hide');//表单隐藏
+                $("#changeHallModal").modal('hide');//表单隐藏
             },
             function (error) {
                 alert(error);

@@ -44,9 +44,6 @@ $(document).ready(function () {
             "   <td >" +
             "       <div>"+history.total+"</div>" +
             "   </td>" +
-            "   <td>" +
-            "       <div>"+"<a herf='/user/uuyHistoryDetail?id="+ history.id +"'>详情</a>"+"</div>" +
-            "   </td>" +
             "</tr>"
         $("#myTable").append(ticketStr);
     }
