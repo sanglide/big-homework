@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 
+
 public class HallForm {
     /**
      * 影院名称
