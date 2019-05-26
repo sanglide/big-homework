@@ -43,7 +43,7 @@ $(document).ready(function () {
 
         var finalForm={
             price:form.price,
-            description:"满"+form.target+"减"+form.discount
+            description:"满"+form.target+"送"+form.discount
         }
 
         console.log(finalForm);
