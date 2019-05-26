@@ -51,16 +51,29 @@
     justify-content: space-between;
     margin-left: 40px;
 }
+.carousel slide{
+    height:400px;
 
-.movie-contianer ul {
+}
+
+.carousel-inner img{
+    height:400px;
+    width: 865px;
+}
+.movie-contianer div {
     display: flex;
     flex-wrap: wrap;
     height: 400px;
 }
-
+.carousel-caption{
+    text-align: center;
+}
 .statistic-container ul {
     display: flex;
     flex-direction: column;
     height: 400px;
     padding: 10px 20px;
+}
+a{
+    color:white;
 }

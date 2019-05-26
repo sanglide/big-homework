@@ -128,7 +128,7 @@ $(document).ready(function() {
         //这里需以后注释掉
         getCinemaHalls();
         $("#changeHallModal").modal('hide');
-
+        console.log(form);
 
         //以下与后端交互真方法
         // postRequest(
