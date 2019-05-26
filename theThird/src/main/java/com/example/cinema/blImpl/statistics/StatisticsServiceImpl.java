@@ -140,9 +140,6 @@ public class StatisticsServiceImpl implements StatisticsService {
 			Date startDate = getNumDayAfterDate(endDate, -1 * days);
 			List<PopularMovies> popularMovies = (statisticsMapper.selectPopularMovie(startDate, endDate));
 			List<PopularMoviesVO> popularMoviesVOList = new ArrayList<>();
-			if(movieNum>=popularMovies.size()){
-				movieNum=popularMovies.size();
-			}
 			for (int i = 0; i < movieNum; i++) {
 				PopularMoviesVO popularMoviesVO = new PopularMoviesVO(popularMovies.get(i));
 				popularMoviesVOList.add(popularMoviesVO);

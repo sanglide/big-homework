@@ -3,7 +3,6 @@ package com.example.cinema.blImpl.management.hall;
 import com.example.cinema.bl.management.HallService;
 import com.example.cinema.data.management.HallMapper;
 import com.example.cinema.po.Hall;
-import com.example.cinema.vo.HallForm;
 import com.example.cinema.vo.HallVO;
 import com.example.cinema.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +39,6 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
             return null;
         }
 
-    }
-
-    @Override
-    public ResponseVO addHall(HallForm hallForm) {
-        try {
-            System.out.println(hallForm.getName());
-             hallMapper.addHall(hallForm);
-            return ResponseVO.buildSuccess();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
-        }
     }
 
     private List<HallVO> hallList2HallVOList(List<Hall> hallList){

@@ -1,6 +1,5 @@
 package com.example.cinema.bl.management;
 
-import com.example.cinema.vo.HallForm;
 import com.example.cinema.vo.ResponseVO;
 
 /**
@@ -13,7 +12,4 @@ public interface HallService {
      * @return
      */
     ResponseVO searchAllHall();
-
-
-    ResponseVO addHall(HallForm hallForm);
 }
