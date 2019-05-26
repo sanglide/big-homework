@@ -21,4 +21,12 @@ public interface HallService {
      * @return
      */
     ResponseVO addHall(HallForm hallForm);
+
+    /**
+     * 修改影厅信息
+     * @param hallForm
+     * @return
+     */
+
+    ResponseVO changeHall(HallForm hallForm);
 }

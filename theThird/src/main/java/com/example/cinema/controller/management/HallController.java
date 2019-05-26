@@ -26,5 +26,11 @@ public class HallController {
         return hallService.addHall(hallForm);
     }
 
+    @RequestMapping(value = "hall/change", method = RequestMethod.POST)
+    public ResponseVO changeHall(@RequestBody HallForm hallForm){
+
+        return hallService.changeHall(hallForm);
+    }
+
 
 }
