@@ -19,6 +19,7 @@ $(document).ready(function() {
             function (error) {
                 alert(JSON.stringify(error));
             });
+        //
 
         console.log(nameList);
         var boxingStr='';
