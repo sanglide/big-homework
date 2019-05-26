@@ -127,21 +127,21 @@ $(document).ready(function() {
 
 
         //这里需以后注释掉
-        getCinemaHalls();
-        $("#changeHallModal").modal('hide');
-        console.log(form);
+        // getCinemaHalls();
+        // $("#changeHallModal").modal('hide');
+        // console.log(form);
 
         //以下与后端交互真方法
-        // postRequest(
-        //     '/hall/change',//这里待传
-        //     form,//上传表单
-        //     function (res) {
-        //         getCinemaHalls();
-        //         $("#hallModal").modal('hide');//表单隐藏
-        //     },
-        //     function (error) {
-        //         alert(error);
-        //     });
+        postRequest(
+            '/hall/change',//这里待传
+            form,//上传表单
+            function (res) {
+                getCinemaHalls();
+                $("#hallModal").modal('hide');//表单隐藏
+            },
+            function (error) {
+                alert(error);
+            });
 
 
     });
