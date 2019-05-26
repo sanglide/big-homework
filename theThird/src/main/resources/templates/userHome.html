@@ -48,7 +48,7 @@
     <div class="content-container">
         <div class="movie-contianer">
         <p class="title primary-text">热映电影</p>
-        <div class="movie-on-list card">
+        <div class="movie-on-list">
 
 
             <div id="myCarousel" class="carousel slide">
@@ -62,15 +62,15 @@
                 <div class="carousel-inner">
                     <div class="item active">
                         <img src="/images/img.jpg" alt="First slide">
-                        <div class="carousel-caption"><a href="/user/movieDetail?id=11">惊奇队长</a></div>
+                        <div class="carousel-caption"><a href="/user/movieDetail?id=11" class="bottom">惊奇队长</a></div>
                     </div>
                     <div class="item">
                         <img src="/images/timg.jpg" alt="Second slide">
-                        <div class="carousel-caption"><a href="/user/movieDetail?id=16">比悲伤更悲伤的故事</a></div>
+                        <div class="carousel-caption"><a href="/user/movieDetail?id=16" class="bottom">比悲伤更悲伤的故事</a></div>
                     </div>
                     <div class="item">
                         <img src="/images/xiamu.jpg" alt="Third slide">
-                        <div class="carousel-caption"><a href="/user/movieDetail?id=10">夏目友人帐</a></div>
+                        <div class="carousel-caption"><a href="/user/movieDetail?id=10" class="bottom">夏目友人帐</a></div>
                     </div>
                 </div>
                 <!-- 轮播（Carousel）导航 -->
@@ -89,7 +89,51 @@
 
 
         <p class="title primary-text">即将上映</p>
-        <div class="movie-off-list card">
+        <div class="movie-on-list card">
+
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src="/images/dun.jpg"
+                             alt="通用的占位符缩略图" class="movie-img">
+                        <div class="caption">
+                            <h3>盾和冬</h3>
+                            <p>美国队长史蒂夫和他的好朋友冬日战士</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src="/images/iron.jpg"
+                             alt="通用的占位符缩略图" class="movie-img">
+                        <div class="caption">
+                            <h3>钢铁侠3</h3>
+                            <p>故事时间发生在《复仇者联盟》纽约大战结束之后，讲述了托尼·斯塔克的生活被强敌毁灭殆尽</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src="/images/thor.jpg"
+                             alt="通用的占位符缩略图" class="movie-img">
+                        <div class="caption">
+                            <h3>雷神索尔</h3>
+                            <p>被放逐到地球的索尔·奥丁森学习如何成为一个真正英雄的故事。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <img src="/images/caption.jpg"
+                             alt="通用的占位符缩略图" class="movie-img">
+                        <div class="caption">
+                            <h3>美国队长</h3>
+                            <p>后来在二战尾声的一次行动中，美国队长与宿敌红骷髅展开激战，并掉入大海之中被冰封近70年</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         </div>
 
@@ -100,19 +144,7 @@
                 </ul>
 
             <p class="title primary-text">最受欢迎</p>
-        <ul class="top-expectation-list card">
-        <div class="statistic-item">
-        <span>电影1</span>
-        <span class="error-text">99</span>
-        </div>
-        <div class="statistic-item">
-        <span>电影1</span>
-        <span class="error-text">99</span>
-        </div>
-        <div class="statistic-item">
-        <span>电影1</span>
-        <span class="error-text">99</span>
-        </div>
+        <ul class="top-expectation-list card" id="popularMovie">
         </ul>
         </div>
     </div>

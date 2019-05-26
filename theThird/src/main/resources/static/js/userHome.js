@@ -40,7 +40,37 @@ $(document).ready(function() {
         //
     }
     function getPopularMovie(){
-        var num=0;
-        console.log(num);
+        var nameList=[];
+        getRequest(
+            '/statistics/popular/movie?days='+30+"&movieNum="+7,
+            function (res) {
+                var data = res.content || [];
+                console.log(data);
+                nameList = data.map(function (item) {
+                    return item.name;
+                });
+                console.log(nameList);
+                var boxingStr='';
+                console.log(nameList.length);
+                for(var i=0;i<nameList.length;i++){
+                    if(i==0||i==1||i==2){
+                        boxingStr=boxingStr+'<div class="statistic-item">'+
+                            '<span class="icon-fire">'+nameList[i]+'</span>'+
+                            '<span class="badge">'+(i+1).toString()+'</span>'+
+                            '</div>'
+                    }
+                    else {
+                        boxingStr = boxingStr + '<div class="statistic-item">' +
+                            '<span class="icon-thumbs-up">' + nameList[i] + '</span>' +
+                            '<span class="error-text">' + (i+1).toString() + '</span>' +
+                            '</div>'
+                    }
+                }
+                console.log(boxingStr);
+                $("#popularMovie").append(boxingStr);
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            });
     }
 });

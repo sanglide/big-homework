@@ -5,18 +5,21 @@ import lombok.Setter;
 
 @Setter
 @Getter
+
 public class HallForm {
     /**
      * 影院名称
      */
     private String name;
     /**
-     * 影院的行、列
+     * 影院的列
      */
-    private String row;
+    private Integer column;
 
-    private String column;
+    /**
+     * 影院的行
+     */
+    private Integer row;
 
-    public HallForm() {
-    }
+
 }
