@@ -67,23 +67,24 @@ $(document).ready(function() {
             alert("Not Numeric");
             return false
         }
-        console.log(formData);
+        //console.log(formData);
 
 
+        //这里需以后注释掉
         getCinemaHalls();
         $("#hallModal").modal('hide');
-        console.log(formData);
+        //console.log(formData);
         //以下与后端交互真方法
-        postRequest(
+         postRequest(
             '/hall/add',//这里待传
-            formData,//上传表单
-            function (res) {
-                getCinemaHalls();
+             formData,//上传表单
+             function (res) {
+                 getCinemaHalls();
                 $("#hallModal").modal('hide');//表单隐藏
-            },
-            function (error) {
-                alert(error);
-            });
+             },
+             function (error) {
+                 alert(error);
+             });
 
 
     });
@@ -110,10 +111,10 @@ $(document).ready(function() {
         }
         return isValidate;
     }
-    //下面为修改影厅信息的实现
-    // function changeHallId(index){
-    //     changeIndex=index;
-    // }
+//    下面为修改影厅信息的实现
+//     function changeHallId(index){
+//         changeIndex=index;
+//     }
     $("#changeHall-form-btn").click(function () {
         var form = changeHallForm();
 
@@ -121,25 +122,26 @@ $(document).ready(function() {
             alert("Not Numeric");
             return false
         }
-        console.log(form);
+        //console.log(form);
 
+        //console.log("=================");
 
         //这里需以后注释掉
         getCinemaHalls();
         $("#changeHallModal").modal('hide');
-
+        //console.log(form);
 
         //以下与后端交互真方法
-        // postRequest(
-        //     '/hall/change',//这里待传
-        //     form,//上传表单
-        //     function (res) {
-        //         getCinemaHalls();
-        //         $("#hallModal").modal('hide');//表单隐藏
-        //     },
-        //     function (error) {
-        //         alert(error);
-        //     });
+         postRequest(
+             '/hall/change',//这里待传
+             form,//上传表单
+             function (res) {
+                 getCinemaHalls();
+                 $("#hallModal").modal('hide');//表单隐藏
+             },
+             function (error) {
+                 alert(error);
+             });
 
 
     });
