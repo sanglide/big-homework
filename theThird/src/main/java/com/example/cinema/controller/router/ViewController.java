@@ -1,8 +1,10 @@
 package com.example.cinema.controller.router;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author deng
@@ -39,6 +41,19 @@ public class ViewController {
     public String getAdminPromotionManage() {
         return "adminPromotionManage";
     }
+
+    ////////////////////////////////////
+    //转到管理会员卡界面
+    @RequestMapping(value = "/admin/member/manage")
+    public String getAdminMemberManage() {
+        return "adminMemberManage";
+    }
+    //转到管理退票策略界面
+//    @RequestMapping(value = "/admin/ticket/manage")
+//    public String getAdminTicketManage() {
+//        return "adminTicketManage";
+//    }
+    ////////////////////////////////////
 
     @RequestMapping(value = "/admin/cinema/statistic")
     public String getAdminCinemaStatistic() {

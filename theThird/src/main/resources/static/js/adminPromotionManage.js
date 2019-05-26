@@ -16,13 +16,15 @@ $(document).ready(function() {
             }
         );
     }
-    
+
     function renderActivities(activities) {
         $(".content-activity").empty();
         var activitiesDomStr = "";
 
         activities.forEach(function (activity) {
+            //activity是activityVO
             var movieDomStr = "";
+            //优惠电影列表
             if(activity.movieList.length){
                 activity.movieList.forEach(function (movie) {
                     movieDomStr += "<li class='activity-movie primary-text'>"+movie.name+"</li>";
@@ -32,8 +34,8 @@ $(document).ready(function() {
             }
 
             activitiesDomStr+=
-                "<div class='activity-container'>" +
-                "    <div class='activity-card card'>" +
+                "<div class='activity-container' data-activity='"+JSON.stringify(activity)+"'>" +
+                "    <div class='activity-card card' >" +
                 "       <div class='activity-line'>" +
                 "           <span class='title'>"+activity.name+"</span>" +
                 "           <span class='gray-text'>"+activity.description+"</span>" +
@@ -58,12 +60,14 @@ $(document).ready(function() {
 
     function getAllMovies() {
         getRequest(
+            //获得未下架的所有电影
             '/movie/all/exclude/off',
             function (res) {
                 var movieList = res.content;
                 $('#activity-movie-input').append("<option value="+ -1 +">所有电影</option>");
                 movieList.forEach(function (movie) {
                     $('#activity-movie-input').append("<option value="+ movie.id +">"+movie.name+"</option>");
+                    $('#activity-edit-movie-input').append("<option value="+ movie.id +">"+movie.name+"</option>");
                 });
             },
             function (error) {
@@ -72,22 +76,27 @@ $(document).ready(function() {
         );
     }
 
+    //发布优惠券表单的确认按钮
     $("#activity-form-btn").click(function () {
-       var form = {
-           name: $("#activity-name-input").val(),
-           description: $("#activity-description-input").val(),
-           startTime: $("#activity-start-date-input").val(),
-           endTime: $("#activity-end-date-input").val(),
-           movieList: [...selectedMovieIds],
-           couponForm: {
-               description: $("#coupon-name-input").val(),
-               name: $("#coupon-description-input").val(),
-               targetAmount: $("#coupon-target-input").val(),
-               discountAmount: $("#coupon-discount-input").val(),
-               startTime: $("#activity-start-date-input").val(),
-               endTime: $("#activity-end-date-input").val()
-           }
-       };
+        var form = {
+            name: $("#activity-name-input").val(),
+            description: $("#activity-description-input").val(),
+            startTime: $("#activity-start-date-input").val(),
+            endTime: $("#activity-end-date-input").val(),
+            movieList: [...selectedMovieIds],
+            couponForm: {
+                description: $("#coupon-name-input").val(),
+                name: $("#coupon-description-input").val(),
+                targetAmount: $("#coupon-target-input").val(),
+                discountAmount: $("#coupon-discount-input").val(),
+                startTime: $("#activity-start-date-input").val(),
+                endTime: $("#activity-end-date-input").val()
+            }
+        };
+
+        if(!validateActivityForm(form)){
+            return;
+        }
 
         postRequest(
             '/activity/publish',
@@ -132,4 +141,231 @@ $(document).ready(function() {
         });
         $('#selected-movies').append(moviesDomStr);
     }
+
+    //修改活动！！!
+    var selectedEditMovieIds = new Set();
+    var selectedEditMovieNames = new Set();
+
+    $('#activity-edit-movie-input').change(function () {
+        var movieId = $('#activity-edit-movie-input').val();
+        var movieName = $('#activity-edit-movie-input').children('option:selected').text();
+        if(movieId==-1){
+            selectedEditMovieIds.clear();
+            selectedEditMovieNames.clear();
+        } else {
+            selectedEditMovieIds.add(movieId);
+            selectedEditMovieNames.add(movieName);
+        }
+        renderSelectedEditMovies();
+    });
+
+    //渲染选择的参加活动的电影
+    function renderSelectedEditMovies() {
+        $('#selected-edit-movies').empty();
+        var moviesDomStr = "";
+        selectedEditMovieNames.forEach(function (movieName) {
+            moviesDomStr += "<span class='label label-primary'>"+movieName+"</span>";
+        });
+        $('#selected-edit-movies').append(moviesDomStr);
+    }
+
+
+    $(document).on('click','.activity-container',function (e) {
+        console.log("============");
+        console.log(e);
+        //e.target是点击的元素，而不是一整块优惠券卡
+        //e.currentTarget范围比e.target大
+        console.log(e.target);
+        console.log(e.currentTarget);
+        //JSON.parse很重要！！！转换！！!
+        console.log(JSON.parse(e.currentTarget.dataset.activity));
+        console.log(JSON.parse(e.currentTarget.dataset.activity).movieList);
+
+        var activity=JSON.parse(e.currentTarget.dataset.activity);
+
+        $("#activity-edit-name-input").val(activity.name);
+        $("#activity-edit-description-input").val(activity.description);
+        $("#activity-edit-start-date-input").val(activity.startTime.slice(0,10));
+        $("#activity-edit-end-date-input").val(activity.endTime.slice(0,10));
+        $("#coupon-edit-name-input").val(activity.coupon.name);
+        $("#coupon-edit-description-input").val(activity.coupon.description);
+        $("#coupon-edit-target-input").val(activity.coupon.targetAmount);
+        $("#coupon-edit-discount-input").val(activity.coupon.discountAmount);
+        var moviesDomStr = "";
+        activity.movieList.forEach(function (movie) {
+            moviesDomStr += "<span class='label label-primary'>"+movie.name+"</span>";
+        });
+        $('#selected-edit-movies').append(moviesDomStr);
+
+        $('#activityEditModal')[0].dataset.activityId = activity.id;
+        console.log("--------");
+        console.log($('#activityEditModal')[0].dataset);
+
+        $("#activityEditModal").modal('show');
+    })
+
+    //修改活动的确认按钮
+    $("#activity-edit-form-btn").click(function () {
+        var form = {
+            name: $("#activity-edit-name-input").val(),
+            description: $("#activity-edit-description-input").val(),
+            startTime: $("#activity-edit-start-date-input").val(),
+            endTime: $("#activity-edit-end-date-input").val(),
+            movieList: [...selectedEditMovieIds],
+            couponForm: {
+                description: $("#coupon-edit-name-input").val(),
+                name: $("#coupon-edit-description-input").val(),
+                targetAmount: $("#coupon-edit-target-input").val(),
+                discountAmount: $("#coupon-edit-discount-input").val(),
+                startTime: $("#activity-edit-start-date-input").val(),
+                endTime: $("#activity-edit-end-date-input").val()
+            }
+        };
+
+        if(!validateActivityEditForm(form)){
+            return;
+        }
+
+        postRequest(
+            '/activity/update',
+            form,
+            function (res) {
+                if(res.success){
+                    getActivities();
+                    $("#activityEditModal").modal('hide');
+                } else {
+                    alert(res.message);
+                }
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            }
+        );
+    })
+
+    $("#activity-edit-remove-btn").click(function () {
+        var r=confirm("确认要删除该活动信息吗")
+        if (r) {
+            deleteRequest(
+                '/activity/delete/batch',
+                {activityIdList:[Number($('#activityEditModal')[0].dataset.activityId)]},
+                function (res) {
+                    if(res.success){
+                        getActivities();
+                        $("#activityEditModal").modal('hide');
+                    } else{
+                        alert(res.message);
+                    }
+                },
+                function (error) {
+                    alert(JSON.stringify(error));
+                }
+            );
+        }
+    })
+
+    function validateActivityForm(data){
+        var isValidate=true;
+        if(!data.name){
+            isValidate=false;
+            $("#activity-name-error").css("visibility","visible");
+            $("#activity-name-error").text("请输入活动名称");
+        }
+        if(!data.startTime){
+            isValidate=false;
+            $("#activity-start-time-error").css("visibility","visible");
+            $("#activity-start-time-error").text("请输入活动开始日期");
+        }
+        if(!data.endTime){
+            isValidate=false;
+            $("#activity-end-time-error").css("visibility","visible");
+            $("#activity-end-time-error").text("请输入活动结束日期");
+        }
+        if(!data.couponForm.name){
+            isValidate=false;
+            $("#coupon-name-error").css("visibility","visible");
+            $("#coupon-name-error").text("请输入优惠券名称");
+        }if(!data.couponForm.description){
+            isValidate=false;
+            $("#coupon-description-error").css("visibility","visible");
+            $("#coupon-description-error").text("请输入优惠券描述");
+        }
+        function isAValidNum(f){
+            var isValid=false;
+            if(/^[0-9]+$/.test(f)||/^[0-9]+\.?[0-9]+?$/.test(f)){
+                isValid=true;
+            }
+            return isValid;
+        }
+        if(!data.couponForm.targetAmount||data.couponForm.targetAmount<0||!isAValidNum(data.couponForm.targetAmount)){
+            //不存在或者为负数或者(不是整数且不是小数)
+            isValidate=false;
+            $('#activity-target-error').css("visibility", "visible");
+            $("#activity-target-error").text("请正确输入非负整数或非负小数");
+            //showErrorMessage()
+        }
+        if(!data.couponForm.discountAmount||data.couponForm.discountAmount<0||!isAValidNum(data.couponForm.discountAmount)){
+            //不存在或者为负数或者(不是整数且不是小数)
+            isValidate=false;
+            $('#activity-discount-error').css("visibility", "visible");
+            $("#activity-discount-error").text("请正确输入非负整数或非负小数");
+            //showErrorMessage()
+        }
+
+        return isValidate;
+    }
+
+
+    function validateActivityEditForm(data){
+        var isValidate=true;
+        if(!data.name){
+            isValidate=false;
+            $("#activity-edit-name-error").css("visibility","visible");
+            $("#activity-edit-name-error").text("请输入活动名称");
+        }
+        if(!data.startTime){
+            isValidate=false;
+            $("#activity-edit-start-time-error").css("visibility","visible");
+            $("#activity-edit-start-time-error").text("请输入活动开始日期");
+        }
+        if(!data.endTime){
+            isValidate=false;
+            $("#activity-edit-end-time-error").css("visibility","visible");
+            $("#activity-edit-end-time-error").text("请输入活动结束日期");
+        }
+        if(!data.couponForm.name){
+            isValidate=false;
+            $("#coupon-edit-name-error").css("visibility","visible");
+            $("#coupon-edit-name-error").text("请输入优惠券名称");
+        }if(!data.couponForm.description){
+            isValidate=false;
+            $("#coupon-edit-description-error").css("visibility","visible");
+            $("#coupon-edit-description-error").text("请输入优惠券描述");
+        }
+        function isAValidNum(f){
+            var isValid=false;
+            if(/^[0-9]+$/.test(f)||/^[0-9]+\.?[0-9]+?$/.test(f)){
+                isValid=true;
+            }
+            return isValid;
+        }
+        if(!data.couponForm.targetAmount||data.couponForm.targetAmount<0||!isAValidNum(data.couponForm.targetAmount)){
+            //不存在或者为负数或者(不是整数且不是小数)
+            isValidate=false;
+            $('#activity-edit-target-error').css("visibility", "visible");
+            $("#activity-edit-target-error").text("请输入非负整数或非负小数");
+            //showErrorMessage()
+        }
+        if(!data.couponForm.discountAmount||data.couponForm.discountAmount<0||!isAValidNum(data.couponForm.discountAmount)){
+            //不存在或者为负数或者(不是整数且不是小数)
+            isValidate=false;
+            $('#activity-edit-discount-error').css("visibility", "visible");
+            $("#activity-edit-discount-error").text("请输入非负整数或非负小数");
+            //showErrorMessage()
+        }
+
+        return isValidate;
+    }
+
+
 });

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--发布优惠券-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,27 +26,45 @@
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
             <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
-            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
         </ul>
     </div>
     <div class="content-container">
         <div class="content-header">
-            <span class="title gray-text">活动管理</span>
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active">
+                    <a href="#">活动管理</a>
+                </li>
+                <li role="presentation">
+                    <a href="/admin/member/manage">会员卡管理</a>
+                </li>
+<!--                <li role="presentation">-->
+<!--                    <a href="/admin/ticket/manage">退票策略管理</a>-->
+<!--                </li>-->
+            </ul>
+            <!--<span class="title gray-text">活动管理</span>-->
             <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#activityModal"><i class="icon-plus-sign"></i> 发布活动</button>
+            <!--<button type='button' class='btn btn-danger' id='delete-btn' data-backdrop="static" data-toggle="modal" data-target="#activityDeleteModal"><i class="icon-minus-sign"></i> 删除活动</button>-->
+
+        </div>
+        <div>
+            <h3 class="gray-text">当前活动</h3>
         </div>
         <div class="content-activity">
 
         </div>
     </div>
 </div>
+
+//发布活动的表单
 <div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="activytyModalLabel">发布活动</h4>
+                <h4 class="modal-title" id="activityModalLabel">发布活动</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
@@ -54,6 +73,7 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="activity-name-input" placeholder="请输入活动名称">
                         </div>
+                        <p id="activity-name-error" class="notice">请输入活动名称</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="activity-description-input">活动描述</label>
@@ -66,36 +86,42 @@
                         <div class="col-sm-10">
                             <input type="date" class="form-control" id="activity-start-date-input" placeholder="请输入活动开始日期">
                         </div>
+                        <p id="activity-start-time-error" class="notice">请输入活动开始日期</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="activity-end-date-input"><span class="error-text">*</span>结束日期</label>
                         <div class="col-sm-10">
                             <input type="date" class="form-control" id="activity-end-date-input" placeholder="请输入活动结束日期">
                         </div>
+                        <p id="activity-end-time-error" class="notice">请输入活动结束日期</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="coupon-name-input"><span class="error-text">*</span>奖券名称</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="coupon-name-input" placeholder="请输入优惠券名称">
                         </div>
+                        <p id="coupon-name-error" class="notice">请输入优惠券名称</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="coupon-description-input"><span class="error-text">*</span>奖券描述</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="coupon-description-input" placeholder="请输入优惠券描述">
                         </div>
+                        <p id="coupon-description-error" class="notice">请输入优惠券描述</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="coupon-target-input"><span class="error-text">*</span>需满金额</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" id="coupon-target-input" placeholder="请输入参与活动需满金额">
                         </div>
+                        <p id="activity-target-error" class="notice">请输入非负整数或者非负小数</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="coupon-discount-input"><span class="error-text">*</span>优惠金额</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" id="coupon-discount-input" placeholder="请输入优惠金额">
                         </div>
+                        <p id="activity-discount-error" class="notice">请输入非负整数或者非负小数</p>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="activity-movie-input">参与电影</label>
@@ -116,6 +142,96 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="activity-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---修改活动的表单-->
+<div class="modal fade" id="activityEditModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="activityEditModalLabel">发布活动</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="activity-edit-name-input"><span class="error-text">*</span>活动名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="activity-edit-name-input" placeholder="请输入活动名称">
+                        </div>
+                        <p id="activity-edit-name-error" class="notice">请输入活动名称</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="activity-edit-description-input">活动描述</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="activity-edit-description-input" placeholder="请输入活动描述">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="activity-edit-start-date-input"><span class="error-text">*</span>开始日期</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="activity-edit-start-date-input" placeholder="请输入活动开始日期">
+                        </div>
+                        <p id="activity-edit-start-time-error" class="notice">请输入活动开始日期</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="activity-edit-end-date-input"><span class="error-text">*</span>结束日期</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="activity-edit-end-date-input" placeholder="请输入活动结束日期">
+                        </div>
+                        <p id="activity-edit-end-time-error" class="notice">请输入活动结束日期</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="coupon-edit-name-input"><span class="error-text">*</span>奖券名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="coupon-edit-name-input" placeholder="请输入优惠券名称">
+                        </div>
+                        <p id="coupon-edit-name-error" class="notice">请输入优惠券名称</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="coupon-edit-description-input"><span class="error-text">*</span>奖券描述</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="coupon-edit-description-input" placeholder="请输入优惠券描述">
+                        </div>
+                        <p id="coupon-edit-description-error" class="notice">请输入优惠券描述</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="coupon-edit-target-input"><span class="error-text">*</span>需满金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="coupon-edit-target-input" placeholder="请输入参与活动需满金额">
+                        </div>
+                        <p id="activity-edit-target-error" class="notice">请输入非负整数或者非负小数</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="coupon-edit-discount-input"><span class="error-text">*</span>优惠金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="coupon-edit-discount-input" placeholder="请输入优惠金额">
+                        </div>
+                        <p id="activity-edit-discount-error" class="notice">请输入非负整数或者非负小数</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="activity-edit-movie-input">参与电影</label>
+                        <div class="col-sm-10">
+                            <select id="activity-edit-movie-input" class="form-control">
+                            </select>
+                            <p class="help-block">不选择代表所有电影</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="activity-edit-movie-input">已选电影</label>
+                        <div id="selected-edit-movies" class="col-sm-10">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="activity-edit-remove-btn">删除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="activity-edit-form-btn">确认</button>
             </div>
         </div>
     </div>
