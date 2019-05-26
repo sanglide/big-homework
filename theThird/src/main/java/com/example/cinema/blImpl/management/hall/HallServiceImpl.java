@@ -45,7 +45,7 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
     @Override
     public ResponseVO addHall(HallForm hallForm) {
         try {
-//
+            //修改影厅
              hallMapper.addHall(hallForm.getName(),hallForm.getColumn(),hallForm.getRow());
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
