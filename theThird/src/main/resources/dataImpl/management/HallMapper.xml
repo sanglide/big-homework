@@ -11,7 +11,6 @@
         update hall set `column`=#{hall_column},`row`=#{hall_row} where `name`=#{hall_name}
     </update>
 
-
     <select id="selectAllHall" resultMap="Hall">
         select * from hall
     </select>

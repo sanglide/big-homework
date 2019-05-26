@@ -9,8 +9,7 @@ import lombok.Setter;
  * @author fjj
  * @date 2019/4/21 3:00 PM
  */
-@Setter
-@Getter
+@Setter@Getter
 public class AudiencePriceVO{
     private Date date;
     /**

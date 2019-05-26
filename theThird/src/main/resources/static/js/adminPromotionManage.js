@@ -197,7 +197,7 @@ $(document).ready(function() {
         });
         $('#selected-edit-movies').append(moviesDomStr);
 
-        $('#activityEditModal')[0].dataset.activityId = activity.id;
+        $("#activityEditModal")[0].dataset.activityId = activity.id;
         console.log("--------");
         console.log($('#activityEditModal')[0].dataset);
 
@@ -207,6 +207,7 @@ $(document).ready(function() {
     //修改活动的确认按钮
     $("#activity-edit-form-btn").click(function () {
         var form = {
+            id: Number($("#activityEditModal")[0].dataset.activityId),
             name: $("#activity-edit-name-input").val(),
             description: $("#activity-edit-description-input").val(),
             startTime: $("#activity-edit-start-date-input").val(),

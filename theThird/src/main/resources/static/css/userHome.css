@@ -1,12 +1,3 @@
-.carousel{
-    height:auto;
-}
-.carousel-caption{
-    text-align: center;
-}
-h3{
-    height:30px;
-}
 .content-container {
     display: flex;
     padding: 20px 20px;
@@ -61,26 +52,15 @@ h3{
     margin-left: 40px;
 }
 
-.carousel-inner img{
-    width: 865px;
-    height:400px;
-}
-.movie-on-list {
+.movie-contianer ul {
     display: flex;
     flex-wrap: wrap;
+    height: 400px;
 }
-.icon-fire{
-    color:firebrick;
-}
-.badge{
-    color:lightgreen;
-}
+
 .statistic-container ul {
     display: flex;
     flex-direction: column;
     height: 400px;
     padding: 10px 20px;
-}
-.bottom{
-    color:white;
 }

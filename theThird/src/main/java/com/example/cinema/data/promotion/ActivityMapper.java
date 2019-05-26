@@ -27,7 +27,7 @@ public interface ActivityMapper {
 
     //这里是更新之前activity里面的对应的coupon的内容
     int updateCoupon(@Param("name")String name,@Param("description") String description,@Param("targetAmount")  double targetAmount,@Param("discountAmount") double discountAmount,
-                     @Param("startTime") Timestamp startTime,  @Param("endTime") Timestamp endTime);
+                       @Param("startTime") Timestamp startTime,  @Param("endTime") Timestamp endTime);
     //这里是更新之前的activity里面的内容
     int updateActivity(@Param("id")int id,@Param("name")String name,@Param("description") String description,@Param("startTime") Timestamp startTime,  @Param("endTime") Timestamp endTime);
 

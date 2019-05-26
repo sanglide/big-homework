@@ -9,7 +9,7 @@ import com.example.cinema.vo.ActivityBatchDeleteForm;
  * Created by liying on 2019/4/20.
  */
 public interface ActivityService {
-
+    
     ResponseVO publishActivity(ActivityForm activityForm);
 
     ResponseVO getActivities();
