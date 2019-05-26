@@ -49,10 +49,10 @@ public class ViewController {
         return "adminMemberManage";
     }
     //转到管理退票策略界面
-//    @RequestMapping(value = "/admin/ticket/manage")
-//    public String getAdminTicketManage() {
-//        return "adminTicketManage";
-//    }
+    @RequestMapping(value = "/admin/ticket/manage")
+    public String getAdminTicketManage() {
+        return "adminTicketManage";
+    }
     ////////////////////////////////////
 
     @RequestMapping(value = "/admin/cinema/statistic")
