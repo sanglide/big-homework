@@ -13,6 +13,7 @@ $(document).ready(function () {
                 if (res.success) {
                     sessionStorage.setItem('username', formData.username);
                     sessionStorage.setItem('id', res.content.id);
+                    //规定经理与普通用户的区别
                     if (formData.username == "root") {
                         sessionStorage.setItem('role', 'admin');
                         window.location.href = "/admin/movie/manage"
