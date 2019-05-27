@@ -183,20 +183,23 @@ $(document).ready(function() {
 
         var activity=JSON.parse(e.currentTarget.dataset.activity);
 
-        $("#activity-edit-name-input").val(activity.name);
-        $("#activity-edit-description-input").val(activity.description);
+        $("#activity-edit-name-input").text(""+activity.name);
+        $("#activity-edit-description-input").text(activity.description);
         $("#activity-edit-start-date-input").val(activity.startTime.slice(0,10));
         $("#activity-edit-end-date-input").val(activity.endTime.slice(0,10));
-        $("#coupon-edit-name-input").val(activity.coupon.name);
-        $("#coupon-edit-description-input").val(activity.coupon.description);
+        $("#coupon-edit-name-input").text(""+activity.coupon.name);
+        $("#coupon-edit-description-input").text(activity.coupon.description);
         $("#coupon-edit-target-input").val(activity.coupon.targetAmount);
         $("#coupon-edit-discount-input").val(activity.coupon.discountAmount);
+
+        $('#selected-edit-movies').empty();
         var moviesDomStr = "";
         activity.movieList.forEach(function (movie) {
             moviesDomStr += "<span class='label label-primary'>"+movie.name+"</span>";
         });
         $('#selected-edit-movies').append(moviesDomStr);
 
+        //活动id
         $('#activityEditModal')[0].dataset.activityId = activity.id;
         console.log("--------");
         console.log($('#activityEditModal')[0].dataset);
@@ -207,6 +210,7 @@ $(document).ready(function() {
     //修改活动的确认按钮
     $("#activity-edit-form-btn").click(function () {
         var form = {
+            id:Number($('#activityEditModal')[0].dataset.activityId),
             name: $("#activity-edit-name-input").val(),
             description: $("#activity-edit-description-input").val(),
             startTime: $("#activity-edit-start-date-input").val(),
