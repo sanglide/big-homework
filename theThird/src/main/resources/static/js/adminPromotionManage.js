@@ -211,14 +211,14 @@ $(document).ready(function() {
     $("#activity-edit-form-btn").click(function () {
         var form = {
             id:Number($('#activityEditModal')[0].dataset.activityId),
-            name: $("#activity-edit-name-input").val(),
-            description: $("#activity-edit-description-input").val(),
+            name: $("#activity-edit-name-input").text(),
+            description: $("#activity-edit-description-input").text(),
             startTime: $("#activity-edit-start-date-input").val(),
             endTime: $("#activity-edit-end-date-input").val(),
             movieList: [...selectedEditMovieIds],
             couponForm: {
-                description: $("#coupon-edit-name-input").val(),
-                name: $("#coupon-edit-description-input").val(),
+                description: $("#coupon-edit-name-input").text(),
+                name: $("#coupon-edit-description-input").text(),
                 targetAmount: $("#coupon-edit-target-input").val(),
                 discountAmount: $("#coupon-edit-discount-input").val(),
                 startTime: $("#activity-edit-start-date-input").val(),
@@ -226,15 +226,22 @@ $(document).ready(function() {
             }
         };
 
+        console.log("================");
+        console.log(form);
         if(!validateActivityEditForm(form)){
             return;
         }
+
+        console.log("!!!!!!!!!!!!!!!!!!!!");
+        console.log(form);
 
         postRequest(
             '/activity/update',
             form,
             function (res) {
                 if(res.success){
+                    console.log("---------------");
+                    console.log(form);
                     getActivities();
                     $("#activityEditModal").modal('hide');
                 } else {
@@ -322,11 +329,6 @@ $(document).ready(function() {
 
     function validateActivityEditForm(data){
         var isValidate=true;
-        if(!data.name){
-            isValidate=false;
-            $("#activity-edit-name-error").css("visibility","visible");
-            $("#activity-edit-name-error").text("请输入活动名称");
-        }
         if(!data.startTime){
             isValidate=false;
             $("#activity-edit-start-time-error").css("visibility","visible");
@@ -336,15 +338,6 @@ $(document).ready(function() {
             isValidate=false;
             $("#activity-edit-end-time-error").css("visibility","visible");
             $("#activity-edit-end-time-error").text("请输入活动结束日期");
-        }
-        if(!data.couponForm.name){
-            isValidate=false;
-            $("#coupon-edit-name-error").css("visibility","visible");
-            $("#coupon-edit-name-error").text("请输入优惠券名称");
-        }if(!data.couponForm.description){
-            isValidate=false;
-            $("#coupon-edit-description-error").css("visibility","visible");
-            $("#coupon-edit-description-error").text("请输入优惠券描述");
         }
         function isAValidNum(f){
             var isValid=false;
