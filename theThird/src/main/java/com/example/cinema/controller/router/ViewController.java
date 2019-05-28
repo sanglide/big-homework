@@ -55,6 +55,11 @@ public class ViewController {
         return "adminTicketManage";
     }
 
+    //转到管理账户界面
+    @RequestMapping(value = "/admin/account/manage")
+    public String getAdminAccountManage() {
+        return "adminAccountManage";
+    }
 
     @RequestMapping(value = "/admin/cinema/statistic")
     public String getAdminCinemaStatistic() {

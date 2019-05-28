@@ -322,6 +322,11 @@ $(document).ready(function() {
             $("#activity-discount-error").text("请正确输入非负整数或非负小数");
             //showErrorMessage()
         }
+        if(data.couponForm.discountAmount>data.couponForm.targetAmount){
+            isValidate=false;
+            $('#activity-discount-error').css("visibility", "visible");
+            $("#activity-discount-error").text("优惠金额不得大于需满金额");
+        }
 
         return isValidate;
     }
@@ -359,6 +364,11 @@ $(document).ready(function() {
             $('#activity-edit-discount-error').css("visibility", "visible");
             $("#activity-edit-discount-error").text("请输入非负整数或非负小数");
             //showErrorMessage()
+        }
+        if(data.couponForm.discountAmount>data.couponForm.targetAmount){
+            isValidate=false;
+            $('#activity-edit-discount-error').css("visibility", "visible");
+            $("#activity-edit-discount-error").text("优惠金额不得大于需满金额");
         }
 
         return isValidate;
