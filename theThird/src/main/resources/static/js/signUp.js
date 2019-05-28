@@ -36,8 +36,14 @@ $(document).ready(function () {
         var isValidate = true;
         if (!data.username || data.username.length < 4 || data.username.length > 10) {
             isValidate = false;
-            $('#signUp-name').parent('.input-group').addClass('has-error');
+            // $('#signUp-name').parent('.input-group').addClass('has-error');
             $('#signUp-name-error').css("visibility", "visible");
+            $('#signUp-name-error').text("用户名长度应在4-10位内");
+        }
+        if(!(/^[0-9a-zA-Z]+$/.test(data.username))){
+            isValidate=false;
+            $('#signUp-name-error').css("visibility", "visible");
+            $('#signUp-name-error').text("用户名中只能包含英文字母或数字");
         }
         if (!data.password || data.password.length < 6 || data.password.length > 12) {
             isValidate = false;
