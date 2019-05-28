@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     getVIPCardInfo();
-
+//
     function getVIPCardInfo(){
         getRequest(
             '/vip/getVIPInfo',
