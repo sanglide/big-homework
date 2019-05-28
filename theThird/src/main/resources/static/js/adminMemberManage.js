@@ -9,7 +9,7 @@ $(document).ready(function () {
                 if (res.success) {
                     console.log(res);
                     $("#VIPCard-price").text(res.content.price);
-                    $("#VIPCard-description").text("充值优惠：" + res.content.description);
+                    $("#VIPCard-description").text(res.content.description);
                     var des=res.content.description;
                     var index1=des.indexOf("满");
                     var index2=des.indexOf("送");

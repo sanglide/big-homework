@@ -50,9 +50,12 @@ $(document).ready(function () {
             "       <div>"+history.total+"</div>" +
             "   </td>" +
             "   <td>" +
-            "       <div>"+"<a herf='/user/movieDetail?id="+ history.id +"'>详情</a>"+"</div>" +
+            "<button class='history-item' data-history='"+JSON.stringify(history)+"' >"+"详情</button>"
             "   </td>" +
             "</tr>"
         $("#myTable").append(ticketStr);
     }
+    $(document).on('click','.history-item',function (e) {
+        $('#historyModal').modal('show');
+    });
 });

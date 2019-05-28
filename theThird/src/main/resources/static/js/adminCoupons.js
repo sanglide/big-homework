@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
     var canNum = 100;
+    var members=[];
 
     getCouponsNum();
-
+    getMemberList('');
+    //以下为更改优惠金额的方法
     function getCouponsNum() {
 
         //该行需注释掉
@@ -60,4 +62,53 @@ $(document).ready(function() {
         //     }
         // );
     })
+
+
+    //以下为展示用户的方法
+    function getMemberList() {
+        //以下需注释掉
+        var list=[{
+            username:"ezio",
+            password:123456,
+            id:1
+        },{
+            username:"router",
+            password:123456,
+            id:2
+        }]
+        renderMemberList(list);
+
+        //以下为与后端交互真方法
+        // getRequest(
+        //     '/coupon/allMember',
+        //     function (res) {
+        //         renderMemberList(res.content);
+        //     },
+        //     function (error) {
+        //         alert(error);
+        //     });
+    }
+
+    function renderMemberList(list) {
+        $('.member-card').empty();
+        var memberDomStr = '';
+        list.forEach(function (member) {
+            memberDomStr +=
+                "<tr>" +
+                "   <td>" +
+                "       <div>"+member.id+"</div>" +
+                "   </td>" +
+                "   <td>" +
+                "       <div>"+member.username+"</div>" +
+                "   </td>" +
+                "   <td>" +
+                "<div class='checkbox' id='isChoose'>"+
+            "<label><input class='choose' type='checkbox' value='' data-member='"+JSON.stringify(member)+"'><span id='id-num'>选择</span></label>"+
+            "   </td>" +
+            "</tr>"
+        });
+        $("#myTable").append(memberDomStr);
+    }
+//以下为选中某些用户的方法
+
 });
