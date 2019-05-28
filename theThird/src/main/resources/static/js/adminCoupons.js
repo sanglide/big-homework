@@ -28,6 +28,7 @@ $(document).ready(function() {
         $("#send-set-input").show();
         $("#send-confirm-btn").show();
     });
+    //z
 
     $('#send-confirm-btn').click(function () {
         var dayNum = $("#send-set-input").val();
