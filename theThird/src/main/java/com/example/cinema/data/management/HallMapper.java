@@ -34,7 +34,6 @@ public interface HallMapper {
      */
     int addHall(@Param("hall_name") String name,@Param("hall_column") Integer column, @Param("hall_row") Integer row);
 
-
     /**
      * 修改影厅
      * @param name

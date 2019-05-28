@@ -42,6 +42,11 @@ public class ViewController {
         return "adminPromotionManage";
     }
 
+    @RequestMapping(value = "/admin/coupon/manage")
+    public String getAdminCouponManage() {
+        return "adminCoupons";
+    }
+
     ////////////////////////////////////
     //转到管理会员卡界面
     @RequestMapping(value = "/admin/member/manage")
@@ -49,6 +54,7 @@ public class ViewController {
         return "adminMemberManage";
     }
     //转到管理退票策略界面
+
     @RequestMapping(value = "/admin/ticket/manage")
     public String getAdminTicketManage() {
         return "adminTicketManage";

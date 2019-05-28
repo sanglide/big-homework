@@ -27,6 +27,7 @@
             <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
             <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/coupon/manage"><i class="icon-credit-card"></i> 影券管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
         </ul>
     </div>
@@ -50,9 +51,33 @@
         <!--里面已发布的会员卡的优惠策略-->
         <div class="VIPCardInfo-container">
             <h3 class="gray-text">当前会员卡优惠策略</h3>
-            <div class="VIPCardInfo-card primary-bg">
-                <div class="price"><b id="VIPCard-price"></b>元/张</div>
-                <div id="VIPCard-description" class="description"></div>
+            <div class="VIPCardInfo-card card">
+                <div class="card col-md-8 col-md-offset-2" id="member-card" >
+                    <div class="header">
+<!--                        <div class="title">优惠信息</div>-->
+<!--                        <div class="state">优惠</div>-->
+                    </div>
+                    <div class="line">
+                        <div>优惠信息</div>
+                        <hr/>
+                    </div>
+<!--                <h4 class="price"><span id="VIPCard-price"></span>元/张</h4>-->
+<!--                <h4 id="VIPCard-description" class="description"></h4>-->
+                    <div class="info">
+                        <div class="content">
+                            <div class="line">
+                                <div><b>金额：</b></div>
+                                <div id="VIPCard-price"></div>
+                            </div>
+                            <div class="line">
+                                <div><b>描述：</b></div>
+                                <div id="VIPCard-description" class="description"></div>
+                            </div>
+
+                            <hr/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

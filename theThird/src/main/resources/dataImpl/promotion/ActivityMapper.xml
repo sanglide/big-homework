@@ -15,33 +15,33 @@
     </insert>
     <select id="selectById" resultMap="Activity">
         select
-            *
+        *
         from
-            activity a
+        activity a
         left join
-            activity_movie am
+        activity_movie am
         on
-            a.id=am.activity_id
+        a.id=am.activity_id
         left join
-            movie m
+        movie m
         on
-            am.movie_id=m.id
+        am.movie_id=m.id
         WHERE a.id=#{id}
     </select>
 
     <select id="selectActivities" resultMap="Activity">
         select
-            *
+        *
         from
-            activity a
+        activity a
         left join
-            activity_movie am
+        activity_movie am
         on
-            a.id=am.activity_id
+        a.id=am.activity_id
         left join
-            movie m
+        movie m
         on
-            am.movie_id=m.id
+        am.movie_id=m.id
 
     </select>
 
@@ -74,6 +74,30 @@
         where a.start_time &lt; Now() and a.end_time &gt; Now() and movie_id is null
 
     </select>
+
+    <update id="updateCoupon">
+        update coupon set target_amount=#{targetAmount},description=#{name},discount_amount=#{discountAmount},start_time=#{startTime},end_time=#{endTime} where `name`=#{description}
+    </update>
+
+    <update id="updateActivity">
+        update activity set a_description=#{description}, start_time=#{startTime},end_time=#{endTime} where id=#{id}
+    </update>
+
+    <select id="selectByName" resultMap="Activity">
+        select * from activity  where activity_name=#{name}
+    </select>
+
+    <delete id="deleteById">
+        delete from activity_movie where activity_id=#{id}
+    </delete>
+
+    <delete id="deleteCouponById">
+        delete from coupon where id=#{id}
+    </delete>
+
+    <delete id="deleteActivityById">
+        delete from activity where id=#{id}
+    </delete>
 
 
 

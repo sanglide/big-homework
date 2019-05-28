@@ -7,12 +7,11 @@
         values(#{hall_name},#{hall_column},#{hall_row} )
     </insert>
 
-
     <update id="changeHall">
         update hall set `column`=#{hall_column},`row`=#{hall_row} where `name`=#{hall_name}
     </update>
 
->>>>>>> fdb80a0faf3c5b67942173108a920d794da81495
+
     <select id="selectAllHall" resultMap="Hall">
         select * from hall
     </select>

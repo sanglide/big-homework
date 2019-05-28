@@ -29,6 +29,7 @@
             <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
             <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/coupon/manage"><i class="icon-credit-card"></i> 影券管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
         </ul>
     </div>
@@ -96,102 +97,3 @@
 </div>
 </body>
 </html>
-<<<<<<< HEAD
-
-<!--<!DOCTYPE html>-->
-<!--&lt;!&ndash;发布、修改退票策略&ndash;&gt;-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>退票策略管理</title>-->
-
-<!--    <link rel="stylesheet" type="text/css" href="/css/common.css"/>-->
-<!--    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>-->
-<!--    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>-->
-<!--    <link rel="stylesheet" type="text/css" href="/css/adminTicket.css"/>-->
-
-
-<!--    <script src="/js/jquery.js"></script>-->
-<!--    <script src="/js/bootstrap.js"></script>-->
-<!--    <script src="/js/request.js"></script>-->
-<!--    <script src="/js/adminTicketManage.js"></script>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="main-container">-->
-<!--    <div class="nav-left-container">-->
-<!--        <div class="nav-user-container" style="margin-bottom: 50px;">-->
-<!--            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />-->
-<!--            <p class="title">Admin</p>-->
-<!--        </div>-->
-<!--        <ul class="nav nav-pills nav-stacked">-->
-<!--            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>-->
-<!--            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>-->
-<!--            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>-->
-<!--            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>-->
-<!--            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>-->
-<!--        </ul>-->
-<!--    </div>-->
-
-<!--    <div class="content-container">-->
-<!--        <div class="content-header">-->
-<!--            <ul class="nav nav-pills">-->
-<!--                <li role="presentation">-->
-<!--                    <a href="/admin/promotion/manage">活动管理</a>-->
-<!--                </li>-->
-<!--                <li role="presentation">-->
-<!--                    <a href="/admin/member/manage">会员卡管理</a>-->
-<!--                </li>-->
-<!--                <li role="presentation" class="active">-->
-<!--                    <a href="#">退票策略管理</a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--            &lt;!&ndash;按下按钮后弹出表单&ndash;&gt;-->
-
-<!--            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#ticketRefundModal"><i class="icon-edit"></i> 修改退票策略</button>-->
-<!--        </div>-->
-<!--        &lt;!&ndash;下面是退票策略&ndash;&gt;-->
-<!--        <div class="TicketRefund-container">-->
-<!--            <h3 class="gray-text">当前退票策略</h3>-->
-<!--            <div class="TicketRefund-card primary-bg">-->
-<!--                <div class="icon-time">在电影放映<b id="limitHours"></b>个小时前可以退票。</div>-->
-<!--                <br>-->
-<!--                <div class="icon-money">手续费所占实付款比例为<b id="refundRate"></b></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class="modal fade" id="ticketRefundModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-<!--                <h4 class="modal-title" id="ticketRefundModalLabel">修改退票策略</h4>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <form class="form-horizontal" role="form">-->
-<!--                    <div class="form-group">-->
-<!--                        <label class="col-sm-2 control-label" for="refund-limit-input"><span class="error-text">*</span>限制时间</label>-->
-<!--                        <div class="col-sm-10">-->
-<!--                            <input type="number" class="form-control" id="refund-limit-input" placeholder="请输入限制时间">-->
-<!--                        </div>-->
-<!--                        <p id="refund-limit-error" class="notice">请正确输入非负整数</p>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label class="col-sm-2 control-label" for="refund-rate-input"><span class="error-text">*</span>收费比例</label>-->
-<!--                        <div class="col-sm-10">-->
-<!--                            <input type="number" class="form-control" id="refund-rate-input" placeholder="请输入收费比例">-->
-<!--                        </div>-->
-<!--                        <p id="refund-rate-error" class="notice">请正确输入0到1之间的小数</p>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>-->
-<!--                <button type="button" class="btn btn-primary" id="ticketRefund-form-btn">确认</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->

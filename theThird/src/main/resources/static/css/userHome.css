@@ -7,16 +7,6 @@
 h3{
     height:30px;
 }
-h5{
-    color:mediumvioletred;
-}
-.primary-text{
-    background-color: white;
-    margin-bottom: 0px;
-}
-.movie-contianer{
-    margin-right: 0px;
-}
 .content-container {
     display: flex;
     padding: 20px 20px;
@@ -58,7 +48,7 @@ h5{
     display: flex;
     flex-direction: column;
     flex: 1;
-    height: auto;
+    height: 850px;
     justify-content: space-between;
 }
 
@@ -68,11 +58,11 @@ h5{
     width: 300px;
     height: 850px;
     justify-content: space-between;
-    margin-left: 10px;
+    margin-left: 40px;
 }
 
 .carousel-inner img{
-    width: auto;
+    width: 865px;
     height:400px;
 }
 .movie-on-list {
@@ -88,7 +78,7 @@ h5{
 .statistic-container ul {
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: auto;
     padding: 10px 20px;
 }
 .bottom{
