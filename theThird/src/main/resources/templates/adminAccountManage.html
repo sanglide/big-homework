@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--对影院角色的增删改查-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账户管理</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/adminAccountManage.css"/>
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminAccountManage.js"></script>
+
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg" />
+            <p class="title">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 策略管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/coupon/manage"><i class="icon-credit-card"></i> 影券管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-user"></i> 账户管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="content-header" style="display: flex;    justify-content: space-between;">
+            <span class="title gray-text">账户管理 <b class="title text-danger">   员工用户名必须以"/"开头</b></span>
+            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#accountModal"><i class="icon-plus-sign"></i> 增加账户</button>
+        </div>
+        <div>
+            <table id ="accountTable" class="table table-striped table-bordered">
+                <!--表格标题-->
+                <thead>
+                <tr>
+                    <th>员工id</th>
+                    <th>员工用户名</th>
+                    <th>员工密码</th>
+                </tr>
+                </thead>
+
+                <!--表格内容-->
+                <tbody id="accounts-content">
+                <!--<tr></tr>里是一行的内容-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="activityModalLabel">增加账户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-sm-2 control-label" for="account-id-input"><span class="error-text">*</span>员工id</label>-->
+<!--                        <div class="col-sm-10">-->
+<!--                            <input type="number" class="form-control" id="account-id-input" placeholder="请输入员工id">-->
+<!--                        </div>-->
+<!--                        <p id="account-id-error" class="notice">请输入员工id</p>-->
+<!--                    </div>-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="account-name-input"><span class="error-text">*</span>员工用名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="account-name-input" placeholder="请输入员工用户名，必须以/开头！">
+                        </div>
+                        <p id="account-name-error" class="notice">请输入员工用户名</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="account-password-input"><span class="error-text">*</span>员工密码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="account-password-input" placeholder="请输入员工密码">
+                        </div>
+                        <p id="account-password-error" class="notice">请输入员工密码</p>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="account-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="accountEditModal" tabindex="-1" role="dialog" aria-labelledby="accountEditModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="activityEditModalLabel">增加账户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="account-edit-name-input"><span class="error-text">*</span>员工用名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="account-edit-name-input" placeholder="请输入员工用户名，必须以/开头！">
+                        </div>
+                        <p id="account-edit-name-error" class="notice">请输入员工用户名</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="account-edit-password-input"><span class="error-text">*</span>员工密码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="account-edit-password-input" placeholder="请输入员工密码">
+                        </div>
+                        <p id="account-edit-password-error" class="notice">请输入员工密码</p>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="account-edit-remove-btn">删除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="account-edit-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

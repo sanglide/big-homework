@@ -17,18 +17,27 @@ $(document).ready(function() {
                 console.log(nameList);
                 var boxingStr='';
                 console.log(nameList.length);
+                var idList=data.map(function (item) {
+                    return item.movieId;
+                })
                 for(var i=0;i<nameList.length;i++){
                     if(i==0||i==1||i==2){
-                        boxingStr=boxingStr+'<div class="statistic-item">'+
+                        boxingStr=boxingStr+
+                            '<a href="/user/movieDetail?id='+idList[i]+'">'+
+                            '<div class="statistic-item">'+
                             '<span class="icon-fire">'+nameList[i]+'</span>'+
                             '<span class="badge">'+(i+1).toString()+'</span>'+
-                            '</div>'
+                            '</div>'+
+                            '</a>'
                     }
                     else {
-                        boxingStr = boxingStr + '<div class="statistic-item">' +
+                        boxingStr = boxingStr +
+                            '<a href="/user/movieDetail?id='+idList[i]+'">'+
+                            '<div class="statistic-item">' +
                             '<span class="icon-thumbs-up">' + nameList[i] + '</span>' +
                             '<span class="error-text">' + (i+1).toString() + '</span>' +
-                            '</div>'
+                            '</div>'+
+                            '</a>'
                     }
                 }
                 console.log(boxingStr);
@@ -52,18 +61,27 @@ $(document).ready(function() {
                 console.log(nameList);
                 var boxingStr='';
                 console.log(nameList.length);
+                var idList=data.map(function (item) {
+                    return item.movieId;
+                })
                 for(var i=0;i<nameList.length;i++){
                     if(i==0||i==1||i==2){
-                        boxingStr=boxingStr+'<div class="statistic-item">'+
+                        boxingStr=boxingStr+
+                            '<a href="/user/movieDetail?id='+idList[i]+'">'+
+                            '<div class="statistic-item">'+
                             '<span class="icon-fire">'+nameList[i]+'</span>'+
                             '<span class="badge">'+(i+1).toString()+'</span>'+
-                            '</div>'
+                            '</div>'+
+                            '</a>'
                     }
                     else {
-                        boxingStr = boxingStr + '<div class="statistic-item">' +
+                        boxingStr = boxingStr +
+                            '<a href="/user/movieDetail?id='+idList[i]+'">'+
+                            '<div class="statistic-item">' +
                             '<span class="icon-thumbs-up">' + nameList[i] + '</span>' +
                             '<span class="error-text">' + (i+1).toString() + '</span>' +
-                            '</div>'
+                            '</div>'+
+                            '</a>'
                     }
                 }
                 console.log(boxingStr);
