@@ -15,6 +15,14 @@
         select * from vip_card where user_id=#{userId}
     </select>
 
+    <select id="selectVIPInfo" resultMap="VIPInfo">
+        select * from vip_info
+    </select>
+
+    <update id="updateVIPInfo" >
+        update vip_info set price = #{price}, discription = #{discription}
+    </update>
+
     <update id="updateCardBalance" >
         update vip_card set balance = #{balance} where id=#{id}
     </update>

@@ -2,6 +2,7 @@ package com.example.cinema.blImpl.promotion.vipcard;
 
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.data.promotion.VIPCardMapper;
+import com.example.cinema.po.VIPInfo;
 import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.po.VIPCard;
 import com.example.cinema.vo.ResponseVO;
@@ -42,14 +43,6 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
 	}
 
 	@Override
-	public ResponseVO getVIPInfo() {
-		VIPInfoVO vipInfoVO = new VIPInfoVO();
-		vipInfoVO.setDescription(VIPCard.description);
-		vipInfoVO.setPrice(VIPCard.price);
-		return ResponseVO.buildSuccess(vipInfoVO);
-	}
-
-	@Override
 	public ResponseVO charge(VIPCardForm vipCardForm) {
 		VIPCard vipCard = vipCardMapper.selectCardById(vipCardForm.getVipId());
 		if (vipCard == null) {
@@ -79,6 +72,35 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
 			return ResponseVO.buildFailure("失败");
 		}
 	}
+
+
+	@Override
+	public ResponseVO getVIPInfo() {
+		try {
+			VIPInfoVO vipInfoVO = new VIPInfoVO();
+			VIPInfo vipInfo = vipCardMapper.selectVIPInfo();
+			vipInfoVO = vipInfo.getVO();
+			return ResponseVO.buildSuccess(vipInfoVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseVO.buildFailure("获取会员卡信息失败");
+		}
+	}
+
+	@Override
+	public ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO) {
+		try {
+			VIPInfo vipInfo = new VIPInfo();
+			vipInfo.setDescription(vipInfoVO.getDescription());
+			vipInfo.setPrice(vipInfoVO.getPrice());
+			vipCardMapper.updateVIPInfo(vipInfo);
+			return ResponseVO.buildSuccess();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseVO.buildFailure("更新会员卡信息失败");
+		}
+	}
+
 
 	@Override
 	public void updateVIPCardByIdAndBanlance(int id, double balance) {
