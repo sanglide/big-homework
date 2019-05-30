@@ -31,6 +31,6 @@ public interface VIPCardMapper {
 
     VIPInfo selectVIPInfo();
 
-    void updateVIPInfo(VIPInfo vipInfo);
+    void updateVIPInfo(@Param("price") double price,@Param("description") String description);
 
 }

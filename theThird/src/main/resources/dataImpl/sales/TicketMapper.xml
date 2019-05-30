@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.cinema.data.sales.TicketMapper">
+
     <insert id="insertTicket" parameterType="com.example.cinema.po.Ticket"
             useGeneratedKeys="true" keyProperty="id">
         insert into ticket(user_id,schedule_id,column_index,row_index,state)
         values(#{userId}, #{scheduleId},#{columnIndex},#{rowIndex},#{state})
     </insert>
+
     <insert id="insertTickets" parameterType="java.util.List"
             useGeneratedKeys="true" keyProperty="id">
         insert into ticket(user_id,schedule_id,column_index,row_index,state)
@@ -14,7 +16,6 @@
                  separator=",">
             (#{item.userId}, #{item.scheduleId},#{item.columnIndex},#{item.rowIndex},#{item.state})
         </foreach>
-
     </insert>
 
     <select id="selectTicketById" resultMap="Ticket">
@@ -53,6 +54,26 @@
         <result column="row_index" property="rowIndex"></result>
         <result column="state" property="state"></result>
         <result column="time" property="time"></result>
+    </resultMap>
+
+    <insert id="insertTicketRefund" parameterType="com.example.cinema.po.TicketRefund"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into ticket_refund(rate,limitHours)
+        values(#{rate},#{limitHours})
+    </insert>
+
+    <update id="updateTicketState">
+        update ticket_refund set rate = #{rate},limitHours = #{limitHours}
+    </update>
+
+    <select id="selectRefund" resultMap="TicketRefund">
+        select * from ticket_refund
+    </select>
+
+
+    <resultMap id="TicketRefund" type="com.example.cinema.po.TicketRefund">
+        <result column="rate" property="rate"></result>
+        <result column="limitHours" property="limitHours"></result>
     </resultMap>
 
     <update id="cleanExpiredTicket">

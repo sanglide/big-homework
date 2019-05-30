@@ -90,10 +90,7 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
 	@Override
 	public ResponseVO updateVIPInfo(VIPInfoVO vipInfoVO) {
 		try {
-			VIPInfo vipInfo = new VIPInfo();
-			vipInfo.setDescription(vipInfoVO.getDescription());
-			vipInfo.setPrice(vipInfoVO.getPrice());
-			vipCardMapper.updateVIPInfo(vipInfo);
+			vipCardMapper.updateVIPInfo(vipInfoVO.getPrice(),vipInfoVO.getDescription());
 			return ResponseVO.buildSuccess();
 		} catch (Exception e) {
 			e.printStackTrace();

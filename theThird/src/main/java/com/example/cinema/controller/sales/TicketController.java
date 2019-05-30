@@ -3,6 +3,7 @@ package com.example.cinema.controller.sales;
 import com.example.cinema.bl.sales.TicketService;
 import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.TicketForm;
+import com.example.cinema.vo.TicketRefundVO;
 import com.example.cinema.vo.TicketsWithCouponForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,36 +21,48 @@ public class TicketController {
     TicketService ticketService;
 
     @PostMapping("/buy")
-	public ResponseVO buyTicket(@RequestBody TicketsWithCouponForm ticketsWithCouponForm){
-	    return ticketService.completeTicket(ticketsWithCouponForm);
-	}
+    public ResponseVO buyTicket(@RequestBody TicketsWithCouponForm ticketsWithCouponForm) {
+        return ticketService.completeTicket(ticketsWithCouponForm);
+    }
 
-	@PostMapping("/vip/buy")
-    public ResponseVO buyTicketByVIPCard(@RequestBody TicketsWithCouponForm ticketsWithCouponForm){
+    @PostMapping("/vip/buy")
+    public ResponseVO buyTicketByVIPCard(@RequestBody TicketsWithCouponForm ticketsWithCouponForm) {
         return ticketService.completeByVIPCard(ticketsWithCouponForm);
     }
 
     @PostMapping("/lockSeat")
-    public ResponseVO lockSeat(@RequestBody TicketForm ticketForm){
+    public ResponseVO lockSeat(@RequestBody TicketForm ticketForm) {
         return ticketService.addTicket(ticketForm);
     }
 
     @GetMapping("/get/{userId}")
-    public ResponseVO getTicketByUserId(@PathVariable int userId){
+    public ResponseVO getTicketByUserId(@PathVariable int userId) {
         return ticketService.getTicketByUser(userId);
     }
 
     @GetMapping("/get/occupiedSeats")
-    public ResponseVO getOccupiedSeats(@RequestParam int scheduleId){
+    public ResponseVO getOccupiedSeats(@RequestParam int scheduleId) {
         return ticketService.getBySchedule(scheduleId);
     }
+
     @PostMapping("/cancel")
-    public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId){
+    public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId) {
         return ticketService.cancelTicket(ticketId);
     }
 
+    @PostMapping("/ticket/refund/add")
+    public ResponseVO addRefund(@RequestBody TicketRefundVO ticketRefundVO){
+        return ticketService.addRefund(ticketRefundVO);
+    }
 
+    @PostMapping("/ticket/refund/update")
+    public ResponseVO updateRefund(@RequestBody TicketRefundVO ticketRefundVO){
+        return ticketService.updateRefund(ticketRefundVO);
+    }
 
-
+    @GetMapping("/ticket/refund/getInfo")
+    public ResponseVO getRefund(){
+        return ticketService.getRefund();
+    }
 
 }

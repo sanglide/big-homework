@@ -2,6 +2,7 @@ package com.example.cinema.bl.sales;
 
 import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.TicketForm;
+import com.example.cinema.vo.TicketRefundVO;
 import com.example.cinema.vo.TicketsWithCouponForm;
 
 import java.util.List;
@@ -59,4 +60,10 @@ public interface TicketService {
      * @return List<TicketVO>
      */
     ResponseVO getTicketByUser(int userId);
+
+    ResponseVO addRefund(TicketRefundVO ticketRefundVO);
+
+    ResponseVO updateRefund(TicketRefundVO ticketRefundVO);
+
+    ResponseVO getRefund();
 }

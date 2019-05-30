@@ -15,14 +15,6 @@
         select * from vip_card where user_id=#{userId}
     </select>
 
-    <select id="selectVIPInfo" resultMap="VIPInfo">
-        select * from vip_info
-    </select>
-
-    <update id="updateVIPInfo" >
-        update vip_info set price = #{price}, discription = #{discription}
-    </update>
-
     <update id="updateCardBalance" >
         update vip_card set balance = #{balance} where id=#{id}
     </update>
@@ -32,6 +24,19 @@
         <result column="id" property="id"></result>
         <result column="user_id" property="userId"></result>
         <result column="balance" property="balance"></result>
+    </resultMap>
+
+    <select id="selectVIPInfo" resultMap="VIPInfo">
+        select * from vip_info
+    </select>
+
+    <update id="updateVIPInfo" >
+        update vip_info set price = #{price}, description = #{description}
+    </update>
+
+    <resultMap id="VIPInfo" type="com.example.cinema.po.VIPInfo">
+        <result column="price" property="price"></result>
+        <result column="description" property="description"></result>
     </resultMap>
 
 
