@@ -66,4 +66,6 @@ public interface TicketService {
     ResponseVO updateRefund(TicketRefundVO ticketRefundVO);
 
     ResponseVO getRefund();
+
+    ResponseVO refundByTicketId(int id);
 }

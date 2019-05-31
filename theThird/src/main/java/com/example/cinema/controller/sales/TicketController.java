@@ -65,4 +65,9 @@ public class TicketController {
         return ticketService.getRefund();
     }
 
+    @GetMapping("/ticket/refund/{userId}/{id}")
+    public ResponseVO refundByTicketId(@PathVariable int id){
+        return ticketService.refundByTicketId(id);
+    }
+
 }
