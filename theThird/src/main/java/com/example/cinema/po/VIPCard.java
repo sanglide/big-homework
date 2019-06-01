@@ -38,4 +38,5 @@ public class VIPCard {
     public double calculate(double amount) {
         return (int) (amount / 200) * 30 + amount;
     }
+
 }

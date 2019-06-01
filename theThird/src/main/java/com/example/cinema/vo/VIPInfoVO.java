@@ -13,4 +13,5 @@ public class VIPInfoVO {
 	String description;
 
 	double price;
+
 }
