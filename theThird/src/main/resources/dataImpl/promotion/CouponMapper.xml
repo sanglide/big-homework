@@ -32,6 +32,10 @@
 
     </select>
 
+    <update id="updateSpecialCoupon">
+        update coupon set discount_amount = #{discount} where name = "liuqin"
+    </update>
+
     <select id="selectCouponByUserAndAmount" resultMap="Coupon">
         select distinct
         	* 
@@ -44,7 +48,11 @@
         where 
         	cu.user_id=#{userId} and c.start_time &lt; Now() and c.end_time &gt; Now() and #{amount}>c.target_amount
     </select>
-    
+
+    <select id="selectSpecialCoupon" resultMap="Coupon">
+        select * from coupon where name = "liuqin"
+    </select>
+
 
     <resultMap id="Coupon" type="com.example.cinema.po.Coupon">
         <result column="description" property="description"></result>
