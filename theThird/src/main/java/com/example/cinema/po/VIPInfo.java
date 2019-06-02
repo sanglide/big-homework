@@ -11,13 +11,16 @@ import lombok.Setter;
 @Setter
 public class VIPInfo {
 
-    private String description;
-
     private double price;
+
+    private double charge;
+
+    private double bonus;
 
     public VIPInfoVO getVO(){
         VIPInfoVO vo = new VIPInfoVO();
-        vo.setDescription(description);
+        vo.setCharge(charge);
+        vo.setBonus(bonus);
         vo.setPrice(price);
         return vo;
     }
