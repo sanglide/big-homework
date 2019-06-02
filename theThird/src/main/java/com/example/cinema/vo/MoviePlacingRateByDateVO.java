@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-
 public class MoviePlacingRateByDateVO {
     private Integer movieId;
     //电影的名字

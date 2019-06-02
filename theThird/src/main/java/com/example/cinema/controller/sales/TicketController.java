@@ -62,7 +62,7 @@ public class TicketController {
 
     @GetMapping("/ticket/refund/getInfo")
     public ResponseVO getRefund(){
-        return ticketService.getRefund();
+        return ticketService.getRefundInfo();
     }
 
     @GetMapping("/ticket/refund/{userId}/{id}")

@@ -220,13 +220,6 @@ public class TicketServiceImpl implements TicketService {
      * @param ticketList
      * @return
      */
-    private Object ticketList2ticketVOList(List<Ticket> ticketList) {
-        List<TicketVO> ticketVOList = new ArrayList<>();
-        for (Ticket ticket : ticketList) {
-            ticketVOList.add(ticket.getVO());
-        }
-        return ticketVOList;
-    }
 
     @Override
     public ResponseVO addRefund(TicketRefundVO ticketRefundVO) {
@@ -254,26 +247,39 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public ResponseVO getRefund() {
+    public ResponseVO getRefundInfo() {
         try {
-            return ResponseVO.buildSuccess(ticketMapper.selectRefund().getVO());
+            return ResponseVO.buildSuccess(ticketMapper.selectRefundInfo().getVO());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("获取退票策略失败");
         }
-    }
+}
 
     @Override
     public ResponseVO refundByTicketId(int id) {
         try {
+            Ticket ticket = ticketMapper.selectTicketById(id);
+            TicketRefund ticketRefund = ticketMapper.selectRefundInfo();
+
+
+
+
             ticketMapper.updateTicketState(id,3);
-
-
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("退票失败");
         }
     }
+
+    private Object ticketList2ticketVOList(List<Ticket> ticketList) {
+        List<TicketVO> ticketVOList = new ArrayList<>();
+        for (Ticket ticket : ticketList) {
+            ticketVOList.add(ticket.getVO());
+        }
+        return ticketVOList;
+    }
+
 
 }
