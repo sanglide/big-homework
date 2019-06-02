@@ -39,5 +39,17 @@
         <result column="description" property="description"></result>
     </resultMap>
 
+    <select id="selectChargeHistoryByUserId" resultMap="VIPCardChargeHistory">
+        select * from vip_charge_history where user_id = #{user_id}
+    </select>
+
+    <resultMap id="VIPCardChargeHistory" type="com.example.cinema.vo.VIPCardChargeHistoryVO">
+        <result column="userId" property="userId"></result>
+        <result column="charge" property="charge"></result>
+        <result column="balance" property="balance"></result>
+        <result column="date" property="date"></result>
+    </resultMap>
+
+
 
 </mapper>

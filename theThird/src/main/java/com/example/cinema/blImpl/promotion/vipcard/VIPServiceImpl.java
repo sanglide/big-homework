@@ -2,6 +2,7 @@ package com.example.cinema.blImpl.promotion.vipcard;
 
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.data.promotion.VIPCardMapper;
+import com.example.cinema.po.VIPCardChargeHistory;
 import com.example.cinema.po.VIPInfo;
 import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.po.VIPCard;
@@ -9,6 +10,8 @@ import com.example.cinema.vo.ResponseVO;
 import com.example.cinema.vo.VIPInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by liying on 2019/4/14.
@@ -93,6 +96,13 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
             e.printStackTrace();
             return ResponseVO.buildFailure("更新会员卡信息失败");
         }
+    }
+
+    @Override
+    public ResponseVO getChargeHistoryByUserId(int userId) {
+        List<VIPCardChargeHistory> vipCardChargeHistoryList = vipCardMapper.selectChargeHistoryByUserId(userId);
+
+        return null;
     }
 
 

@@ -41,5 +41,10 @@ public class VIPCardController {
         return vipService.updateVIPInfo(vipInfoVO);
     }
 
+    @GetMapping("/{userId}/getChargeHistory")
+    public ResponseVO getChargeHistoryByUserId(@PathVariable int userId){
+        return vipService.getChargeHistoryByUserId(userId);
+    }
+
 
 }

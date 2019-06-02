@@ -20,7 +20,7 @@
 
     <select id="selectCouponByUser" resultMap="Coupon">
         select 
-        * 
+            *
         from 
         	coupon c 
         left join 
