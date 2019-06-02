@@ -1,6 +1,7 @@
 package com.example.cinema.data.promotion;
 
 import com.example.cinema.po.Coupon;
+import com.example.cinema.vo.ResponseVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +27,10 @@ public interface CouponMapper {
 	 * user拥有的可用价格比amount少的优惠券
 	 */
 	List<Coupon> selectCouponByUserAndAmount(@Param("userId") int userId, @Param("amount") double amount);
+
+	Coupon selectSpecialCoupon();
+
+	void updateSpecialCoupon(double discount);
+
+
 }

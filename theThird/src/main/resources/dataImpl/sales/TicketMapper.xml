@@ -62,11 +62,11 @@
         values(#{rate},#{limitHours})
     </insert>
 
-    <update id="updateTicketState">
+    <update id="updateTicketRefund">
         update ticket_refund set rate = #{rate},limitHours = #{limitHours}
     </update>
 
-    <select id="selectRefund" resultMap="TicketRefund">
+    <select id="selectRefundInfo" resultMap="TicketRefund">
         select * from ticket_refund
     </select>
 

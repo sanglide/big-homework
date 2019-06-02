@@ -31,7 +31,7 @@
     </select>
 
     <update id="updateVIPInfo" >
-        update vip_info set price = #{price}, description = #{description}
+        update vip_info set price = #{price}, charge = #{charge}, bonus = #{bonus}
     </update>
 
     <resultMap id="VIPInfo" type="com.example.cinema.po.VIPInfo">

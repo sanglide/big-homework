@@ -40,6 +40,6 @@ public interface TicketMapper {
 
     void updateTicketRefund(Double rate, Integer limitHours);
 
-    TicketRefund selectRefund();
+    TicketRefund selectRefundInfo();
 }
 
