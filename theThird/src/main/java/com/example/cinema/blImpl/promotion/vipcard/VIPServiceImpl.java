@@ -2,15 +2,18 @@ package com.example.cinema.blImpl.promotion.vipcard;
 
 import com.example.cinema.bl.promotion.VIPService;
 import com.example.cinema.data.promotion.VIPCardMapper;
+import com.example.cinema.po.VIPCard;
 import com.example.cinema.po.VIPCardChargeHistory;
 import com.example.cinema.po.VIPInfo;
-import com.example.cinema.vo.VIPCardForm;
-import com.example.cinema.po.VIPCard;
 import com.example.cinema.vo.ResponseVO;
+import com.example.cinema.vo.VIPCardChargeHistoryVO;
+import com.example.cinema.vo.VIPCardForm;
 import com.example.cinema.vo.VIPInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,19 +50,47 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
 
     @Override
     public ResponseVO charge(VIPCardForm vipCardForm) {
-        VIPCard vipCard = vipCardMapper.selectCardById(vipCardForm.getVipId());
-        if (vipCard == null) {
-            return ResponseVO.buildFailure("会员卡不存在");
-        }
-        double balance = vipCard.calculate(vipCardForm.getAmount());
-        vipCard.setBalance(vipCard.getBalance() + balance);
         try {
-            vipCardMapper.updateCardBalance(vipCardForm.getVipId(), vipCard.getBalance());
+            VIPCard vipCard = vipCardMapper.selectCardById(vipCardForm.getVipId());
+            if (vipCard == null) {
+                return ResponseVO.buildFailure("会员卡不存在");
+            }
+            VIPInfo vipInfo = vipCardMapper.selectVIPInfo();
+            //当前余额
+            double balance = vipCard.getBalance();
+            //充值金额
+            double amount = vipCardForm.getAmount();
+            //充值后余额
+            balance += amount / vipInfo.getCharge() * vipInfo.getBonus() + amount;
+            vipCardMapper.updateCardBalance(vipCard.getId(), balance);
+            //插入历史记录
+            VIPCardChargeHistory history = new VIPCardChargeHistory();
+            history.setUserId(vipCard.getUserId());
+            history.setBalance(balance);
+            history.setCharge(amount);
+            history.setDate(new Timestamp(System.currentTimeMillis()));
+            vipCardMapper.insertChargeHistory(history);
             return ResponseVO.buildSuccess(vipCard);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseVO.buildFailure("失败");
+            return ResponseVO.buildFailure("充值失败");
         }
+    }
+
+    @Override
+    public ResponseVO getChargeHistoryByUserId(int userId) {
+        try {
+            List<VIPCardChargeHistory> vipCardChargeHistoryList = vipCardMapper.selectChargeHistoryByUserId(userId);
+            List<VIPCardChargeHistoryVO> voList = new ArrayList<>();
+            for (VIPCardChargeHistory history : vipCardChargeHistoryList){
+                voList.add(history.getVO());
+            }
+            return ResponseVO.buildSuccess(voList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  ResponseVO.buildFailure("获取充值记录失败");
+        }
+
     }
 
     @Override
@@ -97,14 +128,6 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
             return ResponseVO.buildFailure("更新会员卡信息失败");
         }
     }
-
-    @Override
-    public ResponseVO getChargeHistoryByUserId(int userId) {
-        List<VIPCardChargeHistory> vipCardChargeHistoryList = vipCardMapper.selectChargeHistoryByUserId(userId);
-
-        return null;
-    }
-
 
     @Override
     public void updateVIPCardByIdAndBanlance(int id, double balance) {

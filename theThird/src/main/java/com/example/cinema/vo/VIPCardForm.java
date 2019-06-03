@@ -1,8 +1,13 @@
 package com.example.cinema.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by liying on 2019/4/14.
  */
+@Getter
+@Setter
 public class VIPCardForm {
 
     /**
@@ -14,23 +19,5 @@ public class VIPCardForm {
      * 付款金额
      */
     private int amount;
-
-
-    public int getVipId() {
-        return vipId;
-    }
-
-    public void setVipId(int vipId) {
-        this.vipId = vipId;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
 
 }

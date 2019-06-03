@@ -15,7 +15,7 @@
         select * from vip_card where user_id=#{userId}
     </select>
 
-    <update id="updateCardBalance" >
+    <update id="updateCardBalance">
         update vip_card set balance = #{balance} where id=#{id}
     </update>
 
@@ -30,7 +30,7 @@
         select * from vip_info
     </select>
 
-    <update id="updateVIPInfo" >
+    <update id="updateVIPInfo">
         update vip_info set price = #{price}, charge = #{charge}, bonus = #{bonus}
     </update>
 
@@ -39,17 +39,22 @@
         <result column="description" property="description"></result>
     </resultMap>
 
+    <insert id="insertChargeHistory" parameterType="com.example.cinema.po.VIPCardChargeHistory"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into vip_charge_history(user_id, charge, balance, date)
+        values(#{userId},#{charge},#{balance},#{date})
+    </insert>
+
     <select id="selectChargeHistoryByUserId" resultMap="VIPCardChargeHistory">
-        select * from vip_charge_history where user_id = #{user_id}
+        select * from vip_charge_history where user_id = #{userId}
     </select>
 
     <resultMap id="VIPCardChargeHistory" type="com.example.cinema.vo.VIPCardChargeHistoryVO">
-        <result column="userId" property="userId"></result>
+        <result column="user_id" property="userId"></result>
         <result column="charge" property="charge"></result>
         <result column="balance" property="balance"></result>
         <result column="date" property="date"></result>
     </resultMap>
-
 
 
 </mapper>

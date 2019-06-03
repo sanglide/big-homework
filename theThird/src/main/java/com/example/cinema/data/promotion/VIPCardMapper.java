@@ -36,7 +36,7 @@ public interface VIPCardMapper {
 
     void updateVIPInfo(@Param("price") double price,@Param("charge") double charge, @Param("bonus") double bonus);
 
+    void insertChargeHistory(VIPCardChargeHistory history);
+
     List<VIPCardChargeHistory> selectChargeHistoryByUserId(int userId);
-
-
 }
