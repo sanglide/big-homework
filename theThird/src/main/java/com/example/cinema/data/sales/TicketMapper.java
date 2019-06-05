@@ -1,6 +1,5 @@
 package com.example.cinema.data.sales;
 
-import com.example.cinema.po.Activity;
 import com.example.cinema.po.Ticket;
 import com.example.cinema.po.TicketRefund;
 import org.apache.ibatis.annotations.Mapper;
@@ -41,5 +40,7 @@ public interface TicketMapper {
     void updateTicketRefund(Double rate, Integer limitHours);
 
     TicketRefund selectRefundInfo();
+
+    int insertTicketOrder(List<Integer> ticketId);
 }
 

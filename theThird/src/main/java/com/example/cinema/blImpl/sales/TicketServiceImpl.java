@@ -46,6 +46,8 @@ public class TicketServiceImpl implements TicketService {
 
         try {
             Ticket ticket;
+
+            List<Integer> ticketId = new ArrayList<>();
             List<TicketVO> ticketVOList = new ArrayList<>();
             for (SeatForm seatForm : ticketForm.getSeats()) {
                 ticket = new Ticket();
@@ -56,8 +58,10 @@ public class TicketServiceImpl implements TicketService {
                 ticket.setRowIndex(seatForm.getRowIndex());
                 ticket.setTime(new Timestamp(System.currentTimeMillis()));
                 ticketMapper.insertTicket(ticket);
-                ticketVOList.add(ticketMapper.selectTicketByScheduleIdAndSeat(ticket.getScheduleId(),
-                        ticket.getColumnIndex(), ticket.getRowIndex()).getVO());
+                ticket = ticketMapper.selectTicketByScheduleIdAndSeat(ticket.getScheduleId(),
+                        ticket.getColumnIndex(), ticket.getRowIndex());
+                ticketVOList.add(ticket.getVO());
+                ticketId.add(ticket.getId());
             }
 
             TicketWithCouponVO ticketWithCouponVO = new TicketWithCouponVO();
@@ -75,6 +79,9 @@ public class TicketServiceImpl implements TicketService {
             for (Activity activity : activityList) {
                 activityVOList.add(activity.getVO());
             }
+
+            //创建订单并向数据库插入记录
+            ticketMapper.insertTicketOrder(ticketId);
 
             ticketWithCouponVO.setTicketVOList(ticketVOList);
             ticketWithCouponVO.setActivities(activityVOList);
@@ -214,13 +221,6 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    /**
-     * 将TicketList转换为TicketVOList
-     *
-     * @param ticketList
-     * @return
-     */
-
     @Override
     public ResponseVO addRefund(TicketRefundVO ticketRefundVO) {
         try {
@@ -238,7 +238,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO updateRefund(TicketRefundVO ticketRefundVO) {
         try {
-            ticketMapper.updateTicketRefund(ticketRefundVO.getRate(),ticketRefundVO.getLimitHours());
+            ticketMapper.updateTicketRefund(ticketRefundVO.getRate(), ticketRefundVO.getLimitHours());
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
@@ -254,7 +254,7 @@ public class TicketServiceImpl implements TicketService {
             e.printStackTrace();
             return ResponseVO.buildFailure("获取退票策略失败");
         }
-}
+    }
 
     @Override
     public ResponseVO refundByTicketId(int id) {
@@ -263,9 +263,7 @@ public class TicketServiceImpl implements TicketService {
             TicketRefund ticketRefund = ticketMapper.selectRefundInfo();
 
 
-
-
-            ticketMapper.updateTicketState(id,3);
+            ticketMapper.updateTicketState(id, 3);
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();

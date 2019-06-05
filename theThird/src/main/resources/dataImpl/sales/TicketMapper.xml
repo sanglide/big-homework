@@ -27,14 +27,15 @@
     </select>
 
     <select id="selectTicketByScheduleIdAndSeat" resultMap="Ticket">
-        select * from ticket where schedule_id=#{scheduleId} and column_index=#{column} and row_index=#{row} and state!=2
+        select * from ticket where schedule_id=#{scheduleId} and column_index=#{column} and row_index=#{row} and
+        state!=2
     </select>
 
     <select id="selectTicketByUser" resultMap="Ticket">
         select * from ticket where user_id=#{userId}
     </select>
 
-	 <select id="selectTicketBoughtByUser" resultMap="Ticket">
+    <select id="selectTicketBoughtByUser" resultMap="Ticket">
         select * from ticket where user_id=#{userId} and state = 1
     </select>
 
@@ -75,6 +76,16 @@
         <result column="rate" property="rate"></result>
         <result column="limitHours" property="limitHours"></result>
     </resultMap>
+
+    <insert id="insertTicketOrder" parameterType="java.util.List"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into ticket_order(ticket_id)
+        values
+        <foreach collection="list" item="item" index="index"
+                 separator=",">
+            (#{item})
+        </foreach>
+    </insert>
 
     <update id="cleanExpiredTicket">
         update ticket SET state =2 WHERE minute(timediff(now(),time))>15 and state=0;
