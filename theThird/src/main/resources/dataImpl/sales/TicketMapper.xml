@@ -77,18 +77,46 @@
         <result column="limitHours" property="limitHours"></result>
     </resultMap>
 
-    <insert id="insertTicketOrder" parameterType="java.util.List"
-            useGeneratedKeys="true" keyProperty="id">
-        insert into ticket_order(ticket_id)
+    <insert id="insertTicketOrder">
+        insert into ticket_order(time,ticket_id,coupon_id)
         values
-        <foreach collection="list" item="item" index="index"
+        <foreach collection="ticketId" item="item" index="index"
                  separator=",">
-            (#{item})
+            (#{time},#{item},#{couponId})
         </foreach>
     </insert>
 
+    <select id="selectTicketOrdersByUserId" resultMap="TicketOrder">
+        select *
+        from
+            ticket_order to
+        right join
+            ticket t
+        on
+            t.id = to.ticket_id
+        where t.userid = #{userId}
+    </select>
+
+    <select id="selectTicketOrderById" resultMap="TicketOrder">
+        select *
+        from
+            ticket_order to
+        right join
+            ticket t
+        on
+            t.id = to.ticket_id
+        where
+    </select>
+
+    <resultMap id="TicketOrder" type="com.example.cinema.po.TicketOrder">
+        <id column="id" property="id"></id>
+        <result column="time" property="time"></result>
+        <association property="ticketList" column="ticket_id" select="com.example.cinema.data.sales.TicketMapper.selectTicketById">
+        </association>
+    </resultMap>
+
     <update id="cleanExpiredTicket">
-        update ticket SET state =2 WHERE minute(timediff(now(),time))>15 and state=0;
+        update ticket SET state =2 WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(time)>900 and state=0;
     </update>
 
 </mapper>

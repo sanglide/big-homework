@@ -11,9 +11,15 @@ import java.util.List;
 @Setter
 public class TicketOrderVO {
 
+    private Timestamp time;
+
     private int state;
 
-    private Timestamp time;
+    private double originCost;
+
+    private double refund;
+
+    private boolean canRefund;
 
     private List<Ticket> ticketList;
 

@@ -5,6 +5,7 @@ import com.example.cinema.vo.TicketForm;
 import com.example.cinema.vo.TicketRefundVO;
 import com.example.cinema.vo.TicketsWithCouponForm;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,8 +23,6 @@ public interface TicketService {
     /**
      * TODO:完成购票【不使用会员卡】流程包括校验优惠券和根据优惠活动赠送优惠券
      *
-     * @param id
-     * @param couponId
      * @return 是否成功
      */
     ResponseVO completeTicket(TicketsWithCouponForm ticketsWithCouponForm);
@@ -31,8 +30,6 @@ public interface TicketService {
     /**
      * TODO:完成购票【使用会员卡】流程包括会员卡扣费、校验优惠券和根据优惠活动赠送优惠券
      *
-     * @param id
-     * @param couponId
      * @return 是否成功
      */
     ResponseVO completeByVIPCard(TicketsWithCouponForm ticketsWithCouponForm);
@@ -67,5 +64,7 @@ public interface TicketService {
 
     ResponseVO getRefundInfo();
 
-    ResponseVO refundByTicketId(int id);
+    ResponseVO getSaleHistory(int userId);
+
+    ResponseVO refundBySaleTime(Timestamp time);
 }
