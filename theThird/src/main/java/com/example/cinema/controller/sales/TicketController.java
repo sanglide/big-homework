@@ -9,6 +9,7 @@ import com.example.cinema.vo.TicketsWithCouponForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -65,9 +66,14 @@ public class TicketController {
         return ticketService.getRefundInfo();
     }
 
-    @GetMapping("/ticket/refund/{userId}/{id}")
-    public ResponseVO refundByTicketId(@PathVariable int id){
-        return ticketService.refundByTicketId(id);
+    @GetMapping("/ticket/refund/userId")
+    public ResponseVO refundBySaleTime(@PathVariable Timestamp time){
+        return ticketService.refundBySaleTime(time);
+    }
+
+    @GetMapping("/{userId}/getSaleHistory}")
+    private ResponseVO getSaleHistory(@PathVariable int userId){
+        return ticketService.getSaleHistory(userId);
     }
 
 }

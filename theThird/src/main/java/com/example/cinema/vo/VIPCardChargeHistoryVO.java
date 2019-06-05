@@ -16,6 +16,6 @@ public class VIPCardChargeHistoryVO {
 
     private double charge;
 
-    private Timestamp date;
+    private Timestamp time;
 
 }

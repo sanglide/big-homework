@@ -26,7 +26,11 @@ public class CouponServiceImpl implements CouponService, CouponServiceForBl {
 	@Override
 	public ResponseVO getCouponsByUser(int userId) {
 		try {
-			return ResponseVO.buildSuccess(couponMapper.selectCouponByUser(userId));
+			List<Coupon> couponList = couponMapper.selectCouponByUser(userId);
+			if(couponList.size() == 0){
+				return ResponseVO.buildFailure("无优惠券");
+			}
+			return ResponseVO.buildSuccess(couponList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseVO.buildFailure("失败");

@@ -2,6 +2,7 @@ package com.example.cinema.blImpl.sales;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.example.cinema.po.*;
@@ -46,6 +47,8 @@ public class TicketServiceImpl implements TicketService {
 
         try {
             Ticket ticket;
+
+            List<Integer> ticketId = new ArrayList<>();
             List<TicketVO> ticketVOList = new ArrayList<>();
             for (SeatForm seatForm : ticketForm.getSeats()) {
                 ticket = new Ticket();
@@ -56,8 +59,10 @@ public class TicketServiceImpl implements TicketService {
                 ticket.setRowIndex(seatForm.getRowIndex());
                 ticket.setTime(new Timestamp(System.currentTimeMillis()));
                 ticketMapper.insertTicket(ticket);
-                ticketVOList.add(ticketMapper.selectTicketByScheduleIdAndSeat(ticket.getScheduleId(),
-                        ticket.getColumnIndex(), ticket.getRowIndex()).getVO());
+                ticket = ticketMapper.selectTicketByScheduleIdAndSeat(ticket.getScheduleId(),
+                        ticket.getColumnIndex(), ticket.getRowIndex());
+                ticketVOList.add(ticket.getVO());
+                ticketId.add(ticket.getId());
             }
 
             TicketWithCouponVO ticketWithCouponVO = new TicketWithCouponVO();
@@ -106,6 +111,9 @@ public class TicketServiceImpl implements TicketService {
             // 删除使用的优惠券
             couponService.deleteCouponUser(couponId, userId);
 
+            //创建订单并向数据库插入记录
+            ticketMapper.insertTicketOrder(new Timestamp(System.currentTimeMillis()), ticketIdList, couponId);
+
             // 票state改为"已购买"
             for (Integer ticketId : ticketIdList) {
                 ticketMapper.updateTicketState(ticketId, 1);
@@ -138,6 +146,9 @@ public class TicketServiceImpl implements TicketService {
             }
             // 删除使用的优惠券
             couponService.deleteCouponUser(couponId, userId);
+
+            //创建订单并向数据库插入记录
+            ticketMapper.insertTicketOrder(new Timestamp(System.currentTimeMillis()), ticketIdList, couponId);
 
             // 扣除VIPCard余额
             VIPCard vipCard = vipCardService.getVIPCardByUserId(ticket.getUserId());
@@ -214,13 +225,6 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    /**
-     * 将TicketList转换为TicketVOList
-     *
-     * @param ticketList
-     * @return
-     */
-
     @Override
     public ResponseVO addRefund(TicketRefundVO ticketRefundVO) {
         try {
@@ -238,7 +242,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO updateRefund(TicketRefundVO ticketRefundVO) {
         try {
-            ticketMapper.updateTicketRefund(ticketRefundVO.getRate(),ticketRefundVO.getLimitHours());
+            ticketMapper.updateTicketRefund(ticketRefundVO.getRate(), ticketRefundVO.getLimitHours());
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
@@ -254,18 +258,26 @@ public class TicketServiceImpl implements TicketService {
             e.printStackTrace();
             return ResponseVO.buildFailure("获取退票策略失败");
         }
-}
+    }
 
     @Override
-    public ResponseVO refundByTicketId(int id) {
+    public ResponseVO refundBySaleTime(Timestamp time) {
         try {
-            Ticket ticket = ticketMapper.selectTicketById(id);
-            TicketRefund ticketRefund = ticketMapper.selectRefundInfo();
+            TicketOrder ticketOrder = ticketMapper.selectTicketOrderById(time);
+            Ticket ticket = ticketOrder.getTicketList().get(0);
 
+            double[] prices = caculatePrice(ticketOrder);
+            //电影开始时间
+            Date date = scheduleService.getScheduleItemById(ticketOrder.getTicketList().get(0).getScheduleId()).getStartTime();
+            //原价
 
+            VIPCard vipCard = vipCardService.getVIPCardByUserId(ticket.getUserId());
+            if (vipCard != null)
+                vipCardService.updateVIPCardByIdAndBanlance(vipCard.getId(), vipCard.getBalance() + prices[1]);
+            for (Ticket ticket2 : ticketOrder.getTicketList()) {
+                ticketMapper.updateTicketState(ticket2.getId(), 3);
 
-
-            ticketMapper.updateTicketState(id,3);
+            }
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
@@ -273,7 +285,34 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    private Object ticketList2ticketVOList(List<Ticket> ticketList) {
+
+    @Override
+    public ResponseVO getSaleHistory(int userId) {
+        try {
+            List<TicketOrder> ticketOrderList = ticketMapper.selectTicketOrdersByUserId(userId);
+            List<TicketOrderVO> ticketOrderVOList = new ArrayList<>();
+            TicketOrderVO ticketOrderVO;
+            int state;
+            for (TicketOrder ticketOrder : ticketOrderList) {
+                ticketOrderVO = new TicketOrderVO();
+                state = ticketOrder.getTicketList().get(0).getState();
+                ticketOrderVO.setTime(ticketOrder.getTime());
+                ticketOrderVO.setState(state);
+                ticketOrderVO.setTicketList(ticketOrder.getTicketList());
+                ticketOrderVO.setCanRefund(ticketOrder.getTime().getTime() - System.currentTimeMillis() >
+                        ticketMapper.selectRefundInfo().getLimitHours() * 216000);
+                double[] prices = caculatePrice(ticketOrder);
+                ticketOrderVO.setOriginCost(prices[0]);
+                ticketOrderVO.setRefund(prices[1]);
+            }
+            return ResponseVO.buildSuccess(ticketOrderList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("获取消费记录失败");
+        }
+    }
+
+    private List<TicketVO> ticketList2ticketVOList(List<Ticket> ticketList) {
         List<TicketVO> ticketVOList = new ArrayList<>();
         for (Ticket ticket : ticketList) {
             ticketVOList.add(ticket.getVO());
@@ -281,5 +320,21 @@ public class TicketServiceImpl implements TicketService {
         return ticketVOList;
     }
 
+    private double[] caculatePrice(TicketOrder ticketOrder) {
+        double[] prices = new double[2];
+        prices[0] = scheduleService.getScheduleItemById(ticketOrder.getTicketList().get(0).getScheduleId()).getFare() *
+                ticketOrder.getTicketList().size();
+        //优惠价(实付款)
+        Coupon coupon = couponService.getCouponById(ticketOrder.getCouponId());
+        if (coupon != null) {
+            prices[0] = prices[0] - coupon.getDiscountAmount();
+        }
+        //差价
+        double discount = prices[0] * ticketMapper.selectRefundInfo().getRate();
+        //退款
+        prices[1] = prices[0] - discount;
+        return prices;
+    }
 
 }
+

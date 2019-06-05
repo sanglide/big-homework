@@ -1,12 +1,13 @@
 package com.example.cinema.data.sales;
 
-import com.example.cinema.po.Activity;
 import com.example.cinema.po.Ticket;
+import com.example.cinema.po.TicketOrder;
 import com.example.cinema.po.TicketRefund;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -41,5 +42,11 @@ public interface TicketMapper {
     void updateTicketRefund(Double rate, Integer limitHours);
 
     TicketRefund selectRefundInfo();
+
+    int insertTicketOrder(@Param("time") Timestamp timestamp, @Param("ticketId") List<Integer> ticketId, @Param("couponId") int couponId);
+
+    List<TicketOrder> selectTicketOrdersByUserId(int userId);
+
+    TicketOrder selectTicketOrderById(Timestamp orderId);
 }
 
