@@ -31,46 +31,47 @@
 
     <select id="selectActivities" resultMap="Activity">
         select
-        *
+            *
         from
-        activity a
+            activity a
         left join
-        activity_movie am
+            activity_movie am
         on
-        a.id=am.activity_id
+            a.id=am.activity_id
         left join
-        movie m
+            movie m
         on
-        am.movie_id=m.id
+            am.movie_id=m.id
 
     </select>
 
     <select id="selectActivitiesByMovie" resultMap="Activity">
         select
-        *
+            *
         from
-        activity a
+            activity a
         left join
-        activity_movie am
+            activity_movie am
         on
-        a.id=am.activity_id
+            a.id=am.activity_id
         left join
-        movie m
+            movie m
         on
-        am.movie_id=m.id
+            am.movie_id=m.id
 
         where a.start_time &lt; Now() and a.end_time &gt; Now() and am.movie_id=#{movieId}
 
     </select>
+
     <select id="selectActivitiesWithoutMovie" resultMap="Activity">
         select
-        *
+            *
         from
-        activity a
+            activity a
         left join
-        activity_movie am
+            activity_movie am
         on
-        a.id=am.activity_id
+            a.id=am.activity_id
         where a.start_time &lt; Now() and a.end_time &gt; Now() and movie_id is null
 
     </select>

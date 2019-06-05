@@ -68,7 +68,7 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
             history.setUserId(vipCard.getUserId());
             history.setBalance(balance);
             history.setCharge(amount);
-            history.setDate(new Timestamp(System.currentTimeMillis()));
+            history.setTime(new Timestamp(System.currentTimeMillis()));
             vipCardMapper.insertChargeHistory(history);
             return ResponseVO.buildSuccess(vipCard);
         } catch (Exception e) {

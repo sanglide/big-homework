@@ -41,8 +41,8 @@
 
     <insert id="insertChargeHistory" parameterType="com.example.cinema.po.VIPCardChargeHistory"
             useGeneratedKeys="true" keyProperty="id">
-        insert into vip_charge_history(user_id, charge, balance, date)
-        values(#{userId},#{charge},#{balance},#{date})
+        insert into vip_charge_history(user_id, charge, balance, time)
+        values(#{userId},#{charge},#{balance},#{time})
     </insert>
 
     <select id="selectChargeHistoryByUserId" resultMap="VIPCardChargeHistory">
@@ -53,7 +53,7 @@
         <result column="user_id" property="userId"></result>
         <result column="charge" property="charge"></result>
         <result column="balance" property="balance"></result>
-        <result column="date" property="date"></result>
+        <result column="time" property="time"></result>
     </resultMap>
 
 

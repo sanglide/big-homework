@@ -19,13 +19,13 @@ public class VIPCardChargeHistory {
 
     private double balance;
 
-    private Timestamp date;
+    private Timestamp time;
 
     public VIPCardChargeHistoryVO getVO() {
         VIPCardChargeHistoryVO vo = new VIPCardChargeHistoryVO();
         vo.setCharge(charge);
         vo.setBalance(balance);
-        vo.setDate(date);
+        vo.setTime(time);
         return vo;
     }
 }
