@@ -66,7 +66,7 @@ public class TicketController {
         return ticketService.getRefundInfo();
     }
 
-    @GetMapping("/ticket/refund/userId")
+    @GetMapping("/ticket/refund")
     public ResponseVO refundBySaleTime(@PathVariable Timestamp time){
         return ticketService.refundBySaleTime(time);
     }
