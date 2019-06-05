@@ -5,9 +5,12 @@
         insert into user(username,password)
         values(#{username},#{password})
     </insert>
+
     <select id="getAccountByName" resultMap="User">
         select * from user where username=#{username}
     </select>
+
+
 
     <resultMap id="User" type="com.example.cinema.po.User">
     </resultMap>

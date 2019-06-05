@@ -18,6 +18,8 @@ import java.util.List;
  */
 @Service
 public class HallServiceImpl implements HallService, HallServiceForBl {
+
+    private final static String HALL_EXIST = "影厅已存在";
     @Autowired
     private HallMapper hallMapper;
 
@@ -45,13 +47,20 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
     @Override
     public ResponseVO addHall(HallForm hallForm) {
         try {
-//
-             hallMapper.addHall(hallForm.getName(),hallForm.getColumn(),hallForm.getRow());
+            List<Hall>allHall=hallMapper.selectAllHall();
+            for(int i=0;i<allHall.size();i++){
+                if(allHall.get(i).getName().equals(hallForm.getName())){
+                    return ResponseVO.buildFailure(HALL_EXIST);
+                }
+            }
+            hallMapper.addHall(hallForm.getName(),hallForm.getColumn(),hallForm.getRow());
+
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
         }
+
 
 
     }

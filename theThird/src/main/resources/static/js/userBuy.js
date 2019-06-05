@@ -66,7 +66,55 @@ $(document).ready(function () {
             "   <td>" +
             "       <div>"+ticket.state+"</div>" +
             "   </td>" +
-            "</tr>"
+            "   <td>" +
+            "       <div>" +
+            "           <input type='checkbox' name='category' data-refund='"+JSON.stringify(ticket)+"'value='"+ticketInfo.movieName+"'/>"+//复选框
+            "       </div>"+
+            "   </td>"+
+            "</tr>";
         $("#myTable").append(ticketStr);
     }
+
+    //里面是选中要退票的电影票id
+    var selectedTicketsId=[];
+
+    $(document).on('click',"input[type='checkbox']",function (e) {
+        console.log(this);
+        console.log($(this).prop('checked'));//Jquery更新后，复选框的checked属性要用prop设置和查看！不能用attr
+        var refund=JSON.parse(e.currentTarget.dataset.refund);
+        console.log(refund);
+        //refund.id是电影票的id
+        if($(this).prop('checked')){
+            selectedTicketsId.push(refund.id);
+        }else{
+            if(selectedTicketsId.indexOf(refund.id)>-1){
+                selectedTicketsId.splice(selectedTicketsId.indexOf(refund.id),1);
+            }
+        }
+        console.log(selectedTicketsId);
+
+    })
+
+    $(document).on('click','.refund-item',function (e) {
+        var r=confirm("请问真的要退这些票吗？");
+            if(r){
+                deleteRequest(
+                    //传电影票ID
+                    "/ticket/refund",
+                    {selectedTicketsList:selectedTicketsId},
+                    function (res) {
+                        if(res.success){
+                           getMovieList();
+                            alert("删除成功！");
+                        } else {
+                            alert(res.message);
+                        }
+                    },
+                    function (error) {
+                        alert(JSON.stringify(error));
+                    }
+                )
+            }
+    });
+
 });

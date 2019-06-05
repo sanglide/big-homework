@@ -3,6 +3,19 @@ $(document).ready(function() {
     getAllAccounts();//获得所有员工的账户
 
     function getAllAccounts(){
+        // var accounts=[
+        //     {
+        //         id:4,
+        //         username:"/ewew",
+        //         password:"wew4444"
+        //     },{
+        //         id:6,
+        //         username:"/rr32rrr",
+        //         password:"e44443235"
+        //     }
+        // ]
+        // renderAccounts(accounts);
+
         getRequest(
             "/account/get",
             function (res) {
@@ -36,13 +49,20 @@ $(document).ready(function() {
         $("#accounts-content").append(accountsDomStr);
     }
 
+    $("#addButton").click(function () {
+        $("#account-name-input").val("");
+        $("#account-password-input").val("");
+    })
+
+
     $("#account-form-btn").click(function(){
         console.log("================");
-        //UserVO
+        //UserForm
         var form={
             username:$("#account-name-input").val(),
             password:$("#account-password-input").val()
         }
+        console.log(form);
 
         if(!validateAccountForm(form)){
             return;
@@ -75,12 +95,14 @@ $(document).ready(function() {
     })
 
     $("#account-edit-form-btn").click(function () {
+        //AdminForm
         var form={
             id:Number($('#accountEditModal')[0].dataset.accountId),
             username:$("#account-edit-name-input").val(),
             password: $("#account-edit-password-input").val(),
         }
 
+        console.log(form);
         if(!validateAccountEditForm(form)){
             return;
         }
@@ -154,18 +176,18 @@ $(document).ready(function() {
         }
         if (!data.username || data.username.length < 4 || data.username.length > 10) {
             isValidate = false;
-            $('#account-name-error').css("visibility", "visible");
-            $("#account-name-error").text("员工用户名长度应在4-10位内");
+            $('#account-edit-name-error').css("visibility", "visible");
+            $("#account-edit-name-error").text("员工用户名长度应在4-10位内");
         }
         if (!data.username.startsWith("/")) {
             isValidate = false;
-            $('#account-name-error').css("visibility", "visible");
-            $("#account-name-error").text("员工用户名必须以/开头");
+            $('#account-edit-name-error').css("visibility", "visible");
+            $("#account-edit-name-error").text("员工用户名必须以/开头");
         }
         if (!data.password || data.password.length < 6 || data.password.length > 12) {
             isValidate = false;
-            $('#account-password-error').css("visibility", "visible");
-            $("#account-password-error").text("员工密码长度应在6-12位内");
+            $('#account-edit-password-error').css("visibility", "visible");
+            $("#account-edit-password-error").text("员工密码长度应在6-12位内");
         }
 
         return isValidate;

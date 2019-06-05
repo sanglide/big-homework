@@ -96,7 +96,8 @@ ul {
 }
 .nav-top-container {
     width: 100%;
-    background: #fff;
+    background: #004a4b;
+    /*background: #fff;*/
     padding: 5px 20px;
     display: flex;
     justify-content: space-around;
@@ -112,14 +113,20 @@ ul {
     color: #fff;
 }
 .nav-logo {
-    color: #1caf9a;
     font: 700 30px "Comic Sans MS";
-    text-shadow: 0 0 20px #1caf9a,
-    10px -10px 30px #1caf9a,
-    20px -20px 40px #1caf96,
-    -20px -60px 50px #1cafa1,
-    0px -80px 60px #4caf9a,
-    10px -40px 50px #1caf9a;
+    background:url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAHklEQVQImWNkYGBgYGD4//8/A5wF5SBYyAr+//8PAPOCFO0Q2zq7AAAAAElFTkSuQmCC) repeat;
+    text-shadow: 5px -5px #ffffff, 4px -4px #000000;
+    font-weight: bold;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text
+    /*color: #1caf9a;*/
+    /*font: 700 30px "Comic Sans MS";*/
+    /*text-shadow: 0 0 20px #1caf9a,*/
+    /*10px -10px 30px #1caf9a,*/
+    /*20px -20px 40px #1caf96,*/
+    /*-20px -60px 50px #1cafa1,*/
+    /*0px -80px 60px #4caf9a,*/
+    /*10px -40px 50px #1caf9a;*/
 }
 
 .notice {
