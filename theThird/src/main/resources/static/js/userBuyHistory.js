@@ -34,6 +34,7 @@ $(document).ready(function () {
         //     hallName:"1号厅",
         //     columnIndex:2,
         //     rowIndex:3
+
         // }]
         // renderTicketList(form);
     }
@@ -61,7 +62,7 @@ $(document).ready(function () {
             "       <div>"+history.account+"</div>" +
             "   </td>" +
             "   <td>" +
-            "<button class='history-item' data-history='"+JSON.stringify(history)+"' >"+"详情</button>"
+            "<button class='history-item' data-history='"+JSON.stringify(history)+"' >"+"详情</button>"+
             "   </td>" +
             "</tr>";
         $("#myTable").append(ticketStr);
