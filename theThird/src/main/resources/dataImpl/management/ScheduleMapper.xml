@@ -15,6 +15,16 @@
             where s.movie_id = m.movie_id and s.hall_id = h.hall_id
     </select>
 
+
+
+    <select id="selectScheduleBeforeDate" resultMap="ScheduleItem">
+        select * from
+        (select * from schedule where hall_id = #{hallId} and (#{endDate}>=end_time)) s,
+        (select name as movie_name, id as movie_id from movie) m,
+        (select name as hall_name, id as hall_id from hall) h
+        where s.movie_id = m.movie_id and s.hall_id = h.hall_id
+    </select>
+
     <select id="selectScheduleConflictByHallIdAndTime" resultMap="ScheduleItem">
       select * from schedule
         where hall_id = #{hallId}

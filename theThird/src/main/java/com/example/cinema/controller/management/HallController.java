@@ -32,5 +32,10 @@ public class HallController {
         return hallService.changeHall(hallForm);
     }
 
+    @RequestMapping(value = "hall/delete", method = RequestMethod.DELETE)
+    public ResponseVO deleteHall(@RequestBody HallForm hallForm){
+
+        return hallService.deleteHall(hallForm);
+    }
 
 }

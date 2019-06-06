@@ -44,7 +44,8 @@
         <div class="content-item">
             <span class="title gray-text">影厅管理</span>
             <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#hallModal"><i class="icon-plus-sign"></i> 新增影厅</button>
-            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#changeHallModal"><i class="icon-plus-sign"></i> 修改影厅</button>
+            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#changeHallModal"><i class="=icon-cog"></i> 修改影厅</button>
+            <button type="button" class="btn btn-danger" data-backdrop="static" data-toggle="modal" data-target="#deleteHallModal"><i class="icon-trash"></i> 删除影厅</button>
             <div class="content-card card" id="hall-card">
             </div>
         </div>
@@ -119,11 +120,39 @@
                 </form>
             </div>
             <div class="modal-footer">
+<!--                <button type="button" class="btn btn-danger" id="changeHall-edit-remove-btn">删除</button>-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="changeHall-form-btn">确认</button>
             </div>
         </div>
     </div>
 </div>
+<!----以下为删除表单---->
+<div class="modal fade" id="deleteHallModal" tabindex="-1" role="dialog" aria-labelledby="changeHallModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="deleteHallModalLabel">删除影厅</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <select style="height: 30px;" id="delete-order-halls">
+                                <!--                                    onchange="changeHallId(this.options.selectedIndex)">-->
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="deleteHall-edit-remove-btn">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

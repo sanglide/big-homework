@@ -1,10 +1,44 @@
 $(document).ready(function() {
 
     var canNum = 100;
+    var buyNum=100;
     var members=[];
 
+    getCouponsList();
     getCouponsNum();
-    getMemberList('');
+    getBuyNum();
+
+    //以下为获取会员名单的方法
+    function getCouponsList(){
+        // 以下需注释掉
+        var list1=[{
+            username:"ezio",
+            password:123456,
+            id:1
+        },{
+            username:"router",
+            password:123456,
+            id:2
+        }]
+        renderMemberList(list1);
+
+        //以下为与后端交互真方法
+        // postRequest(
+        //     '/coupon/changeBuyNum',
+        //     {buyNum:buyNum},
+        //     function (res) {
+        //         var list=res.content;
+        //         renderMemberList(list);
+        //
+        //     },
+        //     function (error) {
+        //         alert(JSON.stringify(error));
+        //     }
+        // );
+        // renderMemberList(list);
+
+    }
+
     //以下为更改优惠金额的方法
     function getCouponsNum() {
 
@@ -61,36 +95,37 @@ $(document).ready(function() {
         //         alert(JSON.stringify(error));
         //     }
         // );
+
     })
-
-
-    //以下为展示用户的方法
-    function getMemberList() {
-        //以下需注释掉
-        var list=[{
-            username:"ezio",
-            password:123456,
-            id:1
-        },{
-            username:"router",
-            password:123456,
-            id:2
-        }]
-        renderMemberList(list);
-
-        //以下为与后端交互真方法
-        // getRequest(
-        //     '/coupon/allMember',
-        //     function (res) {
-        //         renderMemberList(res.content);
-        //     },
-        //     function (error) {
-        //         alert(error);
-        //     });
+    //以下为修改最低消费的方法
+    function getBuyNum() {
+        $("#buy-num").text(buyNum);
     }
 
+    $('#buy-modify-btn').click(function () {
+        $("#buy-modify-btn").hide();
+        $("#buy-set-input").val(buyNum);
+        $("#buy-set-input").show();
+        $("#buy-confirm-btn").show();
+    });
+    //z
+
+    $('#buy-confirm-btn').click(function () {
+        var bNum = $("#buy-set-input").val();
+
+        buyNum = bNum;
+        getBuyNum();
+        $("#buy-modify-btn").show();
+        $("#buy-set-input").hide();
+        $("#buy-confirm-btn").hide();
+        getCouponsList();
+
+    })
+
+    //以下为展示用户的方法
+
     function renderMemberList(list) {
-        $('.member-card').empty();
+        $('#myTable').empty();
         var memberDomStr = '';
         list.forEach(function (member) {
             memberDomStr +=
@@ -102,13 +137,44 @@ $(document).ready(function() {
                 "       <div>"+member.username+"</div>" +
                 "   </td>" +
                 "   <td>" +
-                "<div class='checkbox' id='isChoose'>"+
-            "<label><input class='choose' type='checkbox' value='' data-member='"+JSON.stringify(member)+"'><span id='id-num'>选择</span></label>"+
+                "<div>"+
+            "<input name='optionName' type='checkbox' data-member='"+JSON.stringify(member)+"'>选择</div>"+
             "   </td>" +
             "</tr>"
         });
         $("#myTable").append(memberDomStr);
     }
 //以下为选中某些用户的方法
+    $(document).on('click',"input[type='checkbox']",function (e) {
+        var memberInfo=JSON.parse(e.currentTarget.dataset.member);
+        console.log(memberInfo);
+        //refund.id是电影票的id
+        if($(this).prop('checked')){
+            members.push(memberInfo.id);
+        }else{
+            if(members.indexOf(memberInfo.id)>-1){
+                members.splice(members.indexOf(memberInfo.id),1);
+            }
+        }
+        console.log(members);
 
+    })
+
+
+    sendConfirmClick=function(){
+        postRequest(
+            '/coupon/send',
+            {members:members},
+            function (res) {
+                if(res.success){
+
+                } else{
+                    alert(res.message);
+                }
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            }
+        );
+    }
 });

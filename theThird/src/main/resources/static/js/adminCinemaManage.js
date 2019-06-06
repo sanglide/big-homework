@@ -30,6 +30,7 @@ $(document).ready(function() {
             nameStr += "<option>" +hall.name+ "</option>"
         }
         $('#order-halls').html(nameStr);
+        $('#delete-order-halls').html(nameStr);
         halls.forEach(function (hall) {
             var seat = "";
             for(var i =0;i<hall.row;i++){
@@ -78,14 +79,18 @@ $(document).ready(function() {
             '/hall/add',//这里待传
             formData,//上传表单
             function (res) {
-                getCinemaHalls();
-                $("#hallModal").modal('hide');//表单隐藏
+                if (res.success) {
+                    getCinemaHalls();
+                    $("#hallModal").modal('hide');//表单隐藏
+                }else{
+                    alert(res.message);
+                }
             },
             function (error) {
                 alert(error);
             });
 
-
+//
     });
     function getHallForm() {
         return {
@@ -123,7 +128,6 @@ $(document).ready(function() {
         }
         console.log(form);
 
-
         //这里需以后注释掉
         // getCinemaHalls();
         // $("#changeHallModal").modal('hide');
@@ -143,12 +147,39 @@ $(document).ready(function() {
 
 
     });
+    $("#deleteHall-edit-remove-btn").click(function () {
+        var r=confirm("确认要删除该影厅吗")
+        var deleteForm=deleteHallForm()
+        console.log(deleteForm);
+        if (r) {
+            deleteRequest(
+                '/hall/delete',
+                deleteForm,
+                function (res) {
+                    if(res.success){
+                        getCinemaHalls();
+                        $("#deleteHallModal").modal('hide');
+                    } else{
+                        alert(res.message);
+                    }
+                },
+                function (error) {
+                    alert(JSON.stringify(error));
+                }
+            );
+        }
+    })
     function changeHallForm() {
         return {
             name: document.getElementById("order-halls").value,
             row: $('#changeRow-num-input').val(),
             column: $('#changeColumn-num-input').val(),
         };
+    }
+    function deleteHallForm(){
+        return{
+            name: document.getElementById("delete-order-halls").value
+        }
     }
     //下面为可见时间的实现
     function getCanSeeDayNum() {

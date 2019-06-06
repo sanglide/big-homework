@@ -84,3 +84,21 @@ h3{
 .bottom{
     color:white;
 }
+
+.fire{
+    color:firebrick;
+    font-family: ZiZai;
+}
+
+.thumbs{
+    font-family: ZiZai;
+}
+@font-face {
+    font-family: Chalk;
+    src: url("../font/chalk.otf");
+}
+
+@font-face {
+    font-family: ZiZai;
+    src: url("../font/ZiZai.ttf");
+}

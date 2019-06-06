@@ -13,11 +13,18 @@ $(document).ready(function () {
                 if (res.success) {
                     sessionStorage.setItem('username', formData.username);
                     sessionStorage.setItem('id', res.content.id);
-                    //规定经理与普通用户的区别
+                    //规定经理、售票员与普通用户的区别
                     if (formData.username == "root") {
+                        //影院经理
                         sessionStorage.setItem('role', 'admin');
                         window.location.href = "/admin/movie/manage"
-                    } else {
+                    }else if(formData.username.startsWith("/")){
+                        //售票员
+                        sessionStorage.setItem('role', 'seller');
+                        window.location.href ="/seller/movie"
+                    }
+                    else {
+                        //观众
                         sessionStorage.setItem('role', 'user');
                         window.location.href = "/user/home"
                     }

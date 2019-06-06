@@ -34,6 +34,16 @@ public interface ScheduleMapper {
 
 
     /**
+     * 查询到endDate为止的某hall的排片信息
+     * @param hallId
+
+     * @param endDate
+     * @return
+     */
+    List<ScheduleItem> selectScheduleBeforeDate(@Param("hallId") int hallId, @Param("endDate") Date endDate);
+
+
+    /**
      * 查询起止时间是否有冲突(不包括与自身的冲突)
      * @param hallId
      * @param startTime

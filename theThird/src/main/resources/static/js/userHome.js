@@ -25,7 +25,9 @@ $(document).ready(function() {
                         boxingStr=boxingStr+
                             '<a href="/user/movieDetail?id='+idList[i]+'">'+
                             '<div class="statistic-item">'+
-                            '<span class="icon-fire">'+nameList[i]+'</span>'+
+                            '<li class="fire">' +
+                            '<span class="icon-fire"></span>'+"     "+nameList[i]+
+                            '</li>'+
                             '<span class="badge">'+(i+1).toString()+'</span>'+
                             '</div>'+
                             '</a>'
@@ -34,7 +36,9 @@ $(document).ready(function() {
                         boxingStr = boxingStr +
                             '<a href="/user/movieDetail?id='+idList[i]+'">'+
                             '<div class="statistic-item">' +
-                            '<span class="icon-thumbs-up">' + nameList[i] + '</span>' +
+                            '<li class="thumbs">' +
+                            '<span class="icon-thumbs-up"></span>'+"    "+nameList[i]+
+                            '</li>'+
                             '<span class="error-text">' + (i+1).toString() + '</span>' +
                             '</div>'+
                             '</a>'

@@ -3,7 +3,9 @@ body{
 }
 
 #main-container {
-	background: url("https://account.talkingdata.com/images/bg-regist.png") top center no-repeat;
+	/*background: url("https://account.talkingdata.com/images/bg-regist.png") top center no-repeat;*/
+	background: #ffffff url(../images/index4.png) no-repeat;
+	background-size: cover;
 	height: 100%;
 	display: flex;
 	justify-content: center;

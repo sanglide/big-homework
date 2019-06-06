@@ -11,6 +11,10 @@
         update hall set `column`=#{hall_column},`row`=#{hall_row} where `name`=#{hall_name}
     </update>
 
+    <delete id="deleteHall">
+        delete from hall where `name`=#{hall_name}
+    </delete>
+
 
     <select id="selectAllHall" resultMap="Hall">
         select * from hall
@@ -19,9 +23,24 @@
         select * from hall where id = #{hallId}
     </select>
 
+    <select id="selectHallByName" resultMap="Hall">
+        select * from hall where `name` = #{hallName}
+    </select>
+
+    <select id="selectHallHasSchedule" resultType="com.example.cinema.po.HallHasSchedule">
+        select * from hall
+        right join
+        (select hall_id as hallId ,end_time as date from schedule ) s
+        on( s.hallId = #{hallId} AND date>#{date})
+        where id=#{hallId}
+    </select>
+
+
 
     <resultMap id="Hall" type="com.example.cinema.po.Hall">
     </resultMap>
+
+
 
 
 

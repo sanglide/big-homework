@@ -8,18 +8,22 @@ $(document).ready(function () {
             function (res) {
                 if (res.success) {
                     console.log(res);
+                    //res.content装的是满足金额target,优惠金额discount,本卡价格price
                     $("#VIPCard-price").text(res.content.price);
-                    $("#VIPCard-description").text(res.content.description);
-                    var des=res.content.description;
-                    var index1=des.indexOf("满");
-                    var index2=des.indexOf("送");
-                    var target=des.slice(index1+1,index2);//是满足金额
-                    var discount=des.slice(index2+1);//是优惠金额
-                    console.log(target);
-                    console.log(discount);
+                    $("#VIPCard-description").text("满"+res.content.target+"送"+res.content.discount);
+                    //$("#VIPCard-description").text(res.content.description);
+                    // var des=res.content.description;
+                    // var index1=des.indexOf("满");
+                    // var index2=des.indexOf("送");
+                    // var target=des.slice(index1+1,index2);//是满足金额
+                    // var discount=des.slice(index2+1);//是优惠金额
+                    // console.log(target);
+                    // console.log(discount);
                     $("#VIPCard-price-input").val(res.content.price);
-                    $("#VIPCard-target-input").val(target);
-                    $("#VIPCard-discount-input").val(discount);
+                    // $("#VIPCard-target-input").val(target);
+                    // $("#VIPCard-discount-input").val(discount);
+                    $("#VIPCard-target-input").val(res.content.target);
+                    $("#VIPCard-discount-input").val(res.content.discount);
                 } else {
                     alert(res.content);
                 }
@@ -41,16 +45,17 @@ $(document).ready(function () {
             return;
         }
 
-        var finalForm={
-            price:form.price,
-            description:"满"+form.target+"送"+form.discount
-        }
+        // var finalForm={
+        //     price:form.price,
+        //     description:"满"+form.target+"送"+form.discount
+        // }
 
-        console.log(finalForm);
+        // console.log(finalForm);
 
         postRequest(
             'vip/update',
-            finalForm,
+            // finalForm,
+            form,
             function (res) {
                 if (res.success) {
                     getVIPCardInfo();
