@@ -49,10 +49,10 @@ $(document).ready(function () {
         var ticketStr =
             "<tr data-ticket='"+history+"'>" +
             "   <td>" +
-            "       <div>"+getLocalTime(history.date)+"</div>" +
+            "       <div>"+getLocalTime(history.time)+"</div>" +
             "   </td>" +
             "   <td>" +
-            "       <div>"+history.movieName+"</div>" +
+            "       <div>"+history.ticketList[0].id+"</div>" +
             "   </td>" +
             "   <td>" +
             "       <div>"+history.state+"</div>" +

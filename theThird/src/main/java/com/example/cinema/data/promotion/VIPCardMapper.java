@@ -1,8 +1,12 @@
 package com.example.cinema.data.promotion;
 
 import com.example.cinema.po.VIPCard;
+import com.example.cinema.po.VIPCardChargeHistory;
+import com.example.cinema.po.VIPInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created by liying on 2019/4/14.
@@ -28,4 +32,11 @@ public interface VIPCardMapper {
 
     VIPCard selectCardByUserId(int userId);
 
+    VIPInfo selectVIPInfo();
+
+    void updateVIPInfo(@Param("price") double price,@Param("charge") double charge, @Param("bonus") double bonus);
+
+    void insertChargeHistory(VIPCardChargeHistory history);
+
+    List<VIPCardChargeHistory> selectChargeHistoryByUserId(int userId);
 }

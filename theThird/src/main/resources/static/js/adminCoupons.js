@@ -11,31 +11,31 @@ $(document).ready(function() {
     //以下为获取会员名单的方法
     function getCouponsList(){
         // 以下需注释掉
-        var list1=[{
-            username:"ezio",
-            password:123456,
-            id:1
-        },{
-            username:"router",
-            password:123456,
-            id:2
-        }]
-        renderMemberList(list1);
+        // var list1=[{
+        //     username:"ezio",
+        //     password:123456,
+        //     id:1
+        // },{
+        //     username:"router",
+        //     password:123456,
+        //     id:2
+        // }]
+        // renderMemberList(list1);
 
         //以下为与后端交互真方法
-        // postRequest(
-        //     '/coupon/changeBuyNum',
-        //     {buyNum:buyNum},
-        //     function (res) {
-        //         var list=res.content;
-        //         renderMemberList(list);
-        //
-        //     },
-        //     function (error) {
-        //         alert(JSON.stringify(error));
-        //     }
-        // );
-        // renderMemberList(list);
+        postRequest(
+            '/coupon/allMember?consume='+buyNum,
+            // {buyNum:buyNum},
+            function (res) {
+                var list=res.content;
+                renderMemberList(list);
+
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            }
+        );
+        renderMemberList(list);
 
     }
 
@@ -43,19 +43,20 @@ $(document).ready(function() {
     function getCouponsNum() {
 
         //该行需注释掉
-        $("#send-num").text(canNum);
+        // $("#send-num").text(canNum);
 
         //以下为与后端交互真方法
-        // getRequest(
-        //     '/coupon/getNum',
-        //     function (res) {
-        //         canNum = res.content;
-        //         $("#send-num").text(canNum);
-        //     },
-        //     function (error) {
-        //         alert(JSON.stringify(error));
-        //     }
-        // );
+        getRequest(
+            '/coupon/getNum',
+            function (res) {
+                canNum = res.content;
+                console.log(canNum);
+                $("#send-num").text(canNum);
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            }
+        );
     }
 
     $('#send-modify-btn').click(function () {
@@ -70,31 +71,31 @@ $(document).ready(function() {
         var dayNum = $("#send-set-input").val();
 
         // 以下需注释掉
-        canNum = dayNum;
-        getCouponsNum();
-        $("#send-modify-btn").show();
-        $("#send-set-input").hide();
-        $("#send-confirm-btn").hide();
+        // canNum = dayNum;
+        // getCouponsNum();
+        // $("#send-modify-btn").show();
+        // $("#send-set-input").hide();
+        // $("#send-confirm-btn").hide();
 
         //以下为与后端交互真方法
-        // postRequest(
-        //     '/coupon/change',
-        //     {day:dayNum},
-        //     function (res) {
-        //         if(res.success){
-        //             canNum = dayNum;
-        //             getCouponsNum();
-        //             $("#send-modify-btn").show();
-        //             $("#send-set-input").hide();
-        //             $("#send-confirm-btn").hide();
-        //         } else{
-        //             alert(res.message);
-        //         }
-        //     },
-        //     function (error) {
-        //         alert(JSON.stringify(error));
-        //     }
-        // );
+        postRequest(
+            '/coupon/change?discount='+dayNum,
+            // {discount:dayNum},
+            function (res) {
+                if(res.success){
+                    canNum = dayNum;
+                    getCouponsNum();
+                    $("#send-modify-btn").show();
+                    $("#send-set-input").hide();
+                    $("#send-confirm-btn").hide();
+                } else{
+                    alert(res.message);
+                }
+            },
+            function (error) {
+                alert(JSON.stringify(error));
+            }
+        );
 
     })
     //以下为修改最低消费的方法
@@ -163,8 +164,8 @@ $(document).ready(function() {
 
     sendConfirmClick=function(){
         postRequest(
-            '/coupon/send',
-            {members:members},
+            '/coupon/send?userId='+members,
+            // {members:members},
             function (res) {
                 if(res.success){
 

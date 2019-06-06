@@ -42,7 +42,6 @@ public class MovieController {
         return movieService.searchOtherMoviesExcludeOff();
     }
 
-
     @RequestMapping(value = "/movie/{movieId}/like", method = RequestMethod.POST)
     public ResponseVO likeMovie(@PathVariable int movieId,@RequestParam int userId){
         return movieLikeService.likeMovie(userId,movieId);

@@ -1,5 +1,4 @@
-package com.example.cinema.po;
-
+package com.example.cinema.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,13 +6,20 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 
-/**
- * Created by liying on 2019/4/14.
- */
 @Getter
 @Setter
 @NoArgsConstructor
-public class VIPCard {
+public class VIPCardVO {
+
+    /**
+     * 会员卡优惠描述
+     */
+    private String discription;
+
+    /**
+     * 会员卡购买价格
+     */
+    private double price;
 
     /**
      * 用户id
@@ -38,5 +44,4 @@ public class VIPCard {
     public double calculate(double amount) {
         return (int) (amount / 200) * 30 + amount;
     }
-
 }

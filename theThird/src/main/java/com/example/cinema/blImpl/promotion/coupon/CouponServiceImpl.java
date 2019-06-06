@@ -2,6 +2,7 @@ package com.example.cinema.blImpl.promotion.coupon;
 
 import com.example.cinema.bl.promotion.CouponService;
 import com.example.cinema.data.promotion.CouponMapper;
+import com.example.cinema.data.user.AccountMapper;
 import com.example.cinema.po.Coupon;
 import com.example.cinema.vo.CouponForm;
 import com.example.cinema.vo.ResponseVO;
@@ -19,11 +20,17 @@ public class CouponServiceImpl implements CouponService, CouponServiceForBl {
 
 	@Autowired
 	CouponMapper couponMapper;
+	@Autowired
+	AccountMapper accountMapper;
 
 	@Override
 	public ResponseVO getCouponsByUser(int userId) {
 		try {
-			return ResponseVO.buildSuccess(couponMapper.selectCouponByUser(userId));
+			List<Coupon> couponList = couponMapper.selectCouponByUser(userId);
+			if(couponList.size() == 0){
+				return ResponseVO.buildFailure("无优惠券");
+			}
+			return ResponseVO.buildSuccess(couponList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseVO.buildFailure("失败");
@@ -49,16 +56,47 @@ public class CouponServiceImpl implements CouponService, CouponServiceForBl {
 	}
 
 	@Override
-	public ResponseVO issueCoupon(int couponId, int userId) {
+	public ResponseVO issueCoupon(List<Integer> userId) {
 		try {
-			couponMapper.insertCouponUser(couponId, userId);
+			int couponId = couponMapper.selectSpecialCoupon().getId();
+			for(Integer id: userId){
+				couponMapper.insertCouponUser(couponId, id);
+			}
 			return ResponseVO.buildSuccess();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseVO.buildFailure("失败");
+			return ResponseVO.buildFailure("发放优惠券失败");
 		}
 	}
 
+	@Override
+	public ResponseVO getSpecialCoupon() {
+		try {
+			Coupon specialCoupon = couponMapper.selectSpecialCoupon();
+			Double discount = specialCoupon.getDiscountAmount();
+			return ResponseVO.buildSuccess(discount);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseVO.buildFailure("获取无门槛优惠券失败");
+		}
+	}
+
+	@Override
+	public ResponseVO updateSpecialCouponDiscount(double discount) {
+		try {
+			couponMapper.updateSpecialCoupon(discount);
+			return ResponseVO.buildSuccess();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseVO.buildFailure("更改无门槛优惠券失败");
+		}
+	}
+
+	@Override
+	public ResponseVO getAllUserByConsume(double consume) {
+
+		return null;
+	}
 
 	@Override
 	public Coupon getCouponById(int couponId) {

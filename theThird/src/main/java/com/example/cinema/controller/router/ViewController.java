@@ -1,10 +1,8 @@
 package com.example.cinema.controller.router;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author deng
@@ -65,6 +63,13 @@ public class ViewController {
     public String getAdminAccountManage() {
         return "adminAccountManage";
     }
+
+    //转到售票员界面
+    @RequestMapping(value = "/seller/movie")
+    public String getSeller(){return "sellerMovie";}
+    //售票员
+    @RequestMapping(value = "/seller/movieDetail")
+    public String getSellerMovieDetail(@RequestParam int id) {return "sellerMovieDetail";}
 
     @RequestMapping(value = "/admin/cinema/statistic")
     public String getAdminCinemaStatistic() {

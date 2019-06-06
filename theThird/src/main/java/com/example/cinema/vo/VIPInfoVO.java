@@ -10,7 +10,10 @@ import lombok.Setter;
 @Setter
 public class VIPInfoVO {
 
-	String description;
+	private double price;
 
-	double price;
+	private double charge;
+
+	private double bonus;
+
 }
