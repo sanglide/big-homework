@@ -59,12 +59,12 @@
 
     <insert id="insertTicketRefund" parameterType="com.example.cinema.po.TicketRefund"
             useGeneratedKeys="true" keyProperty="id">
-        insert into ticket_refund(rate,limitHours)
+        insert into ticket_refund(rate,limit_hours)
         values(#{rate},#{limitHours})
     </insert>
 
     <update id="updateTicketRefund">
-        update ticket_refund set rate = #{rate},limitHours = #{limitHours}
+        update ticket_refund set rate = #{rate},limit_hours = #{limitHours}
     </update>
 
     <select id="selectRefundInfo" resultMap="TicketRefund">
@@ -74,7 +74,7 @@
 
     <resultMap id="TicketRefund" type="com.example.cinema.po.TicketRefund">
         <result column="rate" property="rate"></result>
-        <result column="limitHours" property="limitHours"></result>
+        <result column="limit_hours" property="limitHours"></result>
     </resultMap>
 
     <insert id="insertTicketOrder">
