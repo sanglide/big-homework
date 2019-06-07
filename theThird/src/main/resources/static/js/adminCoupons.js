@@ -23,11 +23,12 @@ $(document).ready(function() {
         // renderMemberList(list1);
 
         //以下为与后端交互真方法
-        postRequest(
+        getRequest(
             '/coupon/allMember?consume='+buyNum,
             // {buyNum:buyNum},
             function (res) {
                 var list=res.content;
+                console.log(list);
                 renderMemberList(list);
 
             },
@@ -35,7 +36,7 @@ $(document).ready(function() {
                 alert(JSON.stringify(error));
             }
         );
-        renderMemberList(list);
+        // renderMemberList(list);
 
     }
 
@@ -78,7 +79,7 @@ $(document).ready(function() {
         // $("#send-confirm-btn").hide();
 
         //以下为与后端交互真方法
-        postRequest(
+        getRequest(
             '/coupon/change?discount='+dayNum,
             // {discount:dayNum},
             function (res) {
@@ -163,7 +164,7 @@ $(document).ready(function() {
 
 
     sendConfirmClick=function(){
-        postRequest(
+        getRequest(
             '/coupon/send?userId='+members,
             // {members:members},
             function (res) {

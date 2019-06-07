@@ -9,6 +9,7 @@ $(document).ready(function () {
 
             function (res) {
                 //res.content是(List<TicketVO>)
+                console.log(res.content);
                 renderTicketList(res.content);
 
             },
@@ -46,19 +47,17 @@ $(document).ready(function () {
     }
 
     function fillTable(history){
+
         var ticketStr =
             "<tr data-ticket='"+history+"'>" +
             "   <td>" +
             "       <div>"+getLocalTime(history.time)+"</div>" +
             "   </td>" +
             "   <td>" +
-            "       <div>"+history.ticketList[0].id+"</div>" +
+            "       <div>"+history.id+"</div>" +
             "   </td>" +
             "   <td>" +
             "       <div>"+history.state+"</div>" +
-            "   </td>" +
-            "   <td >" +
-            "       <div>"+history.account+"</div>" +
             "   </td>" +
             "   <td>" +
             "<button class='history-item' data-history='"+JSON.stringify(history)+"' >"+"详情</button>"
@@ -67,28 +66,46 @@ $(document).ready(function () {
         $("#myTable").append(ticketStr);
     }
     $(document).on('click','.history-item',function (e) {
+
         $("#modal-body").empty();
         $('#historyModal').modal('show');
         var data=JSON.parse(e.currentTarget.dataset.history);
         console.log(data);
-        console.log(data.date);
+
+        var ticketInfo;
+        getRequest(
+            "/schedule/"+data.scheduleId,
+            function(res){
+                ticketInfo=res.content;
+                console.log(ticketInfo);
+                showDetails(data,ticketInfo);
+            },
+            function(error){
+                alert(error);
+            }
+        )
+
+
+    });
+
+    function showDetails(data,ticketInfo){
         var detailStr="<div class=\"form-group\">" +
             "<div class='col-sm-10'>" +
-            "<div><b>电影名称：</b><span>"+data.movieName+"</span>" +
+            "<div><b>电影名称：</b><span>"+ticketInfo.movieName+"</span>" +
             "</div>" +
-            "<div><b>购买日期：</b><span>"+getLocalTime(history.date)+"</span>" +
+            "<div><b>购买日期：</b><span>"+getLocalTime(data.time)+"</span>" +
             "</div>" +
             "<div><b>购买状态：</b><span>"+data.state+"</span>" +
             "</div>" +
-            "<div><b>消费金额：</b><span>"+data.account+"</span>" +
+            "<div><b>消费金额：</b><span>"+ticketInfo.fare+"</span>" +
             "</div>" +
-            "<div><b>影厅位置：</b><span>"+data.hallName+"</span>" +
+            "<div><b>影厅位置：</b><span>"+ticketInfo.hallName+"</span>" +
             "</div>" +
-            "<div><b>座位位置：</b><span>"+data.rowIndex+"排"+data.columnIndex+"座</span>" +
+            "<div><b>座位位置：</b><span>"+(data.rowIndex+1)+"排"+(data.columnIndex+1)+"座</span>" +
             "</div>" +
             "</div>";
         $("#modal-body").append(detailStr);
-    });
+    }
 
     function getLocalTime(nS) {
         return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');

@@ -8,6 +8,7 @@ $(document).ready(function () {
 
             function (res) {
                 //res.content是(List<TicketVO>)
+                console.log(res.content);
                 renderTicketList(res.content);
 
             },
