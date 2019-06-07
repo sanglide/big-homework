@@ -2,6 +2,7 @@ package com.example.cinema.controller.promotion;
 
 import com.example.cinema.bl.promotion.CouponService;
 import com.example.cinema.vo.ResponseVO;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,6 @@ public class CouponController {
 
     @Autowired
     CouponService couponService;
-
-    @PostMapping
-
 
     @GetMapping("/{userId}/get")
     public ResponseVO getCoupons(@PathVariable int userId){
@@ -40,7 +38,7 @@ public class CouponController {
      * @param discount
      * @return
      */
-    @PostMapping("/change")
+    @GetMapping("/change")
     public ResponseVO updateSpecialCouponDiscount(@PathVariable double discount){
         return couponService.updateSpecialCouponDiscount(discount);
     }
@@ -61,7 +59,7 @@ public class CouponController {
      * @param userId
      * @return
      */
-    @PostMapping("/send")
+    @GetMapping("/send")
     public ResponseVO issueCoupon(@RequestParam List<Integer> userId){
         return couponService.issueCoupon(userId);
     }

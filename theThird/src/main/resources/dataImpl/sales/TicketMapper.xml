@@ -105,7 +105,7 @@
             ticket t
         on
             t.id = to.ticket_id
-        where
+        where id = #{orderId}
     </select>
 
     <resultMap id="TicketOrder" type="com.example.cinema.po.TicketOrder">
