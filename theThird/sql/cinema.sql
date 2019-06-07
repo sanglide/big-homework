@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 06/06/2019 14:06:21
+ Date: 07/06/2019 09:11:41
 */
 
 SET NAMES utf8mb4;
@@ -68,7 +68,7 @@ CREATE TABLE `coupon`  (
   `start_time` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `end_time` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of coupon
@@ -77,6 +77,7 @@ INSERT INTO `coupon` VALUES (1, '测试优惠券', '春季电影节', 20, 5, '20
 INSERT INTO `coupon` VALUES (5, '测试优惠券', '品质联盟', 30, 4, '2019-04-20 21:14:46', '2019-04-24 21:14:51');
 INSERT INTO `coupon` VALUES (6, '春节电影节优惠券', '电影节优惠券', 50, 10, '2019-04-20 21:15:11', '2019-04-21 21:14:56');
 INSERT INTO `coupon` VALUES (8, '测试优惠券', '123', 100, 99, '2019-04-20 16:00:00', '2019-04-26 16:00:00');
+INSERT INTO `coupon` VALUES (9, '无门槛优惠券', 'liuqin', 0, 30, '2019-06-06 23:43:45', '2020-12-31 23:59:59');
 
 -- ----------------------------
 -- Table structure for coupon_user
@@ -97,6 +98,7 @@ INSERT INTO `coupon_user` VALUES (6, 15);
 INSERT INTO `coupon_user` VALUES (5, 15);
 INSERT INTO `coupon_user` VALUES (8, 15);
 INSERT INTO `coupon_user` VALUES (6, 15);
+INSERT INTO `coupon_user` VALUES (9, 15);
 
 -- ----------------------------
 -- Table structure for hall
@@ -183,46 +185,12 @@ CREATE TABLE `schedule`  (
   `end_time` timestamp(0) NOT NULL,
   `fare` double NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of schedule
 -- ----------------------------
-INSERT INTO `schedule` VALUES (20, 1, 12, '2019-04-13 17:00:00', '2019-04-13 18:00:00', 20.5);
-INSERT INTO `schedule` VALUES (21, 1, 10, '2019-04-11 12:00:00', '2019-04-11 13:00:00', 90);
-INSERT INTO `schedule` VALUES (27, 1, 11, '2019-04-17 18:01:00', '2019-04-17 20:01:00', 20.5);
-INSERT INTO `schedule` VALUES (28, 1, 11, '2019-04-19 16:00:00', '2019-04-19 18:00:00', 20.5);
-INSERT INTO `schedule` VALUES (30, 1, 11, '2019-04-18 18:01:00', '2019-04-18 20:01:00', 20.5);
-INSERT INTO `schedule` VALUES (31, 1, 11, '2019-04-12 16:00:00', '2019-04-12 18:00:00', 20.5);
-INSERT INTO `schedule` VALUES (32, 1, 11, '2019-04-12 20:00:00', '2019-04-12 22:00:00', 20.5);
-INSERT INTO `schedule` VALUES (37, 1, 11, '2019-04-15 00:00:00', '2019-04-15 02:00:00', 20.5);
-INSERT INTO `schedule` VALUES (38, 1, 11, '2019-04-14 17:00:00', '2019-04-14 19:00:00', 20.5);
-INSERT INTO `schedule` VALUES (40, 1, 10, '2019-04-10 16:00:00', '2019-04-10 18:00:00', 20.5);
-INSERT INTO `schedule` VALUES (41, 1, 11, '2019-04-10 19:00:00', '2019-04-10 21:00:00', 20.5);
-INSERT INTO `schedule` VALUES (42, 1, 11, '2019-04-10 22:00:00', '2019-04-11 00:00:00', 20.5);
-INSERT INTO `schedule` VALUES (43, 1, 10, '2019-04-11 01:00:00', '2019-04-11 03:00:00', 20.5);
-INSERT INTO `schedule` VALUES (44, 2, 10, '2019-04-11 01:00:00', '2019-04-11 03:00:00', 20.5);
-INSERT INTO `schedule` VALUES (45, 2, 10, '2019-04-10 22:00:00', '2019-04-11 00:00:00', 20.5);
-INSERT INTO `schedule` VALUES (46, 2, 11, '2019-04-10 19:00:00', '2019-04-10 21:00:00', 20.5);
-INSERT INTO `schedule` VALUES (47, 2, 11, '2019-04-10 16:00:00', '2019-04-10 18:00:00', 20.5);
-INSERT INTO `schedule` VALUES (48, 2, 10, '2019-04-11 13:00:00', '2019-04-11 15:59:00', 20.5);
-INSERT INTO `schedule` VALUES (50, 1, 10, '2019-04-15 16:00:00', '2019-04-15 19:00:00', 2);
-INSERT INTO `schedule` VALUES (51, 1, 10, '2019-04-17 05:00:00', '2019-04-17 07:00:00', 9);
-INSERT INTO `schedule` VALUES (52, 1, 10, '2019-04-18 05:00:00', '2019-04-18 07:00:00', 9);
-INSERT INTO `schedule` VALUES (53, 1, 16, '2019-04-19 07:00:00', '2019-04-19 10:00:00', 9);
-INSERT INTO `schedule` VALUES (54, 1, 16, '2019-04-16 19:00:00', '2019-04-16 22:00:00', 9);
-INSERT INTO `schedule` VALUES (55, 1, 15, '2019-04-17 23:00:00', '2019-04-18 01:00:00', 9);
-INSERT INTO `schedule` VALUES (56, 2, 10, '2019-04-19 13:00:00', '2019-04-19 15:59:00', 20.5);
-INSERT INTO `schedule` VALUES (57, 2, 10, '2019-04-20 13:00:00', '2019-04-20 15:59:00', 20.5);
-INSERT INTO `schedule` VALUES (58, 2, 10, '2019-04-21 13:00:00', '2019-04-21 15:59:00', 20.5);
-INSERT INTO `schedule` VALUES (61, 1, 13, '2019-04-20 11:00:00', '2019-04-20 13:00:00', 25);
-INSERT INTO `schedule` VALUES (62, 1, 11, '2019-04-20 08:00:00', '2019-04-20 10:00:00', 25);
-INSERT INTO `schedule` VALUES (63, 2, 15, '2019-04-20 16:01:30', '2019-04-21 05:30:00', 30);
-INSERT INTO `schedule` VALUES (64, 1, 16, '2019-04-22 02:00:00', '2019-04-22 05:30:00', 30);
-INSERT INTO `schedule` VALUES (65, 1, 10, '2019-04-23 02:00:00', '2019-04-23 05:30:00', 30);
-INSERT INTO `schedule` VALUES (66, 2, 13, '2019-04-21 07:31:29', '2019-04-16 15:59:00', 20.5);
-INSERT INTO `schedule` VALUES (67, 2, 10, '2019-04-25 13:00:00', '2019-04-25 15:59:00', 20.5);
-INSERT INTO `schedule` VALUES (68, 2, 10, '2019-04-26 13:00:00', '2019-04-26 15:59:00', 20.5);
+INSERT INTO `schedule` VALUES (69, 1, 10, '2019-06-09 21:00:00', '2019-06-09 23:00:00', 70);
 
 -- ----------------------------
 -- Table structure for ticket
@@ -237,65 +205,13 @@ CREATE TABLE `ticket`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ticket
 -- ----------------------------
-INSERT INTO `ticket` VALUES (12, 50, 5, 3, 2, 1, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (12, 50, 5, 3, 2, 2, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (12, 50, 5, 3, 2, 3, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (12, 50, 5, 3, 2, 4, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (12, 50, 5, 3, 0, 5, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 50, 4, 3, 0, 6, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 0, 0, 1, 15, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 2, 0, 1, 16, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 1, 1, 1, 17, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 11, 7, 1, 18, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (13, 50, 4, 2, 1, 19, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 66, 3, 2, 1, 20, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (12, 50, 1, 1, 1, 21, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (13, 50, 4, 3, 1, 22, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 50, 2, 2, 1, 23, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 0, 7, 0, 24, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 5, 4, 0, 25, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 6, 4, 0, 26, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 6, 2, 0, 27, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 7, 2, 0, 28, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 0, 4, 0, 29, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 0, 3, 0, 30, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 0, 2, 0, 31, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 10, 0, 0, 32, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 11, 0, 0, 33, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 8, 0, 0, 34, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 9, 0, 0, 35, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 5, 0, 0, 36, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 6, 0, 0, 37, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 6, 7, 0, 38, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 7, 7, 0, 39, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 8, 7, 0, 40, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 11, 4, 0, 41, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 11, 5, 0, 42, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 9, 6, 0, 43, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 10, 6, 0, 44, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 11, 6, 0, 45, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 3, 5, 1, 46, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 4, 5, 1, 47, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 5, 5, 1, 48, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 11, 2, 0, 49, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 11, 3, 0, 50, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 9, 4, 0, 51, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 9, 3, 1, 52, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 58, 10, 3, 1, 53, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 7, 4, 0, 54, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 8, 4, 0, 55, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 9, 4, 0, 56, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 7, 3, 0, 57, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 8, 3, 0, 58, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 9, 3, 0, 59, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 0, 0, 1, 60, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 0, 1, 1, 61, '2019-04-23 13:50:52');
-INSERT INTO `ticket` VALUES (15, 65, 0, 2, 1, 62, '2019-04-23 13:50:52');
+INSERT INTO `ticket` VALUES (15, 69, 6, 2, 1, 65, '2019-06-06 23:35:17');
+INSERT INTO `ticket` VALUES (15, 69, 7, 2, 1, 66, '2019-06-06 23:35:17');
 
 -- ----------------------------
 -- Table structure for ticket_order
@@ -309,6 +225,12 @@ CREATE TABLE `ticket_order`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of ticket_order
+-- ----------------------------
+INSERT INTO `ticket_order` VALUES ('2019-06-06 23:35:22', 65, 0);
+INSERT INTO `ticket_order` VALUES ('2019-06-06 23:35:22', 66, 0);
+
+-- ----------------------------
 -- Table structure for ticket_refund
 -- ----------------------------
 DROP TABLE IF EXISTS `ticket_refund`;
@@ -317,7 +239,12 @@ CREATE TABLE `ticket_refund`  (
   `rate` double NULL DEFAULT NULL,
   `limit_hours` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ticket_refund
+-- ----------------------------
+INSERT INTO `ticket_refund` VALUES (1, 0.05, 2);
 
 -- ----------------------------
 -- Table structure for user
@@ -376,7 +303,7 @@ CREATE TABLE `vip_card`  (
 -- ----------------------------
 -- Records of vip_card
 -- ----------------------------
-INSERT INTO `vip_card` VALUES (1, 15, 375, '2019-04-21 13:54:38');
+INSERT INTO `vip_card` VALUES (1, 15, 720, '2019-06-07 00:03:23');
 INSERT INTO `vip_card` VALUES (2, 12, 660, '2019-04-17 18:47:42');
 
 -- ----------------------------
@@ -384,13 +311,19 @@ INSERT INTO `vip_card` VALUES (2, 12, 660, '2019-04-17 18:47:42');
 -- ----------------------------
 DROP TABLE IF EXISTS `vip_charge_history`;
 CREATE TABLE `vip_charge_history`  (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NULL DEFAULT NULL,
   `charge` double NULL DEFAULT NULL,
   `balance` double NULL DEFAULT NULL,
   `time` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of vip_charge_history
+-- ----------------------------
+INSERT INTO `vip_charge_history` VALUES (1, 15, 50, 400, '2019-06-07 00:02:04');
+INSERT INTO `vip_charge_history` VALUES (2, 15, 320, 720, '2019-06-07 00:03:23');
 
 -- ----------------------------
 -- Table structure for vip_info
@@ -401,5 +334,10 @@ CREATE TABLE `vip_info`  (
   `charge` double NULL DEFAULT NULL,
   `bonus` double NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of vip_info
+-- ----------------------------
+INSERT INTO `vip_info` VALUES (30, 300, 20);
 
 SET FOREIGN_KEY_CHECKS = 1;
