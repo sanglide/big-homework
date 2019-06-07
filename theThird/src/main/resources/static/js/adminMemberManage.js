@@ -12,7 +12,10 @@ $(document).ready(function () {
                     console.log(res.content);
                     //res.content装的是满足金额target,优惠金额discount,本卡价格price
                     $("#VIPCard-price").text(res.content.price);
-                    $("#VIPCard-description").text("满"+res.content.charge+"送"+res.content.bonus);
+                    $("#VIPCard-target").text(res.content.charge);
+                    $("#VIPCard-discount").text(res.content.bonus);
+
+                    // $("#VIPCard-description").text("满"+res.content.charge+"送"+res.content.bonus);
                     //$("#VIPCard-description").text(res.content.description);
                     // var des=res.content.description;
                     // var index1=des.indexOf("满");

@@ -289,6 +289,16 @@ th {
   font-family:"ZiZai" ;
   src: url("../font/ZiZai.ttf");
 }
+
+@font-face {
+  font-family: Meng;
+  src: url("../font/Meng.otf");
+}
+
+@font-face {
+    font-family: Shu;
+    src: url("../font/Shu.ttf");
+}
 .glyphicon {
   position: relative;
   top: 1px;
@@ -1103,11 +1113,9 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "ZiZai";
-  /*font-family: "Comic Sans MS";*/
-  /*font-family:"Tian";*/
-  /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-  /*font-family:"Chalk";*/
+  /*font-family: Shu;*/
+  /*letter-spacing: 2px;*/
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size:20px;
   /*font-size: 14px;*/
   line-height: 1.42857143;

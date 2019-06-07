@@ -10,7 +10,7 @@ $(document).ready(function () {
                 if (res.success) {
                     console.log(res);
                     $("#limitHours").text(res.content.limitHours);
-                    $("#refundRate").text("充值优惠：" + res.content.rate);
+                    $("#refundRate").text(res.content.rate);
                     $("#refund-limit-input").val(res.content.limitHours);
                     $("#refund-rate-input").val(res.content.rate);
                 } else {

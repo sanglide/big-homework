@@ -24,7 +24,24 @@
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
             <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
-            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 策略管理</a></li>
+<!--            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 策略管理</a></li>-->
+            <li role="presentation">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-gift"></i>
+                    策略管理<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li role="presentation">
+                        <a href="/admin/promotion/manage">活动管理</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/admin/member/manage">会员卡管理</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/admin/ticket/manage">退票策略管理</a>
+                    </li>
+                </ul>
+            </li>
             <li role="presentation" class="active"><a href="#"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation"><a href="/admin/coupon/manage"><i class="icon-credit-card"></i> 影券管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
