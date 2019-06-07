@@ -18,9 +18,6 @@ public class CouponController {
     @Autowired
     CouponService couponService;
 
-    @PostMapping
-
-
     @GetMapping("/{userId}/get")
     public ResponseVO getCoupons(@PathVariable int userId){
         return couponService.getCouponsByUser(userId);
