@@ -61,7 +61,8 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
             //充值金额
             double amount = vipCardForm.getAmount();
             //充值后余额
-            balance += amount / vipInfo.getCharge() * vipInfo.getBonus() + amount;
+            amount = (int)(amount / vipInfo.getCharge()) * vipInfo.getBonus() + amount;
+            balance += amount;
             vipCardMapper.updateCardBalance(vipCard.getId(), balance);
             //插入历史记录
             VIPCardChargeHistory history = new VIPCardChargeHistory();
@@ -111,7 +112,8 @@ public class VIPServiceImpl implements VIPService, VIPCardServiceForBl {
     @Override
     public ResponseVO getVIPInfo() {
         try {
-            return ResponseVO.buildSuccess(vipCardMapper.selectVIPInfo().getVO());
+            VIPInfo vipInfo = vipCardMapper.selectVIPInfo();
+            return ResponseVO.buildSuccess(vipInfo.getVO());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("获取会员卡信息失败");

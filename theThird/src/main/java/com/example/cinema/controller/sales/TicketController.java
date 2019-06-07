@@ -51,22 +51,22 @@ public class TicketController {
         return ticketService.cancelTicket(ticketId);
     }
 
-    @PostMapping("/ticket/refund/add")
+    @PostMapping("/refund/add")
     public ResponseVO addRefund(@RequestBody TicketRefundVO ticketRefundVO){
         return ticketService.addRefund(ticketRefundVO);
     }
 
-    @PostMapping("/ticket/refund/update")
+    @PostMapping("/refund/update")
     public ResponseVO updateRefund(@RequestBody TicketRefundVO ticketRefundVO){
         return ticketService.updateRefund(ticketRefundVO);
     }
 
-    @GetMapping("/ticket/refund/getInfo")
+    @GetMapping("/refund/getInfo")
     public ResponseVO getRefund(){
         return ticketService.getRefundInfo();
     }
 
-    @GetMapping("/ticket/refund")
+    @GetMapping("/refund")
     public ResponseVO refundBySaleTime(@PathVariable Timestamp time){
         return ticketService.refundBySaleTime(time);
     }
