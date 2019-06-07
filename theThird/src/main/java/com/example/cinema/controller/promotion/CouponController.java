@@ -39,7 +39,7 @@ public class CouponController {
      * @return
      */
     @GetMapping("/change")
-    public ResponseVO updateSpecialCouponDiscount(@PathVariable double discount){
+    public ResponseVO updateSpecialCouponDiscount(@PathVariable int discount){
         return couponService.updateSpecialCouponDiscount(discount);
     }
 
@@ -50,7 +50,7 @@ public class CouponController {
      */
 
     @GetMapping("/allMember")
-    public ResponseVO getAllUserByConsume(@PathVariable double consume){
+    public ResponseVO getAllUserByConsume(@PathVariable int consume){
         return couponService.getAllUserByConsume(consume);
     }
 
