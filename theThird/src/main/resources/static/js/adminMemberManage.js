@@ -1,16 +1,18 @@
 $(document).ready(function () {
 
     getVIPCardInfo();
-//
+
     function getVIPCardInfo(){
         getRequest(
             '/vip/getVIPInfo',
             function (res) {
+                console.log("ssssssssssssssssss");
+                console.log(res);
                 if (res.success) {
-                    console.log(res);
+                    console.log(res.content);
                     //res.content装的是满足金额target,优惠金额discount,本卡价格price
                     $("#VIPCard-price").text(res.content.price);
-                    $("#VIPCard-description").text("满"+res.content.target+"送"+res.content.discount);
+                    $("#VIPCard-description").text("满"+res.content.charge+"送"+res.content.bonus);
                     //$("#VIPCard-description").text(res.content.description);
                     // var des=res.content.description;
                     // var index1=des.indexOf("满");
@@ -22,8 +24,8 @@ $(document).ready(function () {
                     $("#VIPCard-price-input").val(res.content.price);
                     // $("#VIPCard-target-input").val(target);
                     // $("#VIPCard-discount-input").val(discount);
-                    $("#VIPCard-target-input").val(res.content.target);
-                    $("#VIPCard-discount-input").val(res.content.discount);
+                    $("#VIPCard-target-input").val(res.content.charge);
+                    $("#VIPCard-discount-input").val(res.content.bonus);
                 } else {
                     alert(res.content);
                 }
@@ -36,9 +38,9 @@ $(document).ready(function () {
 
     $("#VIPCard-form-btn").click(function () {
         var form = {
-            price: $("#VIPCard-price-input").val(),
-            target: $("#VIPCard-target-input").val(),
-            discount: $("#VIPCard-discount-input").val()
+            price: Number($("#VIPCard-price-input").val()),
+            charge: Number($("#VIPCard-target-input").val()),
+            bonus: Number($("#VIPCard-discount-input").val())
         }
 
         if (!validateVIPCardEditForm(form)) {
@@ -52,8 +54,9 @@ $(document).ready(function () {
 
         // console.log(finalForm);
 
+        console.log(form);
         postRequest(
-            'vip/update',
+            '/vip/update',
             // finalForm,
             form,
             function (res) {
@@ -85,25 +88,25 @@ $(document).ready(function () {
             $("#VIPCard-price-error").text("请正确输入非负整数或非负小数");
             //showErrorMessage()
         }
-        if(!data.target||data.target<0||!isAValidNum(data.target)){
+        if(!data.charge||data.charge<0||!isAValidNum(data.charge)){
             //不存在或者为负数或者(不是整数且不是小数)
             isValidate=false;
             $('#VIPCard-target-error').css("visibility", "visible");
             $("#VIPCard-target-error").text("请正确输入非负整数或非负小数");
             //showErrorMessage()
         }
-        if(!data.discount||data.discount<0||!isAValidNum(data.discount)){
+        if(!data.bonus||data.bonus<0||!isAValidNum(data.bonus)){
             //不存在或者为负数或者(不是整数且不是小数)
             isValidate=false;
             $('#VIPCard-discount-error').css("visibility", "visible");
             $("#VIPCard-discount-error").text("请正确输入非负整数或非负小数");
             //showErrorMessage()
         }
-        if(data.target<data.discount){
-            isValidate=false;
-            $('#VIPCard-target-error').css("visibility", "visible");
-            $("#VIPCard-target-error").text("满足金额必须大于优惠金额");
-        }
+        // if(data.charge<data.bonus){
+        //     isValidate=false;
+        //     $('#VIPCard-target-error').css("visibility", "visible");
+        //     $("#VIPCard-target-error").text("满足金额必须大于优惠金额");
+        // }
         return isValidate;
     }
 

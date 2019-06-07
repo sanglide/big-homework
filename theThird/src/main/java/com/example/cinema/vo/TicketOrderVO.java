@@ -11,20 +11,23 @@ import java.util.List;
 @Setter
 public class TicketOrderVO {
 
+    //创建订单时间
     private Timestamp time;
-    //状态0未付款，1已付款，2已失效，3已退款
+    //状态
+    /**
+     * 0：未付款
+     * 1：已付款
+     * 2：已失效
+     * 3：已退款
+     */
     private int state;
-
     //实付款
     private double originCost;
-
-    //
+    //如果可退款的退款金额
     private double refund;
-
-
+    //是否可退款
     private boolean canRefund;
-
-    //ticketVO
-    private List<Ticket> ticketList;
+    //订单中的票据
+    private List<TicketVO> ticketVOList;
 
 }
