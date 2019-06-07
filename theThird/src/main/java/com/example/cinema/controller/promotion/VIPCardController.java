@@ -36,7 +36,7 @@ public class VIPCardController {
         return vipService.charge(vipCardForm);
     }
 
-    @PostMapping("/vip/update")
+    @PostMapping("/update")
     public ResponseVO updateVIPInfo(@RequestBody VIPInfoVO vipInfoVO){
         return vipService.updateVIPInfo(vipInfoVO);
     }

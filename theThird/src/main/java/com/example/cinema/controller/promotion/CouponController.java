@@ -18,7 +18,10 @@ public class CouponController {
     @Autowired
     CouponService couponService;
 
-    @GetMapping("{userId}/get")
+    @PostMapping
+
+
+    @GetMapping("/{userId}/get")
     public ResponseVO getCoupons(@PathVariable int userId){
         return couponService.getCouponsByUser(userId);
     }
@@ -27,7 +30,7 @@ public class CouponController {
      * 获取无门槛优惠券的优惠金额
      * @return
      */
-    @GetMapping("coupon/getNum")
+    @GetMapping("/getNum")
     public ResponseVO getSpecialCoupon(){
         return couponService.getSpecialCoupon();
     }
@@ -37,7 +40,7 @@ public class CouponController {
      * @param discount
      * @return
      */
-    @PostMapping("coupon/change")
+    @PostMapping("/change")
     public ResponseVO updateSpecialCouponDiscount(@PathVariable double discount){
         return couponService.updateSpecialCouponDiscount(discount);
     }
@@ -48,7 +51,7 @@ public class CouponController {
      * @return
      */
 
-    @GetMapping("/coupon/allMember")
+    @GetMapping("/allMember")
     public ResponseVO getAllUserByConsume(@PathVariable double consume){
         return couponService.getAllUserByConsume(consume);
     }
@@ -58,7 +61,7 @@ public class CouponController {
      * @param userId
      * @return
      */
-    @PostMapping("/coupon/send")
+    @PostMapping("/send")
     public ResponseVO issueCoupon(@RequestParam List<Integer> userId){
         return couponService.issueCoupon(userId);
     }

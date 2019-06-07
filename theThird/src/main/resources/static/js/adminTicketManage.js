@@ -36,7 +36,7 @@ $(document).ready(function () {
         }
 
         postRequest(
-            'ticket/refund/update',
+            '/ticket/refund/update',
             form,
             function (res) {
                 if (res.success) {
