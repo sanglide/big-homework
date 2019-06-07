@@ -1,11 +1,13 @@
 $(document).ready(function () {
 
     getVIPCardInfo();
-//
+
     function getVIPCardInfo(){
         getRequest(
             '/vip/getVIPInfo',
             function (res) {
+                console.log("ssssssssssssssssss");
+                console.log(res);
                 if (res.success) {
                     console.log(res.content);
                     //res.content装的是满足金额target,优惠金额discount,本卡价格price
@@ -36,9 +38,9 @@ $(document).ready(function () {
 
     $("#VIPCard-form-btn").click(function () {
         var form = {
-            price: $("#VIPCard-price-input").val(),
-            charge: $("#VIPCard-target-input").val(),
-            bonus: $("#VIPCard-discount-input").val()
+            price: Number($("#VIPCard-price-input").val()),
+            charge: Number($("#VIPCard-target-input").val()),
+            bonus: Number($("#VIPCard-discount-input").val())
         }
 
         if (!validateVIPCardEditForm(form)) {
@@ -52,8 +54,9 @@ $(document).ready(function () {
 
         // console.log(finalForm);
 
+        console.log(form);
         postRequest(
-            'vip/update',
+            '/vip/update',
             // finalForm,
             form,
             function (res) {
@@ -99,11 +102,11 @@ $(document).ready(function () {
             $("#VIPCard-discount-error").text("请正确输入非负整数或非负小数");
             //showErrorMessage()
         }
-        if(data.charge<data.bonus){
-            isValidate=false;
-            $('#VIPCard-target-error').css("visibility", "visible");
-            $("#VIPCard-target-error").text("满足金额必须大于优惠金额");
-        }
+        // if(data.charge<data.bonus){
+        //     isValidate=false;
+        //     $('#VIPCard-target-error').css("visibility", "visible");
+        //     $("#VIPCard-target-error").text("满足金额必须大于优惠金额");
+        // }
         return isValidate;
     }
 
