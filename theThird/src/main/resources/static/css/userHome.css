@@ -87,11 +87,13 @@ h3{
 
 .fire{
     color:firebrick;
-    font-family: ZiZai;
+    /*font-family: Shu;*/
+    /*letter-spacing: 2px;*/
 }
 
 .thumbs{
-    font-family: ZiZai;
+    /*font-family: Shu;*/
+    /*letter-spacing: 2px;*/
 }
 @font-face {
     font-family: Chalk;
@@ -101,4 +103,14 @@ h3{
 @font-face {
     font-family: ZiZai;
     src: url("../font/ZiZai.ttf");
+}
+
+@font-face {
+    font-family: Meng;
+    src: url("../font/Meng.otf");
+}
+
+@font-face {
+    font-family: Shu;
+    src: url("../font/Shu.ttf");
 }

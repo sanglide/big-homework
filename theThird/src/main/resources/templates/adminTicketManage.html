@@ -27,7 +27,24 @@
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
             <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
-            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>
+<!--            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>-->
+            <li role="presentation" class="active">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-gift"></i>
+                    策略管理<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li role="presentation">
+                        <a href="/admin/promotion/manage">活动管理</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/admin/member/manage">会员卡管理</a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a href="#">退票策略管理</a>
+                    </li>
+                </ul>
+            </li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation"><a href="/admin/coupon/manage"><i class="icon-credit-card"></i> 影券管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
@@ -37,17 +54,18 @@
 
     <div class="content-container">
         <div class="content-header">
-            <ul class="nav nav-pills">
-                <li role="presentation">
-                    <a href="/admin/promotion/manage">活动管理</a>
-                </li>
-                <li role="presentation">
-                    <a href="/admin/member/manage">会员卡管理</a>
-                </li>
-                <li role="presentation" class="active">
-                    <a href="#">退票策略管理</a>
-                </li>
-            </ul>
+<!--            <ul class="nav nav-pills">-->
+<!--                <li role="presentation">-->
+<!--                    <a href="/admin/promotion/manage">活动管理</a>-->
+<!--                </li>-->
+<!--                <li role="presentation">-->
+<!--                    <a href="/admin/member/manage">会员卡管理</a>-->
+<!--                </li>-->
+<!--                <li role="presentation" class="active">-->
+<!--                    <a href="#">退票策略管理</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+
             <!--按下按钮后弹出表单-->
 
             <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#ticketRefundModal"><i class="icon-edit"></i> 修改退票策略</button>
@@ -55,10 +73,19 @@
         <!--下面是退票策略-->
         <div class="TicketRefund-container">
             <h3 class="gray-text">当前退票策略</h3>
-            <div class="TicketRefund-card primary-bg">
-                <div class="icon-time">在电影放映<b id="limitHours"></b>个小时前可以退票。</div>
-                <br>
-                <div class="icon-money">手续费所占实付款比例为<b id="refundRate"></b></div>
+            <div class="TicketRefund-card">
+<!--                <div class="icon-time">在电影放映<b id="limitHours"></b>个小时前可以退票。</div>-->
+<!--                <br>-->
+<!--                <div class="icon-money">手续费所占实付款比例为<b id="refundRate"></b></div>-->
+                <div class="card col-md-8 col-md-offset-2" id="member-card" >
+                    <div class="header">
+                        <div class="name">退票策略</div>
+                    </div>
+                    <div class="Info-container">
+                        <div>在电影放映<b id="limitHours" class="price"></b>个小时前可以退票</div>
+                        <div>手续费所占实付款比例为<b id="refundRate" class="price"></b></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

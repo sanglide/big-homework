@@ -3,3 +3,37 @@
     justify-content: space-between;
 }
 
+.card {
+    font-weight: bold;
+    margin: 0 auto;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.name {
+    border-bottom: 1px solid;
+    font-size: 20px;
+    padding: 2px;
+}
+.price {
+    color: #1caf9a;
+    font-size: 70px;
+    font-weight: bold;
+    padding: 0px;
+    margin-bottom: -30px;
+}
+
+.yuan {
+    font-size: 31px;
+}
+.description {
+    padding: 5px;
+}
+.strong {
+    padding: 3px;
+    font-size: 17px;
+    color: white;
+    background: #326c84;
+    border-radius: 0 0 10px 10px;
+}
+

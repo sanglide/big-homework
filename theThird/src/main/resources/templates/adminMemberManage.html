@@ -25,7 +25,24 @@
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
             <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
-            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>
+<!--            <li role="presentation" class="active"><a href="#"><i class="icon-gift"></i> 策略管理</a></li>-->
+            <li role="presentation" class="active">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-gift"></i>
+                    策略管理<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li role="presentation">
+                        <a href="/admin/promotion/manage">活动管理</a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a href="#">会员卡管理</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="/admin/ticket/manage">退票策略管理</a>
+                    </li>
+                </ul>
+            </li>
             <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
             <li role="presentation"><a href="/admin/coupon/manage"><i class="icon-credit-card"></i> 影券管理</a></li>
             <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
@@ -35,17 +52,17 @@
 
     <div class="content-container">
         <div class="content-header">
-            <ul class="nav nav-pills">
-                <li role="presentation">
-                    <a href="/admin/promotion/manage">活动管理</a>
-                </li>
-                <li role="presentation" class="active">
-                    <a href="#">会员卡管理</a>
-                </li>
-                <li role="presentation">
-                    <a href="/admin/ticket/manage">退票策略管理</a>
-                </li>
-            </ul>
+<!--            <ul class="nav nav-pills">-->
+<!--                <li role="presentation">-->
+<!--                    <a href="/admin/promotion/manage">活动管理</a>-->
+<!--                </li>-->
+<!--                <li role="presentation" class="active">-->
+<!--                    <a href="#">会员卡管理</a>-->
+<!--                </li>-->
+<!--                <li role="presentation">-->
+<!--                    <a href="/admin/ticket/manage">退票策略管理</a>-->
+<!--                </li>-->
+<!--            </ul>-->
             <!--按下按钮后弹出表单-->
             <button id="VIPCard-btn" type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#VIPCardModal"><i class="icon-edit"></i> 修改会员卡</button>
         </div>
@@ -55,30 +72,33 @@
             <div class="VIPCardInfo-card card">
                 <div class="card col-md-8 col-md-offset-2" id="member-card" >
                     <div class="header">
-<!--                        <div class="title">优惠信息</div>-->
-<!--                        <div class="state">优惠</div>-->
+                        <div class="name">会员卡</div>
                     </div>
-                    <div class="line">
-                        <div>优惠信息</div>
-                        <hr/>
+                    <div class="Info-container">
+                        <div>会员卡价格:<b id="VIPCard-price" class="price"></b>元</div>
+                        <div>充值满<b id="VIPCard-target" class="price"></b>送<b id="VIPCard-discount" class="price"></b></div>
                     </div>
-<!--                <h4 class="price"><span id="VIPCard-price"></span>元/张</h4>-->
-<!--                <h4 id="VIPCard-description" class="description"></h4>-->
-                    <div class="info">
-                        <div class="content">
-                            <div class="line">
-                                <div><b>金额：</b></div>
-                                <div id="VIPCard-price"></div>
-                            </div>
-                            <div class="line">
-                                <div><b>描述：</b></div>
-                                <div id="VIPCard-description" class="description"></div>
-                            </div>
 
-                            <hr/>
-                        </div>
-                    </div>
-                </div>
+                    <!--                    <div class="line">-->
+<!--                        <div>优惠信息</div>-->
+<!--                        <hr/>-->
+<!--                    </div>-->
+<!--&lt;!&ndash;                <h4 class="price"><span id="VIPCard-price"></span>元/张</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;                <h4 id="VIPCard-description" class="description"></h4>&ndash;&gt;-->
+<!--                    <div class="info">-->
+<!--                        <div class="content">-->
+<!--                            <div class="line">-->
+<!--                                <div><b>金额：</b></div>-->
+<!--                                <div id="VIPCard-price"></div>-->
+<!--                            </div>-->
+<!--                            <div class="line">-->
+<!--                                <div><b>描述：</b></div>-->
+<!--                                <div id="VIPCard-description" class="description"></div>-->
+<!--                            </div>-->
+
+<!--                            <hr/>-->
+<!--                        </div>-->
+<!--                    </div>-->
             </div>
         </div>
     </div>
@@ -94,7 +114,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="VIPCard-price-input"><span class="error-text">*</span>原卡价格</label>
+                        <label class="col-sm-2 control-label" for="VIPCard-pribelinput"><span class="error-text">*</span>原卡价格</label>
                         <div class="col-sm-10">
                             <input type="number" class="form-control" id="VIPCard-price-input" placeholder="请输入会员卡价格">
                         </div>
