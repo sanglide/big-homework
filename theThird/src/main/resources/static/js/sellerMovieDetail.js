@@ -54,7 +54,7 @@ function repaintScheduleBody(curDateLoc) {
             "<td>预计" + scheduleItems[i].endTime.substring(11, 16) + "散场</td>" +
             "<td>" + scheduleItems[i].hallName + "</td>" +
             "<td><b>" + scheduleItems[i].fare.toFixed(2) + "</b></td>" +
-            "<td><a class='btn btn-primary' href='/user/movieDetail/buy?id=" + movieId + "&scheduleId=" + scheduleItems[i].id + "' role='button'>选座购票</a></td></tr>";
+            "<td><a class='btn btn-primary' href='/seller/movieDetail/buy?id=" + movieId + "&scheduleId=" + scheduleItems[i].id + "' role='button'>选座购票</a></td></tr>";
     }
 
     $('#schedule-body').html(bodyContent);
