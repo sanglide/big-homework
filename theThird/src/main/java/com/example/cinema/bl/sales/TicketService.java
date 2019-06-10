@@ -46,7 +46,7 @@ public interface TicketService {
      * @return 
      */
     ResponseVO getBySchedule(int scheduleId);
-    
+
     /**
      *
      * @param userId
@@ -62,5 +62,5 @@ public interface TicketService {
 
     ResponseVO getSaleHistory(int userId);
 
-    ResponseVO refundBySaleTime(Timestamp time);
+    ResponseVO refundById(List<Integer> idList);
 }

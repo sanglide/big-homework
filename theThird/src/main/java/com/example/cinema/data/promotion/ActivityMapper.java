@@ -19,10 +19,16 @@ public interface ActivityMapper {
 
     List<Activity> selectActivities();
 
+    Activity selectActivityByCoupon(Integer couponId);
+
     List<Activity> selectActivitiesByMovie(int movieId);
 
     Activity selectById(int id);
 
+    /**
+     * 所有电影都有的无差别活动
+     * @return
+     */
     List<Activity> selectActivitiesWithoutMovie();
 
     //这里是更新之前activity里面的对应的coupon的内容
@@ -42,8 +48,6 @@ public interface ActivityMapper {
 
     //根据activity的id删除对应的activity
     int deleteActivityById(@Param("id")int id);
-
-
 
 
 }
