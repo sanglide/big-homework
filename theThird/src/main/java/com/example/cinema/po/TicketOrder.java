@@ -10,9 +10,9 @@ import java.util.List;
 @Getter@Setter
 public class TicketOrder {
 
-    private int couponId;
+    private int orderId;
 
-    private Timestamp time;
+    private int couponId;
 
     private List<Ticket> ticketList;
 

@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 public class TicketOrderVO {
 
+
+    private int id;
     //创建订单时间
     private Timestamp time;
     //状态

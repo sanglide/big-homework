@@ -73,40 +73,53 @@
     </resultMap>
 
     <insert id="insertTicketOrder">
-        insert into ticket_order(time,ticket_id,coupon_id)
+        <selectKey keyProperty="orderId" order="BEFORE" resultType="java.lang.Integer"> <!-- 绑定对应属性 -->
+            SELECT max(order_id) + 1 FROM ticket_order
+        </selectKey>
+        insert into ticket_order(order_id,ticket_id,coupon_id)
         values
-        <foreach collection="ticketId" item="item" index="index"
+        <foreach collection="ticketList" item="item" index="index"
                  separator=",">
-            (#{time},#{item},#{couponId})
+            (#{orderId}, #{item.id}, #{couponId})
         </foreach>
+
     </insert>
+
+    <update id="updateTicketOrder">
+        update ticket_order tor
+        left join ticket t
+        on t.id=tor.ticket_id
+        set tor.coupon_id = #{couponId}
+        where t.id = #{ticketId}
+    </update>
 
     <select id="selectTicketOrdersByUserId" resultMap="TicketOrder">
         select *
         from
-            ticket_order to
+        ticket_order to
         right join
-            ticket t
+        ticket t
         on
-            t.id = to.ticket_id
+        t.id = to.ticket_id
         where t.userid = #{userId}
     </select>
 
     <select id="selectTicketOrderById" resultMap="TicketOrder">
         select *
         from
-            ticket_order to
+        ticket_order to
         right join
-            ticket t
+        ticket t
         on
-            t.id = to.ticket_id
+        t.id = to.ticket_id
         where id = #{orderId}
     </select>
 
     <resultMap id="TicketOrder" type="com.example.cinema.po.TicketOrder">
         <id column="id" property="id"></id>
         <result column="time" property="time"></result>
-        <association property="ticketList" column="ticket_id" select="com.example.cinema.data.sales.TicketMapper.selectTicketById">
+        <association property="ticketList" column="ticket_id"
+                     select="com.example.cinema.data.sales.TicketMapper.selectTicketById">
         </association>
     </resultMap>
 

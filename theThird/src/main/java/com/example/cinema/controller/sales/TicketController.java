@@ -52,12 +52,12 @@ public class TicketController {
     }
 
     /**
-     * 获取用户买过的票
+     * 获取用户的订单
      * @param userId
      * @return
      */
     @GetMapping("/get/{userId}")
-    public ResponseVO getTicketByUserId(@PathVariable int userId) {
+    public ResponseVO getTicketOrderByUserId(@PathVariable int userId) {
         return ticketService.getTicketByUser(userId);
     }
 
@@ -114,12 +114,12 @@ public class TicketController {
     /**
      * TODO:需要重构成订单形式
      * 退票
-     * @param time
+     * @param idList
      * @return
      */
     @GetMapping("/refund")
-    public ResponseVO refundBySaleTime(@PathVariable Timestamp time){
-        return ticketService.refundBySaleTime(time);
+    public ResponseVO refundById(@RequestParam List<Integer> idList){
+        return ticketService.refundById(idList);
     }
 
     /**

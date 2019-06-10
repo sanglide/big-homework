@@ -41,10 +41,12 @@ public interface TicketMapper {
 
     TicketRefund selectRefundInfo();
 
-    int insertTicketOrder(@Param("time") Timestamp timestamp, @Param("ticketId") List<Integer> ticketId, @Param("couponId") int couponId);
+    int insertTicketOrder(TicketOrder ticketOrder);
+
+    int updateTicketOrder(@Param("couponId") Integer couponId, @Param("ticketId") Integer ticketId);
 
     List<TicketOrder> selectTicketOrdersByUserId(int userId);
 
-    TicketOrder selectTicketOrderById(Timestamp orderId);
+    TicketOrder selectTicketOrderById(Integer id);
 }
 
