@@ -292,7 +292,11 @@ function payConfirmClick() {
             function (res) {
                 console.log("================");
                 console.log(res);
-                postPayRequest();
+                if(res.success){
+                    postPayRequest();
+                }else{
+                    alert(res.message);
+                }
             },
             function (error) {
                 alert(error);

@@ -67,11 +67,10 @@ public class TicketController {
     }
 
     @GetMapping("/refund")
-    public ResponseVO refundBySaleTime(@PathVariable Timestamp time){
-        return ticketService.refundBySaleTime(time);
+    public ResponseVO refundBySaleTime(@PathVariable Timestamp time){ return ticketService.refundBySaleTime(time);
     }
 
-    @GetMapping("/{userId}/getSaleHistory}")
+    @GetMapping("/{userId}/getSaleHistory")
     private ResponseVO getSaleHistory(@PathVariable int userId){
         return ticketService.getSaleHistory(userId);
     }
