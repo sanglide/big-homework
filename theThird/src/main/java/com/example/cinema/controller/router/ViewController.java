@@ -70,6 +70,11 @@ public class ViewController {
     //售票员
     @RequestMapping(value = "/seller/movieDetail")
     public String getSellerMovieDetail(@RequestParam int id) {return "sellerMovieDetail";}
+    //售票员
+    @RequestMapping(value = "/seller/movieDetail/buy")
+    public String getSellerMovieBuy(@RequestParam int id) {
+        return "sellerSale";
+    }
 
     @RequestMapping(value = "/admin/cinema/statistic")
     public String getAdminCinemaStatistic() {
