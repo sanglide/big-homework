@@ -46,7 +46,7 @@ public interface TicketService {
      * @return 
      */
     ResponseVO getBySchedule(int scheduleId);
-    
+
     /**
      *
      * @param userId

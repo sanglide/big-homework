@@ -21,56 +21,112 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
+    /**
+     * 普通购票
+     * @param ticketsWithCouponForm
+     * @return
+     */
     @PostMapping("/buy")
     public ResponseVO buyTicket(@RequestBody TicketsWithCouponForm ticketsWithCouponForm) {
         return ticketService.completeTicket(ticketsWithCouponForm);
     }
 
+    /**
+     * 使用会员卡购票
+     * @param ticketsWithCouponForm
+     * @return
+     */
     @PostMapping("/vip/buy")
     public ResponseVO buyTicketByVIPCard(@RequestBody TicketsWithCouponForm ticketsWithCouponForm) {
         return ticketService.completeByVIPCard(ticketsWithCouponForm);
     }
 
+    /**
+     * 锁座
+     * @param ticketForm
+     * @return
+     */
     @PostMapping("/lockSeat")
     public ResponseVO lockSeat(@RequestBody TicketForm ticketForm) {
         return ticketService.addTicket(ticketForm);
     }
 
+    /**
+     * 获取用户买过的票
+     * @param userId
+     * @return
+     */
     @GetMapping("/get/{userId}")
     public ResponseVO getTicketByUserId(@PathVariable int userId) {
         return ticketService.getTicketByUser(userId);
     }
 
+    /**
+     * 获取排片的座位表
+     * @param scheduleId
+     * @return
+     */
     @GetMapping("/get/occupiedSeats")
     public ResponseVO getOccupiedSeats(@RequestParam int scheduleId) {
         return ticketService.getBySchedule(scheduleId);
     }
 
+    /**
+     * TODO:需要重构成订单形式
+     * 取消锁座
+     * @param ticketId
+     * @return
+     */
     @PostMapping("/cancel")
     public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId) {
         return ticketService.cancelTicket(ticketId);
     }
 
+    /**
+     * 添加退票策略
+     * @param ticketRefundVO
+     * @return
+     */
     @PostMapping("/refund/add")
     public ResponseVO addRefund(@RequestBody TicketRefundVO ticketRefundVO){
         return ticketService.addRefund(ticketRefundVO);
     }
 
+    /**
+     * 更新退票策略
+     * @param ticketRefundVO
+     * @return
+     */
     @PostMapping("/refund/update")
     public ResponseVO updateRefund(@RequestBody TicketRefundVO ticketRefundVO){
         return ticketService.updateRefund(ticketRefundVO);
     }
 
+    /**
+     * 获取退票策略
+     * @return
+     */
     @GetMapping("/refund/getInfo")
     public ResponseVO getRefund(){
         return ticketService.getRefundInfo();
     }
 
+    /**
+     * TODO:需要重构成订单形式
+     * 退票
+     * @param time
+     * @return
+     */
     @GetMapping("/refund")
     public ResponseVO refundBySaleTime(@PathVariable Timestamp time){
         return ticketService.refundBySaleTime(time);
     }
 
+    /**
+     * 获取历史订单
+     * @param userId
+     * @return
+     */
     @GetMapping("/{userId}/getSaleHistory}")
     private ResponseVO getSaleHistory(@PathVariable int userId){
         return ticketService.getSaleHistory(userId);

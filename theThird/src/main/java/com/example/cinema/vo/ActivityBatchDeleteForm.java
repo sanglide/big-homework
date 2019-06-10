@@ -16,11 +16,12 @@ public class ActivityBatchDeleteForm {
      */
     private List<Integer> activityIdList;
 
-//    public List<Integer> getActivityIdList() {
-//        return activityIdList;
-//    }
-//
-//    public void setActivityIdList(List<Integer> activityIdList) {
-//        this.activityIdList = activityIdList;
-//    }
+    public List<Integer> getActivityIdList() {
+        return activityIdList;
+    }
+
+    public void setActivityIdList(List<Integer> activityIdList) {
+        this.activityIdList = activityIdList;
+    }
+
 }

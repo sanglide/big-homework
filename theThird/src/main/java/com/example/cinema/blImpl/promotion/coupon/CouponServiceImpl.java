@@ -73,7 +73,7 @@ public class CouponServiceImpl implements CouponService, CouponServiceForBl {
 	public ResponseVO getSpecialCoupon() {
 		try {
 			Coupon specialCoupon = couponMapper.selectSpecialCoupon();
-			int discount = (int)specialCoupon.getDiscountAmount();
+			double discount = specialCoupon.getDiscountAmount();
 			return ResponseVO.buildSuccess(discount);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class CouponServiceImpl implements CouponService, CouponServiceForBl {
 	}
 
 	@Override
-	public ResponseVO updateSpecialCouponDiscount(int discount) {
+	public ResponseVO updateSpecialCouponDiscount(double discount) {
 		try {
 			couponMapper.updateSpecialCoupon(discount);
 			return ResponseVO.buildSuccess();

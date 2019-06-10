@@ -203,7 +203,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO getTicketByUser(int userId) {
         try {
-            List<Ticket> ticketList = ticketMapper.selectTicketBoughtByUser(userId);
+            List<Ticket> ticketList = ticketMapper.selectTicketByUser(userId);
             return ResponseVO.buildSuccess(ticketList2ticketVOList(ticketList));
         } catch (Exception e) {
             e.printStackTrace();

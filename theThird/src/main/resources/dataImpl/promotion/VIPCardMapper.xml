@@ -49,7 +49,7 @@
         select * from vip_charge_history where user_id = #{userId}
     </select>
 
-    <resultMap id="VIPCardChargeHistory" type="com.example.cinema.vo.VIPCardChargeHistoryVO">
+    <resultMap id="VIPCardChargeHistory" type="com.example.cinema.po.VIPCardChargeHistory">
         <result column="user_id" property="userId"></result>
         <result column="charge" property="charge"></result>
         <result column="balance" property="balance"></result>
