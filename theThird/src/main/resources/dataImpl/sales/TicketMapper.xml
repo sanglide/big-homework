@@ -35,10 +35,6 @@
         select * from ticket where user_id=#{userId}
     </select>
 
-    <select id="selectTicketBoughtByUser" resultMap="Ticket">
-        select * from ticket where user_id=#{userId} and state = 1
-    </select>
-
     <update id="updateTicketState">
         update ticket set state = #{state} where id=#{ticketId}
     </update>
@@ -70,7 +66,6 @@
     <select id="selectRefundInfo" resultMap="TicketRefund">
         select * from ticket_refund
     </select>
-
 
     <resultMap id="TicketRefund" type="com.example.cinema.po.TicketRefund">
         <result column="rate" property="rate"></result>
