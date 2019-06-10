@@ -20,5 +20,4 @@ public interface CouponService {
 
     ResponseVO updateSpecialCouponDiscount(double discount);
 
-    ResponseVO getAllUserByConsume(int consume);
 }

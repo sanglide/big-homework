@@ -11,31 +11,31 @@ $(document).ready(function() {
     //以下为获取会员名单的方法
     function getCouponsList(){
         // 以下需注释掉
-        var list1=[{
-            username:"ezio",
-            password:123456,
-            id:1
-        },{
-            username:"router",
-            password:123456,
-            id:2
-        }]
-        renderMemberList(list1);
+//        var list1=[{
+//            username:"ezio",
+//            password:123456,
+//            id:1
+//        },{
+//            username:"router",
+//            password:123456,
+//            id:2
+//        }]
+//        renderMemberList(list1);
 
-        //以下为与后端交互真方法
-        // getRequest(
-        //     '/coupon/allMember?consume='+buyNum,
-        //     // {buyNum:buyNum},
-        //     function (res) {
-        //         var list=res.content;
-        //         console.log(list);
-        //         renderMemberList(list);
-        //
-        //     },
-        //     function (error) {
-        //         alert(JSON.stringify(error));
-        //     }
-        // );
+//        以下为与后端交互真方法
+         getRequest(
+             '/ticket/allMember?consume='+buyNum,
+             // {buyNum:buyNum},
+             function (res) {
+                 var list=res.content;
+                 console.log(list);
+                 renderMemberList(list);
+
+             },
+             function (error) {
+                 alert(JSON.stringify(error));
+             }
+         );
 
     }
 

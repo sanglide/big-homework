@@ -48,16 +48,6 @@ public class CouponController {
         return couponService.updateSpecialCouponDiscount(discount);
     }
 
-    /**
-     * 筛选消费达到一定金额的用户
-     * @param consume
-     * @return
-     */
-
-    @GetMapping("/allMember")
-    public ResponseVO getAllUserByConsume(@PathVariable("consume") int consume){
-        return couponService.getAllUserByConsume(consume);
-    }
 
     /**
      * 为用户发放无门槛优惠券

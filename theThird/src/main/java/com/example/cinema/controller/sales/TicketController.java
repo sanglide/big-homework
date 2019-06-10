@@ -77,7 +77,7 @@ public class TicketController {
      * @return
      */
     @PostMapping("/cancel")
-    public ResponseVO cancelTicket(@RequestParam List<Integer> ticketId) {
+    public ResponseVO cancelTicket(@RequestParam("ticketId") List<Integer> ticketId) {
         return ticketService.cancelTicket(ticketId);
     }
 
@@ -126,15 +126,15 @@ public class TicketController {
      * @return
      */
     @GetMapping("/{userId}/getSaleHistory}")
-    private ResponseVO getSaleHistory(@PathVariable int userId){
+    private ResponseVO getSaleHistory(@PathVariable("userId") int userId){
         return ticketService.getSaleHistory(userId);
     }
 
     /**
      * 筛选消费达到一定金额的用户
      */
-    @GetMapping("/coupon/allMember")
-    private ResponseVO getUserByConsume(@PathVariable double consume){
+    @GetMapping("/allMember")
+    private ResponseVO getUserByConsume(@RequestParam("consume") double consume){
         return ticketService.getUserByConsume(consume);
     }
 }

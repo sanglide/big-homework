@@ -1,14 +1,20 @@
 package com.example.cinema.blImpl.promotion.coupon;
 
 import com.example.cinema.bl.promotion.CouponService;
+import com.example.cinema.blImpl.user.AccountServiceForBl;
 import com.example.cinema.data.promotion.CouponMapper;
 import com.example.cinema.data.user.AccountMapper;
 import com.example.cinema.po.Coupon;
+import com.example.cinema.po.ScheduleItem;
+import com.example.cinema.po.User;
 import com.example.cinema.vo.CouponForm;
 import com.example.cinema.vo.ResponseVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.cinema.vo.TicketVO;
+import com.example.cinema.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +27,7 @@ public class CouponServiceImpl implements CouponService, CouponServiceForBl {
 	@Autowired
 	CouponMapper couponMapper;
 	@Autowired
-	AccountMapper accountMapper;
+	AccountServiceForBl accountService;
 
 	@Override
 	public ResponseVO getCouponsByUser(int userId) {
@@ -92,11 +98,6 @@ public class CouponServiceImpl implements CouponService, CouponServiceForBl {
 		}
 	}
 
-	@Override
-	public ResponseVO getAllUserByConsume(int consume) {
-
-		return null;
-	}
 
 	@Override
 	public Coupon getCouponById(int couponId) {
