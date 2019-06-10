@@ -3,6 +3,7 @@ package com.example.cinema.data.sales;
 import com.example.cinema.po.Ticket;
 import com.example.cinema.po.TicketOrder;
 import com.example.cinema.po.TicketRefund;
+import com.example.cinema.po.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface TicketMapper {
 
-    int insertTicket(Ticket ticket);
+    void insertTicket(Ticket ticket);
 
     int insertTickets(List<Ticket> tickets);
 
@@ -41,12 +42,13 @@ public interface TicketMapper {
 
     TicketRefund selectRefundInfo();
 
-    int insertTicketOrder(TicketOrder ticketOrder);
+    void insertTicketOrder(TicketOrder ticketOrder);
 
-    int updateTicketOrder(@Param("couponId") Integer couponId, @Param("ticketId") Integer ticketId);
+    void updateTicketOrder(@Param("couponId") Integer couponId, @Param("ticketId") Integer ticketId);
 
     List<TicketOrder> selectTicketOrdersByUserId(int userId);
 
     TicketOrder selectTicketOrderById(Integer id);
+
 }
 

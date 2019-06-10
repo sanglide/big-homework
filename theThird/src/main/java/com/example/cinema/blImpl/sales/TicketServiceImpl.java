@@ -2,19 +2,17 @@ package com.example.cinema.blImpl.sales;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import com.example.cinema.blImpl.user.AccountServiceForBl;
 import com.example.cinema.po.*;
 import com.example.cinema.vo.*;
-import javafx.util.converter.TimeStringConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.cinema.bl.sales.TicketService;
 import com.example.cinema.blImpl.management.hall.HallServiceForBl;
-import com.example.cinema.blImpl.management.schedule.MovieServiceForBl;
 import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
 import com.example.cinema.blImpl.promotion.activity.ActivityServiceForBl;
 import com.example.cinema.blImpl.promotion.coupon.CouponServiceForBl;
@@ -39,6 +37,8 @@ public class TicketServiceImpl implements TicketService {
     HallServiceForBl hallService;
     @Autowired
     ActivityServiceForBl activityService;
+    @Autowired
+    AccountServiceForBl accountService;
 
     @Override
     @Transactional
@@ -80,7 +80,7 @@ public class TicketServiceImpl implements TicketService {
             // 所有电影票的总价
             double total = scheduleItem.getFare() * ticketVOList.size();
             for (Activity activity : activityList) {
-                if(activity != null){
+                if (activity != null) {
                     activityVOList.add(activity.getVO());
                 }
             }
@@ -121,7 +121,7 @@ public class TicketServiceImpl implements TicketService {
             // 删除使用的优惠券
             couponService.deleteCouponUser(couponId, userId);
             // 订单使用优惠券
-            for (Integer id : ticketIdList){
+            for (Integer id : ticketIdList) {
                 ticketMapper.updateTicketOrder(couponId, id);
             }
             // 票state改为"已购买"
@@ -156,7 +156,7 @@ public class TicketServiceImpl implements TicketService {
             // 删除使用的优惠券
             couponService.deleteCouponUser(couponId, userId);
             // 订单使用优惠券
-            for (Integer id : ticketIdList){
+            for (Integer id : ticketIdList) {
                 ticketMapper.updateTicketOrder(couponId, id);
             }
 
@@ -292,6 +292,30 @@ public class TicketServiceImpl implements TicketService {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("退票失败");
+        }
+    }
+
+    @Override
+    public ResponseVO getUserByConsume(double consume) {
+        try {
+            List<User> userList = accountService.getUsers();
+            List<UserVO> userVOList = new ArrayList<>();
+            for (User user : userList) {
+                double userConsume = 0;
+                List<TicketVO> ticketVOList = (List<TicketVO>) getTicketByUser(user.getId()).getContent();
+                for (TicketVO ticketVO : ticketVOList) {
+                    ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticketVO.getScheduleId());
+                    if ("已完成".equals(ticketVO.getState()))
+                        userConsume += scheduleItem.getFare();
+                }
+                if (userConsume >= consume) {
+                    userVOList.add(new UserVO(user));
+                }
+            }
+            return ResponseVO.buildSuccess(userVOList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("获取用户失败");
         }
     }
 

@@ -10,7 +10,9 @@
         select * from user where username=#{username}
     </select>
 
-
+    <select id="selectAllUser" resultMap="User">
+        select * from user
+    </select>
 
     <resultMap id="User" type="com.example.cinema.po.User">
     </resultMap>

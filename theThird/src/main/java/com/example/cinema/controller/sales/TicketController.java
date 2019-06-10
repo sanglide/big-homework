@@ -72,7 +72,6 @@ public class TicketController {
     }
 
     /**
-     * TODO:需要重构成订单形式
      * 取消锁座
      * @param ticketId
      * @return
@@ -112,7 +111,6 @@ public class TicketController {
     }
 
     /**
-     * TODO:需要重构成订单形式
      * 退票
      * @param idList
      * @return
@@ -132,4 +130,11 @@ public class TicketController {
         return ticketService.getSaleHistory(userId);
     }
 
+    /**
+     * 筛选消费达到一定金额的用户
+     */
+    @GetMapping("/coupon/allMember")
+    private ResponseVO getUserByConsume(@PathVariable double consume){
+        return ticketService.getUserByConsume(consume);
+    }
 }

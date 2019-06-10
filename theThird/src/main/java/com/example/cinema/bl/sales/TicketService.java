@@ -63,4 +63,6 @@ public interface TicketService {
     ResponseVO getSaleHistory(int userId);
 
     ResponseVO refundById(List<Integer> idList);
+
+    ResponseVO getUserByConsume(double consume);
 }

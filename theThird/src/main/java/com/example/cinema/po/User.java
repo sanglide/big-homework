@@ -1,5 +1,7 @@
 package com.example.cinema.po;
 
+import com.example.cinema.vo.UserVO;
+
 /**
  * @author huwen
  * @date 2019/3/23
@@ -32,4 +34,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
