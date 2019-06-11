@@ -3,7 +3,10 @@ $(document).ready(function () {
     //用户的电影票中需要有：
     //电影名称、影厅名、座位、放映时间、预计结束时间、状态
     getMovieList();
-    
+
+    var canRefund;
+    var can=[];
+
     function getMovieList() {
         getRequest(
             //{}的情况参照movieDetail.js的13行和MovieController.java的59行
@@ -154,6 +157,7 @@ $(document).ready(function () {
         console.log(refund);
         //refund.id是电影票的id
         if($(this).prop('checked')){
+            can.push(refund.canRefund);
             selectedTicketsId.push(refund.id);
         }else{
             if(selectedTicketsId.indexOf(refund.id)>-1){
@@ -166,26 +170,43 @@ $(document).ready(function () {
 
     $(document).on('click','.refund-item',function (e) {
         var r=confirm("请问真的要退这些票吗？");
+        console.log("cansnsnsnsns");
+        console.log(can);
+        canRefund=true;
+        if(can.indexOf(false)!==-1){
+            canRefund=false;
+        }
+
+        console.log("--------------");
+        console.log(canRefund);
             if(r){
+                console.log("eeeeeeeeeeeeee");
+                console.log(selectedTicketsId);
                 if(selectedTicketsId.length===0){
                     alert("请选择需要退的订单");
                 }else{
-                    getRequest(
-                        //传电影票ID
-                        "/ticket/refund?idList="+selectedTicketsId,
-                        // {selectedTicketsList:selectedTicketsId},
-                        function (res) {
-                            if(res.success){
-                                getMovieList();
-                                alert("删除成功！");
-                            } else {
-                                alert(res.message);
+                    if(!canRefund){
+                        alert("退票不合规范，请重新选择");
+                        can=[];
+                    }else{
+                        getRequest(
+                            //传电影票ID
+                            "/ticket/refund?idList="+selectedTicketsId,
+                            // {selectedTicketsList:selectedTicketsId},
+                            function (res) {
+                                if(res.success){
+                                    getMovieList();
+                                    alert("删除成功！");
+                                } else {
+                                    alert(res.message);
+                                }
+                            },
+                            function (error) {
+                                alert(JSON.stringify(error));
                             }
-                        },
-                        function (error) {
-                            alert(JSON.stringify(error));
-                        }
-                    )
+                        )
+                    }
+
                 }
 
             }
