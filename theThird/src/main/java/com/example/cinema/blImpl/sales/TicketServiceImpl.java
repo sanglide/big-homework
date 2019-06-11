@@ -213,10 +213,52 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO getTicketByUser(int userId) {
         try {
-            return getSaleHistory(userId);
+            List<TicketOrder> ticketOrderList =  ticketMapper.selectTicketOrdersByUserId(userId);
+            if(ticketOrderList.size() == 0){
+                return ResponseVO.buildFailure("暂无订单");
+            }
+            return ResponseVO.buildSuccess(ticketOrderList2VOList(ticketOrderList));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("获得电影票失败");
+        }
+    }
+
+    @Override
+    public ResponseVO getUserByConsume(double consume) {
+        try {
+            List<User> userList = accountService.getUsers();
+            List<UserVO> userVOList = new ArrayList<>();
+            for (User user : userList) {
+                double userConsume = 0;
+                List<TicketVO> ticketVOList = (List<TicketVO>) getTicketByUser(user.getId()).getContent();
+                for (TicketVO ticketVO : ticketVOList) {
+                    ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticketVO.getScheduleId());
+                    if ("已完成".equals(ticketVO.getState()))
+                        userConsume += scheduleItem.getFare();
+                }
+                if (userConsume >= consume) {
+                    userVOList.add(new UserVO(user));
+                }
+            }
+            return ResponseVO.buildSuccess(userVOList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("获取用户失败");
+        }
+    }
+
+    @Override
+    public ResponseVO getSaleHistory(int userId) {
+        try {
+            List<TicketOrder> ticketOrderList =  ticketMapper.selectTicketOrdersByUserId(userId);
+            if(ticketOrderList.size() == 0){
+                return ResponseVO.buildFailure("暂无订单");
+            }
+            return ResponseVO.buildSuccess(ticketOrderList2VOList(ticketOrderList));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("获取消费记录失败");
         }
     }
 
@@ -294,64 +336,44 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    @Override
-    public ResponseVO getUserByConsume(double consume) {
-        try {
-            List<User> userList = accountService.getUsers();
-            List<UserVO> userVOList = new ArrayList<>();
-            for (User user : userList) {
-                double userConsume = 0;
-                List<TicketVO> ticketVOList = (List<TicketVO>) getTicketByUser(user.getId()).getContent();
-                for (TicketVO ticketVO : ticketVOList) {
-                    ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticketVO.getScheduleId());
-                    if ("已完成".equals(ticketVO.getState()))
-                        userConsume += scheduleItem.getFare();
-                }
-                if (userConsume >= consume) {
-                    userVOList.add(new UserVO(user));
-                }
-            }
-            return ResponseVO.buildSuccess(userVOList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("获取用户失败");
-        }
-    }
-
-
-    @Override
-    public ResponseVO getSaleHistory(int userId) {
-        try {
-            List<TicketOrder> ticketOrderList = ticketMapper.selectTicketOrdersByUserId(userId);
-            List<TicketOrderVO> ticketOrderVOList = new ArrayList<>();
-            TicketOrderVO ticketOrderVO;
-            Ticket ticket;
-            for (TicketOrder ticketOrder : ticketOrderList) {
-                ticket = ticketOrder.getTicketList().get(0);
-                ticketOrderVO = new TicketOrderVO();
-                ticketOrderVO.setTime(ticket.getTime());
-                ticketOrderVO.setState(ticket.getState());
-                ticketOrderVO.setTicketVOList(ticketList2ticketVOList(ticketOrder.getTicketList()));
-                ticketOrderVO.setCanRefund(ticket.getTime().getTime() - System.currentTimeMillis() >
-                        ticketMapper.selectRefundInfo().getLimitHours() * 216000);
-                double[] prices = caculatePrice(ticketOrder);
-                ticketOrderVO.setOriginCost(prices[0]);
-                ticketOrderVO.setRefund(prices[1]);
-                ticketOrderVOList.add(ticketOrderVO);
-            }
-            return ResponseVO.buildSuccess(ticketOrderVOList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseVO.buildFailure("获取消费记录失败");
-        }
-    }
-
-    private List<TicketVO> ticketList2ticketVOList(List<Ticket> ticketList) {
+    private List<TicketVO> ticketList2VOList(List<Ticket> ticketList) {
         List<TicketVO> ticketVOList = new ArrayList<>();
         for (Ticket ticket : ticketList) {
             ticketVOList.add(ticket.getVO());
         }
         return ticketVOList;
+    }
+
+    private List<TicketOrderVO> ticketOrderList2VOList(List<TicketOrder> ticketOrderList) {
+        List<TicketOrderVO> ticketOrderVOList = new ArrayList<>();
+        TicketOrderVO ticketOrderVO;
+        Ticket ticket;
+        int state;
+        for (TicketOrder ticketOrder : ticketOrderList) {
+            ticket = ticketOrder.getTicketList().get(0);
+            ticketOrderVO = new TicketOrderVO();
+            ticketOrderVO.setId(ticketOrder.getOrderId());
+            ticketOrderVO.setTime(ticket.getTime());
+            state = ticket.getState();
+            if(state== 0){
+                ticketOrderVO.setState("未付款");
+            }else if(state == 1){
+                ticketOrderVO.setState("已付款");
+            }else if(state == 2){
+                ticketOrderVO.setState("已失效");
+            }else if(state == 3){
+                ticketOrderVO.setState("已退款");
+            }
+
+            ticketOrderVO.setTicketVOList(ticketList2VOList(ticketOrder.getTicketList()));
+            ticketOrderVO.setCanRefund(ticket.getTime().getTime() - System.currentTimeMillis() >
+                    ticketMapper.selectRefundInfo().getLimitHours() * 216000);
+            double[] prices = caculatePrice(ticketOrder);
+            ticketOrderVO.setOriginCost(prices[0]);
+            ticketOrderVO.setRefund(prices[1]);
+            ticketOrderVOList.add(ticketOrderVO);
+        }
+        return ticketOrderVOList;
     }
 
     /**

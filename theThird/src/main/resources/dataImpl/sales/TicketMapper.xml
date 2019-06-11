@@ -116,11 +116,11 @@
     </select>
 
     <resultMap id="TicketOrder" type="com.example.cinema.po.TicketOrder">
-        <id column="id" property="id"></id>
-        <result column="time" property="time"></result>
-        <association property="ticketList" column="ticket_id"
-                     select="com.example.cinema.data.sales.TicketMapper.selectTicketById">
-        </association>
+        <result column="order_id" property="orderId"></result>
+        <result column="coupon_id" property="couponId"></result>
+        <collection property="ticketList" resultMap="Ticket">
+
+        </collection>
     </resultMap>
 
     <update id="cleanExpiredTicket">

@@ -22,7 +22,7 @@ public class TicketOrderVO {
      * 2：已失效
      * 3：已退款
      */
-    private int state;
+    private String state;
     //实付款
     private double originCost;
     //如果可退款的退款金额

@@ -62,6 +62,16 @@ public class TicketController {
     }
 
     /**
+     * 获取历史订单
+     * @param userId
+     * @return
+     */
+    @GetMapping("/{userId}/getSaleHistory}")
+    private ResponseVO getSaleHistory(@PathVariable("userId") int userId){
+        return ticketService.getSaleHistory(userId);
+    }
+
+    /**
      * 获取排片的座位表
      * @param scheduleId
      * @return
@@ -118,16 +128,6 @@ public class TicketController {
     @GetMapping("/refund")
     public ResponseVO refundById(@RequestParam List<Integer> idList){
         return ticketService.refundById(idList);
-    }
-
-    /**
-     * 获取历史订单
-     * @param userId
-     * @return
-     */
-    @GetMapping("/{userId}/getSaleHistory}")
-    private ResponseVO getSaleHistory(@PathVariable("userId") int userId){
-        return ticketService.getSaleHistory(userId);
     }
 
     /**
