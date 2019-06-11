@@ -213,8 +213,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO getTicketByUser(int userId) {
         try {
-            List<Ticket> ticketList = ticketMapper.selectTicketByUser(userId);
-            return ResponseVO.buildSuccess(ticketList2ticketVOList(ticketList));
+            return getSaleHistory(userId);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("获得电影票失败");
