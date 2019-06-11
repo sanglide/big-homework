@@ -96,22 +96,22 @@
     <select id="selectTicketOrdersByUserId" resultMap="TicketOrder">
         select *
         from
-        ticket_order to
+        ticket_order tor
         right join
         ticket t
         on
-        t.id = to.ticket_id
+        t.id = tor.ticket_id
         where t.userid = #{userId}
     </select>
 
     <select id="selectTicketOrderById" resultMap="TicketOrder">
         select *
         from
-        ticket_order to
+        ticket_order tor
         right join
         ticket t
         on
-        t.id = to.ticket_id
+        t.id = tor.ticket_id
         where id = #{orderId}
     </select>
 
