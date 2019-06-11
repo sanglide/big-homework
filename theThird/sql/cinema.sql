@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 07/06/2019 09:11:41
+ Date: 11/06/2019 08:21:31
 */
 
 SET NAMES utf8mb4;
@@ -34,9 +34,9 @@ CREATE TABLE `activity`  (
 -- ----------------------------
 -- Records of activity
 -- ----------------------------
-INSERT INTO `activity` VALUES (2, '春季外卖节', '春季外卖节', '2019-04-23 17:55:59', 5, '2019-04-20 17:55:59');
+INSERT INTO `activity` VALUES (2, '春季外卖节', '春季外卖节', '2019-07-01 17:55:59', 5, '2019-04-20 17:55:59');
 INSERT INTO `activity` VALUES (3, '春季外卖节', '春季外卖节', '2019-04-23 17:55:59', 6, '2019-04-20 17:55:59');
-INSERT INTO `activity` VALUES (4, '测试活动', '测试活动', '2019-04-26 16:00:00', 8, '2019-04-20 16:00:00');
+INSERT INTO `activity` VALUES (4, '测试活动', '测试活动', '2019-07-01 16:00:00', 8, '2019-04-20 16:00:00');
 
 -- ----------------------------
 -- Table structure for activity_movie
@@ -63,8 +63,8 @@ CREATE TABLE `coupon`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `target_amount` float NULL DEFAULT NULL,
-  `discount_amount` float NULL DEFAULT NULL,
+  `target_amount` double NULL DEFAULT NULL,
+  `discount_amount` double NULL DEFAULT NULL,
   `start_time` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `end_time` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -73,11 +73,10 @@ CREATE TABLE `coupon`  (
 -- ----------------------------
 -- Records of coupon
 -- ----------------------------
-INSERT INTO `coupon` VALUES (1, '测试优惠券', '春季电影节', 20, 5, '2019-04-20 17:47:54', '2019-04-23 17:47:59');
+INSERT INTO `coupon` VALUES (0, '无门槛优惠券', 'liuqin', 0, 30, '2019-06-11 00:35:41', '2020-12-31 23:59:59');
 INSERT INTO `coupon` VALUES (5, '测试优惠券', '品质联盟', 30, 4, '2019-04-20 21:14:46', '2019-04-24 21:14:51');
 INSERT INTO `coupon` VALUES (6, '春节电影节优惠券', '电影节优惠券', 50, 10, '2019-04-20 21:15:11', '2019-04-21 21:14:56');
 INSERT INTO `coupon` VALUES (8, '测试优惠券', '123', 100, 99, '2019-04-20 16:00:00', '2019-04-26 16:00:00');
-INSERT INTO `coupon` VALUES (9, '无门槛优惠券', 'liuqin', 0, 30, '2019-06-06 23:43:45', '2020-12-31 23:59:59');
 
 -- ----------------------------
 -- Table structure for coupon_user
@@ -91,14 +90,10 @@ CREATE TABLE `coupon_user`  (
 -- ----------------------------
 -- Records of coupon_user
 -- ----------------------------
+INSERT INTO `coupon_user` VALUES (5, 15);
 INSERT INTO `coupon_user` VALUES (8, 15);
 INSERT INTO `coupon_user` VALUES (5, 15);
 INSERT INTO `coupon_user` VALUES (8, 15);
-INSERT INTO `coupon_user` VALUES (6, 15);
-INSERT INTO `coupon_user` VALUES (5, 15);
-INSERT INTO `coupon_user` VALUES (8, 15);
-INSERT INTO `coupon_user` VALUES (6, 15);
-INSERT INTO `coupon_user` VALUES (9, 15);
 
 -- ----------------------------
 -- Table structure for hall
@@ -137,7 +132,7 @@ CREATE TABLE `movie`  (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `status` int(11) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of movie
@@ -185,50 +180,63 @@ CREATE TABLE `schedule`  (
   `end_time` timestamp(0) NOT NULL,
   `fare` double NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of schedule
 -- ----------------------------
 INSERT INTO `schedule` VALUES (69, 1, 10, '2019-06-09 21:00:00', '2019-06-09 23:00:00', 70);
+INSERT INTO `schedule` VALUES (70, 1, 10, '2019-06-13 02:00:00', '2019-06-13 04:00:00', 60);
 
 -- ----------------------------
 -- Table structure for ticket
 -- ----------------------------
 DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE `ticket`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NULL DEFAULT NULL,
   `schedule_id` int(11) NULL DEFAULT NULL,
   `column_index` int(11) NULL DEFAULT NULL,
   `row_index` int(11) NULL DEFAULT NULL,
   `state` tinyint(4) NULL DEFAULT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ticket
 -- ----------------------------
-INSERT INTO `ticket` VALUES (15, 69, 6, 2, 1, 65, '2019-06-06 23:35:17');
-INSERT INTO `ticket` VALUES (15, 69, 7, 2, 1, 66, '2019-06-06 23:35:17');
+INSERT INTO `ticket` VALUES (17, 15, 70, 7, 2, 2, '2019-06-10 23:37:28');
+INSERT INTO `ticket` VALUES (18, 15, 70, 8, 2, 2, '2019-06-10 23:37:28');
+INSERT INTO `ticket` VALUES (19, 15, 70, 7, 4, 1, '2019-06-10 23:37:45');
+INSERT INTO `ticket` VALUES (20, 15, 70, 8, 4, 1, '2019-06-10 23:37:45');
+INSERT INTO `ticket` VALUES (21, 15, 70, 7, 3, 1, '2019-06-11 08:19:16');
+INSERT INTO `ticket` VALUES (22, 15, 70, 8, 3, 1, '2019-06-11 08:19:16');
 
 -- ----------------------------
 -- Table structure for ticket_order
 -- ----------------------------
 DROP TABLE IF EXISTS `ticket_order`;
 CREATE TABLE `ticket_order`  (
-  `time` timestamp(0) NULL DEFAULT NULL,
-  `ticket_id` int(11) NOT NULL,
-  `coupon_id` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`ticket_id`) USING BTREE
+  `order_id` int(11) NOT NULL,
+  `ticket_id` int(11) NULL DEFAULT NULL,
+  `coupon_id` int(11) NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ticket_order
 -- ----------------------------
-INSERT INTO `ticket_order` VALUES ('2019-06-06 23:35:22', 65, 0);
-INSERT INTO `ticket_order` VALUES ('2019-06-06 23:35:22', 66, 0);
+INSERT INTO `ticket_order` VALUES (0, NULL, NULL);
+INSERT INTO `ticket_order` VALUES (8, 13, 0);
+INSERT INTO `ticket_order` VALUES (8, 14, 0);
+INSERT INTO `ticket_order` VALUES (9, 15, 0);
+INSERT INTO `ticket_order` VALUES (9, 16, 0);
+INSERT INTO `ticket_order` VALUES (10, 17, 0);
+INSERT INTO `ticket_order` VALUES (10, 18, 0);
+INSERT INTO `ticket_order` VALUES (11, 19, 0);
+INSERT INTO `ticket_order` VALUES (11, 20, 0);
+INSERT INTO `ticket_order` VALUES (12, 21, 0);
+INSERT INTO `ticket_order` VALUES (12, 22, 0);
 
 -- ----------------------------
 -- Table structure for ticket_refund
@@ -244,7 +252,7 @@ CREATE TABLE `ticket_refund`  (
 -- ----------------------------
 -- Records of ticket_refund
 -- ----------------------------
-INSERT INTO `ticket_refund` VALUES (1, 0.05, 2);
+INSERT INTO `ticket_refund` VALUES (1, 0.2, 2);
 
 -- ----------------------------
 -- Table structure for user
@@ -298,13 +306,14 @@ CREATE TABLE `vip_card`  (
   `join_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `vip_card_user_id_uindex`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of vip_card
 -- ----------------------------
-INSERT INTO `vip_card` VALUES (1, 15, 720, '2019-06-07 00:03:23');
+INSERT INTO `vip_card` VALUES (1, 15, 150, '2019-06-11 08:19:27');
 INSERT INTO `vip_card` VALUES (2, 12, 660, '2019-04-17 18:47:42');
+INSERT INTO `vip_card` VALUES (3, 3, 0, '2019-06-10 10:52:42');
 
 -- ----------------------------
 -- Table structure for vip_charge_history
@@ -338,6 +347,6 @@ CREATE TABLE `vip_info`  (
 -- ----------------------------
 -- Records of vip_info
 -- ----------------------------
-INSERT INTO `vip_info` VALUES (30, 300, 20);
+INSERT INTO `vip_info` VALUES (25, 100, 10);
 
 SET FOREIGN_KEY_CHECKS = 1;
