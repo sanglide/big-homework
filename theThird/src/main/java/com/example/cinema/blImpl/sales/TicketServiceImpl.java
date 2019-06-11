@@ -320,8 +320,8 @@ public class TicketServiceImpl implements TicketService {
             for (Integer id : idList) {
                 ticketOrder = ticketMapper.selectTicketOrderById(id);
                 ticket = ticketOrder.getTicketList().get(0);
-                if(ticket.getTime().getTime() - System.currentTimeMillis() <
-                        ticketMapper.selectRefundInfo().getLimitHours() * 216000){
+                if ((scheduleService.getScheduleItemById(ticket.getScheduleId()).getStartTime().getTime() -
+                        System.currentTimeMillis()) <= ticketMapper.selectRefundInfo().getLimitHours() * 3600000) {
                     return ResponseVO.buildFailure("距离上映时间过近，无法退票");
                 }
                 double[] prices = caculatePrice(ticketOrder);
@@ -370,8 +370,8 @@ public class TicketServiceImpl implements TicketService {
             }
 
             ticketOrderVO.setTicketVOList(ticketList2VOList(ticketOrder.getTicketList()));
-            ticketOrderVO.setCanRefund(ticket.getTime().getTime() - System.currentTimeMillis() >
-                    ticketMapper.selectRefundInfo().getLimitHours() * 216000);
+            ticketOrderVO.setCanRefund((scheduleService.getScheduleItemById(ticket.getScheduleId()).getStartTime().getTime() -
+                    System.currentTimeMillis()) <= ticketMapper.selectRefundInfo().getLimitHours() * 3600000);
             double[] prices = caculatePrice(ticketOrder);
             ticketOrderVO.setOriginCost(prices[0]);
             ticketOrderVO.setRefund(prices[1]);
