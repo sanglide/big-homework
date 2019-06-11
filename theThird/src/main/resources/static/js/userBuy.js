@@ -57,46 +57,51 @@ $(document).ready(function () {
     }
 
     // TODO:填空
-    function renderTicketList(order) {
-        //order中的元素是TicketOrderVO,是用户买过的所有订单
+    function renderTicketList(orders) {
+        //orders是一个list
+        //orders中的元素是TicketOrderVO,是用户买过的所有订单
         //list里是用户的这一订单里电影票
-        var list=order.ticketVOList;
-        var seats='';//订单中的座位
-        list.forEach(function(ticket){
-            console.log(ticket);
-            seats+=(ticket.rowIndex+1)+"排"+(ticket.columnIndex+1)+"座\n";
-            console.log(seats);
-            //ticket是TicketVO类型的
+        orders.forEach(function (order) {
+            var list=order.ticketVOList;
+            var seats='';//订单中的座位
+            console.log("===================");
+            console.log(order);
+            list.forEach(function(ticket){
+                console.log(ticket);
+                seats+=(ticket.rowIndex+1)+"排"+(ticket.columnIndex+1)+"座\n";
+                console.log(seats);
+                //ticket是TicketVO类型的
+            })
+
+            //要根据scheduleId获得一次购票中选定的座位
+
+            getRequest(
+                "/schedule/"+list[0].scheduleId,
+                function(res){
+                    //ticketInfo为ScheduleItemVO
+                    var ticketInfo=res.content;
+                    console.log(ticketInfo);
+                    fillTable(order,seats,ticketInfo);
+                },
+                function(error){
+                    alert(error);
+                }
+            )
+
+            ///////假数据////////////////
+            // var ticketInfo={
+            //     id:0,
+            //     hallId:99,
+            //     hallName:"哈哈厅",
+            //     movieId:555,
+            //     movieName:"哈哈哈哈嗝",
+            //     startTime:"2019-06-13 12:45",
+            //     endTime:"2019-06-13 22:33",
+            //     fare:45,
+            // }
+            // fillTable(order,seats,ticketInfo);
+            //////假数据///////////////////////
         })
-
-        //要根据scheduleId获得一次购票中选定的座位
-
-        getRequest(
-            "/schedule/"+list[0].scheduleId,
-            function(res){
-                //ticketInfo为ScheduleItemVO
-                var ticketInfo=res.content;
-                console.log(ticketInfo);
-                fillTable(order,seats,ticketInfo);
-            },
-            function(error){
-                alert(error);
-            }
-        )
-
-        ///////假数据////////////////
-        // var ticketInfo={
-        //     id:0,
-        //     hallId:99,
-        //     hallName:"哈哈厅",
-        //     movieId:555,
-        //     movieName:"哈哈哈哈嗝",
-        //     startTime:"2019-06-13 12:45",
-        //     endTime:"2019-06-13 22:33",
-        //     fare:45,
-        // }
-        // fillTable(order,seats,ticketInfo);
-        //////假数据///////////////////////
     }
 
     function fillTable(order,seats,ticketInfo){
