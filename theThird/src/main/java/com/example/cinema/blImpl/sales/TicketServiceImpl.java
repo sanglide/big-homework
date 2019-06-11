@@ -375,7 +375,7 @@ public class TicketServiceImpl implements TicketService {
             ticketOrderVO.setTicketVOList(ticketList2VOList(ticketOrder.getTicketList()));
             ticketOrderVO.setCanRefund(state == 1 &&
                     (scheduleService.getScheduleItemById(ticket.getScheduleId()).getStartTime().getTime() -
-                            System.currentTimeMillis()) <= ticketMapper.selectRefundInfo().getLimitHours() * 3600000);
+                            System.currentTimeMillis()) > ticketMapper.selectRefundInfo().getLimitHours() * 3600000);
             double[] prices = caculatePrice(ticketOrder);
             ticketOrderVO.setOriginCost(prices[0]);
             ticketOrderVO.setRefund(prices[1]);
