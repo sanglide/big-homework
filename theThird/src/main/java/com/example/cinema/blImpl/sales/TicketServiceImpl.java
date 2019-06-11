@@ -320,10 +320,13 @@ public class TicketServiceImpl implements TicketService {
             for (Integer id : idList) {
                 ticketOrder = ticketMapper.selectTicketOrderById(id);
                 ticket = ticketOrder.getTicketList().get(0);
-                if ((scheduleService.getScheduleItemById(ticket.getScheduleId()).getStartTime().getTime() -
+                if (ticket.getState() != 1) {
+                    return ResponseVO.buildFailure("未付款，无法退票");
+                } else if ((scheduleService.getScheduleItemById(ticket.getScheduleId()).getStartTime().getTime() -
                         System.currentTimeMillis()) <= ticketMapper.selectRefundInfo().getLimitHours() * 3600000) {
                     return ResponseVO.buildFailure("距离上映时间过近，无法退票");
                 }
+
                 double[] prices = caculatePrice(ticketOrder);
                 vipCard = vipCardService.getVIPCardByUserId(ticket.getUserId());
                 if (vipCard != null)
@@ -370,8 +373,9 @@ public class TicketServiceImpl implements TicketService {
             }
 
             ticketOrderVO.setTicketVOList(ticketList2VOList(ticketOrder.getTicketList()));
-            ticketOrderVO.setCanRefund((scheduleService.getScheduleItemById(ticket.getScheduleId()).getStartTime().getTime() -
-                    System.currentTimeMillis()) <= ticketMapper.selectRefundInfo().getLimitHours() * 3600000);
+            ticketOrderVO.setCanRefund(state == 1 &&
+                    (scheduleService.getScheduleItemById(ticket.getScheduleId()).getStartTime().getTime() -
+                            System.currentTimeMillis()) <= ticketMapper.selectRefundInfo().getLimitHours() * 3600000);
             double[] prices = caculatePrice(ticketOrder);
             ticketOrderVO.setOriginCost(prices[0]);
             ticketOrderVO.setRefund(prices[1]);
