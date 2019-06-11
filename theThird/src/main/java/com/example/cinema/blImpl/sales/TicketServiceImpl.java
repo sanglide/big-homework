@@ -320,7 +320,10 @@ public class TicketServiceImpl implements TicketService {
             for (Integer id : idList) {
                 ticketOrder = ticketMapper.selectTicketOrderById(id);
                 ticket = ticketOrder.getTicketList().get(0);
-
+                if(ticket.getTime().getTime() - System.currentTimeMillis() <
+                        ticketMapper.selectRefundInfo().getLimitHours() * 216000){
+                    return ResponseVO.buildFailure("距离上映时间过近，无法退票");
+                }
                 double[] prices = caculatePrice(ticketOrder);
                 vipCard = vipCardService.getVIPCardByUserId(ticket.getUserId());
                 if (vipCard != null)
@@ -334,6 +337,7 @@ public class TicketServiceImpl implements TicketService {
             e.printStackTrace();
             return ResponseVO.buildFailure("退票失败");
         }
+
     }
 
     private List<TicketVO> ticketList2VOList(List<Ticket> ticketList) {

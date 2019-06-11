@@ -27,6 +27,7 @@ $(document).ready(function() {
              '/ticket/allMember?consume='+buyNum,
              // {buyNum:buyNum},
              function (res) {
+                 console.log(res);
                  var list=res.content;
                  console.log(list);
                  renderMemberList(list);

@@ -58,6 +58,7 @@ $(document).ready(function () {
 
     // TODO:填空
     function renderTicketList(orders) {
+        $("#orders").empty();
         //orders是一个list
         //orders中的元素是TicketOrderVO,是用户买过的所有订单
         //list里是用户的这一订单里电影票
@@ -166,22 +167,27 @@ $(document).ready(function () {
     $(document).on('click','.refund-item',function (e) {
         var r=confirm("请问真的要退这些票吗？");
             if(r){
-                getRequest(
-                    //传电影票ID
-                    "/ticket/refund?idList="+selectedTicketsId,
-                    // {selectedTicketsList:selectedTicketsId},
-                    function (res) {
-                        if(res.success){
-                           getMovieList();
-                            alert("删除成功！");
-                        } else {
-                            alert(res.message);
+                if(selectedTicketsId.length===0){
+                    alert("请选择需要退的订单");
+                }else{
+                    getRequest(
+                        //传电影票ID
+                        "/ticket/refund?idList="+selectedTicketsId,
+                        // {selectedTicketsList:selectedTicketsId},
+                        function (res) {
+                            if(res.success){
+                                getMovieList();
+                                alert("删除成功！");
+                            } else {
+                                alert(res.message);
+                            }
+                        },
+                        function (error) {
+                            alert(JSON.stringify(error));
                         }
-                    },
-                    function (error) {
-                        alert(JSON.stringify(error));
-                    }
-                )
+                    )
+                }
+
             }
     });
 
