@@ -76,36 +76,32 @@ $(document).ready(function () {
     }
 
     //里面是选中要退票的电影票id
-    var selectedTicketsStamp=[];
+    var selectedTicketsId=[];
 
     $(document).on('click',"input[type='checkbox']",function (e) {
         console.log(this);
         console.log($(this).prop('checked'));//Jquery更新后，复选框的checked属性要用prop设置和查看！不能用attr
         var refund=JSON.parse(e.currentTarget.dataset.refund);
         console.log(refund);
-        //refund.time是电影票的所属订单的时间戳
-        if($(this).prop('checked')){//选中
-            if(selectedTicketsStamp.indexOf(refund.time)===-1){
-                selectedTicketsStamp.push(refund.time);
-            }
-        }else{//未选中 要判断是取消选中还是单纯地未被选中
-            if(selectedTicketsStamp.indexOf(refund.time)>-1){
-                selectedTicketsStamp.splice(selectedTicketsStamp.indexOf(refund.time),1);//删除
+        //refund.id是电影票的id
+        if($(this).prop('checked')){
+            selectedTicketsId.push(refund.id);
+        }else{
+            if(selectedTicketsId.indexOf(refund.id)>-1){
+                selectedTicketsId.splice(selectedTicketsId.indexOf(refund.id),1);
             }
         }
-        console.log(selectedTicketsStamp);
+        console.log(selectedTicketsId);
 
     })
 
     $(document).on('click','.refund-item',function (e) {
         var r=confirm("请问真的要退这些票吗？");
             if(r){
-                console.log("sssssssssss");
-                console.log(selectedTicketsStamp);
-                postRequest(
+                getRequest(
                     //传电影票ID
-                    "/ticket/refund",
-                    {times:selectedTicketsStamp},//传一个RefundVO
+                    "/ticket/refund?idList="+selectedTicketsId,
+                    // {selectedTicketsList:selectedTicketsId},
                     function (res) {
                         if(res.success){
                            getMovieList();

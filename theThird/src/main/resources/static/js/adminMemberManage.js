@@ -66,6 +66,7 @@ $(document).ready(function () {
                 if (res.success) {
                     getVIPCardInfo();
                     $("#VIPCardModal").modal('hide');
+                    alert("修改会员卡策略成功！")
                 } else {
                     alert(res.message);
                 }

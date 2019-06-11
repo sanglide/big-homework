@@ -244,6 +244,7 @@ $(document).ready(function() {
                     console.log(form);
                     getActivities();
                     $("#activityEditModal").modal('hide');
+                    alert("修改优惠活动成功！")
                 } else {
                     alert(res.message);
                 }
@@ -264,6 +265,7 @@ $(document).ready(function() {
                     if(res.success){
                         getActivities();
                         $("#activityEditModal").modal('hide');
+                        alert("删除优惠活动成功！")
                     } else{
                         alert(res.message);
                     }
