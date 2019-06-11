@@ -213,8 +213,8 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO getTicketByUser(int userId) {
         try {
-            List<TicketOrder> ticketOrderList =  ticketMapper.selectTicketOrdersByUserId(userId);
-            if(ticketOrderList.size() == 0){
+            List<TicketOrder> ticketOrderList = ticketMapper.selectTicketOrdersByUserId(userId);
+            if (ticketOrderList.size() == 0) {
                 return ResponseVO.buildFailure("暂无订单");
             }
             return ResponseVO.buildSuccess(ticketOrderList2VOList(ticketOrderList));
@@ -231,7 +231,7 @@ public class TicketServiceImpl implements TicketService {
             List<UserVO> userVOList = new ArrayList<>();
             for (User user : userList) {
                 double userConsume = 0;
-                List<TicketVO> ticketVOList = (List<TicketVO>) getTicketByUser(user.getId()).getContent();
+                List<TicketVO> ticketVOList = ticketList2VOList(ticketMapper.selectTicketByUser(user.getId()));
                 for (TicketVO ticketVO : ticketVOList) {
                     ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticketVO.getScheduleId());
                     if ("已完成".equals(ticketVO.getState()))
@@ -251,8 +251,8 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO getSaleHistory(int userId) {
         try {
-            List<TicketOrder> ticketOrderList =  ticketMapper.selectTicketOrdersByUserId(userId);
-            if(ticketOrderList.size() == 0){
+            List<TicketOrder> ticketOrderList = ticketMapper.selectTicketOrdersByUserId(userId);
+            if (ticketOrderList.size() == 0) {
                 return ResponseVO.buildFailure("暂无订单");
             }
             return ResponseVO.buildSuccess(ticketOrderList2VOList(ticketOrderList));
@@ -355,13 +355,13 @@ public class TicketServiceImpl implements TicketService {
             ticketOrderVO.setId(ticketOrder.getOrderId());
             ticketOrderVO.setTime(ticket.getTime());
             state = ticket.getState();
-            if(state== 0){
+            if (state == 0) {
                 ticketOrderVO.setState("未付款");
-            }else if(state == 1){
+            } else if (state == 1) {
                 ticketOrderVO.setState("已付款");
-            }else if(state == 2){
+            } else if (state == 2) {
                 ticketOrderVO.setState("已失效");
-            }else if(state == 3){
+            } else if (state == 3) {
                 ticketOrderVO.setState("已退款");
             }
 
