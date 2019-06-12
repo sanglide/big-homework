@@ -73,7 +73,7 @@
     </resultMap>
 
     <insert id="insertTicketOrder">
-        <selectKey keyProperty="orderId" order="BEFORE" resultType="java.lang.Integer"> <!-- 绑定对应属性 -->
+        <selectKey keyProperty="orderId" order="BEFORE" resultType="java.lang.Integer">
             SELECT max(order_id) + 1 FROM ticket_order
         </selectKey>
         insert into ticket_order(order_id,ticket_id,coupon_id)
@@ -82,7 +82,6 @@
                  separator=",">
             (#{orderId}, #{item.id}, #{couponId})
         </foreach>
-
     </insert>
 
     <update id="updateTicketOrder">
@@ -101,7 +100,7 @@
         ticket t
         on
         t.id = tor.ticket_id
-        where t.user_id = #{userId}
+        where t.user_id = #{userId}  and t.state!=2
     </select>
 
     <select id="selectTicketOrderById" resultMap="TicketOrder">
