@@ -52,7 +52,7 @@ $(document).ready(function () {
         var ticketStr =
             "<tr data-ticket='"+history+"'>" +
             "   <td>" +
-            "       <div>"+getLocalTime(history.time)+"</div>" +
+            "       <div>"+history.time.toString().substring(0,10)+"</div>" +
             "   </td>" +
             "   <td>" +
             "       <div>"+history.id+"</div>" +
@@ -94,7 +94,7 @@ $(document).ready(function () {
             "<div class='col-sm-10'>" +
             "<div><b>电影名称：</b><span>"+ticketInfo.movieName+"</span>" +
             "</div>" +
-            "<div><b>购买日期：</b><span>"+getLocalTime(data.time)+"</span>" +
+            "<div><b>购买日期：</b><span>"+data.time.toString().substring(0,10)+"</span>" +
             "</div>" +
             "<div><b>购买状态：</b><span>"+data.state+"</span>" +
             "</div>" +

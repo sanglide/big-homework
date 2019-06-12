@@ -169,7 +169,7 @@ $(document).ready(function() {
             // {members:members},
             function (res) {
                 if(res.success){
-
+                    alert("赠送成功");
                 } else{
                     alert(res.message);
                 }
