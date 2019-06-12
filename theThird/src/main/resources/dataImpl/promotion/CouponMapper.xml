@@ -23,8 +23,8 @@
             *
         from 
         	coupon c 
-        left join 
-        	coupon_user cu 
+        right join
+        	coupon_user cu
         on 
         	c.id=cu.coupon_id 
         where 

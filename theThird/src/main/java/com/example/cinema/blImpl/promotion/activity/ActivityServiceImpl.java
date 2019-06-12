@@ -106,6 +106,11 @@ public class ActivityServiceImpl implements ActivityService, ActivityServiceForB
     }
 
     @Override
+    public List<Activity> getActivitiesWithoutMovie() {
+        return activityMapper.selectActivitiesWithoutMovie();
+    }
+
+    @Override
     public Activity getActivityByCouponId(Integer couponId) {
         return activityMapper.selectActivityByCoupon(couponId);
     }

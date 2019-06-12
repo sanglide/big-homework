@@ -14,6 +14,8 @@ public interface ActivityServiceForBl {
 	 */
 	List<Activity> getActivitiesByMovieId(Integer movieId);
 
+	List<Activity> getActivitiesWithoutMovie();
+
 
 	/**
 	 * 通过CouponId获取对应的Activity
