@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 11/06/2019 08:21:31
+ Date: 12/06/2019 23:05:44
 */
 
 SET NAMES utf8mb4;
@@ -68,15 +68,15 @@ CREATE TABLE `coupon`  (
   `start_time` timestamp(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `end_time` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of coupon
 -- ----------------------------
-INSERT INTO `coupon` VALUES (0, '无门槛优惠券', 'liuqin', 0, 30, '2019-06-11 00:35:41', '2020-12-31 23:59:59');
-INSERT INTO `coupon` VALUES (5, '测试优惠券', '品质联盟', 30, 4, '2019-04-20 21:14:46', '2019-04-24 21:14:51');
-INSERT INTO `coupon` VALUES (6, '春节电影节优惠券', '电影节优惠券', 50, 10, '2019-04-20 21:15:11', '2019-04-21 21:14:56');
-INSERT INTO `coupon` VALUES (8, '测试优惠券', '123', 100, 99, '2019-04-20 16:00:00', '2019-04-26 16:00:00');
+INSERT INTO `coupon` VALUES (5, '测试优惠券', '品质联盟', 30, 4, '2019-06-12 23:04:59', '2019-07-01 17:55:59');
+INSERT INTO `coupon` VALUES (6, '春节电影节优惠券', '电影节优惠券', 50, 10, '2019-06-12 23:04:59', '2019-04-23 17:55:59');
+INSERT INTO `coupon` VALUES (8, '测试优惠券', '123', 100, 99, '2019-06-12 23:04:59', '2019-07-01 16:00:00');
+INSERT INTO `coupon` VALUES (10, '无门槛优惠券', 'liuqin', 0, 30, '2019-06-11 00:35:41', '2020-12-31 23:59:59');
 
 -- ----------------------------
 -- Table structure for coupon_user
