@@ -148,6 +148,7 @@ public class TicketServiceImpl implements TicketService {
 
             ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticket.getScheduleId());
             List<Activity> activityList = activityService.getActivitiesByMovieId(scheduleItem.getMovieId());
+            activityList.addAll(activityService.getActivitiesWithoutMovie());
             int userId = ticket.getUserId();
             // 根据该电影可用活动为user赠送优惠券
             for (Activity activity : activityList) {
