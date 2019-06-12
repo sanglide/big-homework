@@ -66,7 +66,7 @@ public class TicketController {
      * @param userId
      * @return
      */
-    @GetMapping("/{userId}/getSaleHistory}")
+    @GetMapping("/{userId}/getSaleHistory")
     private ResponseVO getSaleHistory(@PathVariable("userId") int userId){
         return ticketService.getSaleHistory(userId);
     }

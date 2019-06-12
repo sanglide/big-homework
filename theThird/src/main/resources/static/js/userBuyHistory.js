@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     function getMovieList() {
         getRequest(
-            '/ticket/get/' + sessionStorage.getItem('id'),
+            '/ticket/'+ sessionStorage.getItem('id') + '/getSaleHistory',
 
             function (res) {
                 //res.content是(List<TicketVO>)

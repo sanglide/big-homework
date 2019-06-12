@@ -252,11 +252,11 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseVO getSaleHistory(int userId) {
         try {
-            List<TicketOrder> ticketOrderList = ticketMapper.selectTicketOrdersByUserId(userId);
-            if (ticketOrderList.size() == 0) {
+            List<TicketVO> ticketVOList = ticketList2VOList(ticketMapper.selectTicketByUser(userId));
+            if (ticketVOList.size() == 0) {
                 return ResponseVO.buildFailure("暂无订单");
             }
-            return ResponseVO.buildSuccess(ticketOrderList2VOList(ticketOrderList));
+            return ResponseVO.buildSuccess(ticketVOList);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("获取消费记录失败");
