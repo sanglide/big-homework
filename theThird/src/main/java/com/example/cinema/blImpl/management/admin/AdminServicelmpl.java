@@ -54,10 +54,7 @@ public class AdminServicelmpl implements AdminService{
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
         }
-
     }
-
-
 
     @Override
     public  ResponseVO deleteAdminAccount(AccountBatchDeleteForm accountBatchDeleteForm){

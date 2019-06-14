@@ -112,9 +112,11 @@ public class TicketServiceImpl implements TicketService {
 
             Ticket ticket = ticketMapper.selectTicketById(ticketIdList.get(0));
             ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticket.getScheduleId());
-            List<Activity> activityList = activityService.getActivitiesByMovieId(scheduleItem.getMovieId());
-            int userId = ticket.getUserId();
             // 根据该电影可用活动为user赠送优惠券
+            List<Activity> activityList = activityService.getActivitiesByMovieId(scheduleItem.getMovieId());
+            List<Activity> activityList2 = activityService.getActivitiesWithoutMovie();
+            activityList.addAll(activityList2);
+            int userId = ticket.getUserId();
             for (Activity activity : activityList) {
                 couponService.insertCouponUser(activity.getCoupon().getId(), userId);
             }
@@ -147,10 +149,11 @@ public class TicketServiceImpl implements TicketService {
             Ticket ticket = ticketMapper.selectTicketById(ticketIdList.get(0));
 
             ScheduleItem scheduleItem = scheduleService.getScheduleItemById(ticket.getScheduleId());
-            List<Activity> activityList = activityService.getActivitiesByMovieId(scheduleItem.getMovieId());
-            activityList.addAll(activityService.getActivitiesWithoutMovie());
-            int userId = ticket.getUserId();
             // 根据该电影可用活动为user赠送优惠券
+            List<Activity> activityList = activityService.getActivitiesByMovieId(scheduleItem.getMovieId());
+            List<Activity> activityList2 = activityService.getActivitiesWithoutMovie();
+            activityList.addAll(activityList2);
+            int userId = ticket.getUserId();
             for (Activity activity : activityList) {
                 couponService.insertCouponUser(activity.getCoupon().getId(), userId);
             }

@@ -2,7 +2,7 @@ package com.example.cinema.controller.promotion;
 
 import com.example.cinema.bl.promotion.CouponService;
 import com.example.cinema.vo.ResponseVO;
-import jdk.nashorn.internal.objects.annotations.Getter;
+//import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
