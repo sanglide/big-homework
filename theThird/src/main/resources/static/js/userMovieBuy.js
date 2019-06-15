@@ -54,11 +54,11 @@ function renderSchedule(schedule, seats) {
     var hallDomStr = "";
     var seat = "";
     for (var i = 0; i < seats.length; i++) {//行
-        var temp = ""
+        var temp = "";
         for (var j = 0; j < seats[i].length; j++) {//列
             var id = "seat" + i + j;
 
-            if (seats[i][j] == 0) {
+            if (seats[i][j] === 0) {
                 // 未选
                 //这个座位未被占用，你可以选择该座位
                 //onclick:点击这个按钮执行该文件中的seatClick(id,i,j)方法
@@ -103,7 +103,7 @@ function seatClick(id, i, j) {
         seat.addClass("cinema-hall-seat-choose");
 
         selectedSeats = selectedSeats.filter(function (value) {//删除座位
-            return value[0] != i || value[1] != j;
+            return value[0] !== i || value[1] !== j;
         })
     }
 
@@ -115,7 +115,7 @@ function seatClick(id, i, j) {
 
     //设置选座界面的“座位：”信息
     let seatDetailStr = "";
-    if (selectedSeats.length == 0) {
+    if (selectedSeats.length === 0) {
         seatDetailStr += "还未选择座位"
         //确认下单的按钮禁用
         $('#order-confirm-btn').attr("disabled", "disabled")
@@ -165,6 +165,9 @@ function orderConfirmClick() {
         function (res) {
             console.log(res.content);
             var orderInfo=res.content;//res.content是List<Ticket>
+
+            console.log("======================================uuuuuuuuuuuuuuuuuuuu");
+            console.log(orderInfo);
             for (let ticketInfo of orderInfo.ticketVOList) {
                 TicketID[TicketID.length]=ticketInfo.id;
             }
