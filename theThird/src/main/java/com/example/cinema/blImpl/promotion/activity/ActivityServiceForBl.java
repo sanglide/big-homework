@@ -1,9 +1,8 @@
 package com.example.cinema.blImpl.promotion.activity;
 
-import java.util.List;
-
 import com.example.cinema.po.Activity;
-import com.example.cinema.po.Coupon;
+
+import java.util.List;
 
 public interface ActivityServiceForBl {
 	

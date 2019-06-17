@@ -1,18 +1,18 @@
 package com.example.cinema.blImpl.management.movie;
 
 import com.example.cinema.bl.management.MovieService;
-import com.example.cinema.blImpl.management.schedule.MovieServiceForBl;
 import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
 import com.example.cinema.data.management.MovieMapper;
 import com.example.cinema.po.Movie;
-import com.example.cinema.po.ScheduleItem;
-import com.example.cinema.vo.*;
+import com.example.cinema.vo.MovieBatchOffForm;
+import com.example.cinema.vo.MovieForm;
+import com.example.cinema.vo.MovieVO;
+import com.example.cinema.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Service
 public class MovieServiceImpl implements MovieService, MovieServiceForBl {
-    private static final String SCHEDULE_ERROR_MESSAGE = "有电影后续仍有排片或已有观众购票且未使用";
+    private static final String SCHEDULE_ERROR_MESSAGE = "有电影后续仍有排片";
 
     @Autowired
     private MovieMapper movieMapper;
@@ -43,9 +43,9 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
     public ResponseVO searchOneMovieByIdAndUserId(int id, int userId) {
         try {
             Movie movie = movieMapper.selectMovieByIdAndUserId(id, userId);
-            if(movie != null){
+            if (movie != null) {
                 return ResponseVO.buildSuccess(new MovieVO(movie));
-            }else{
+            } else {
                 return ResponseVO.buildSuccess(null);
             }
         } catch (Exception e) {
@@ -77,20 +77,19 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
 
     @Override
     public ResponseVO getMovieByKeyword(String keyword) {
-        if (keyword==null||keyword.equals("")){
+        if (keyword == null || keyword.equals("")) {
             return ResponseVO.buildSuccess(movieList2MovieVOList(movieMapper.selectAllMovie()));
         }
         return ResponseVO.buildSuccess(movieList2MovieVOList(movieMapper.selectMovieByKeyword(keyword)));
     }
 
 
-
     @Override
     public ResponseVO pullOfBatchOfMovie(MovieBatchOffForm movieBatchOffForm) {
         try {
-            List<Integer> movieIdList =  movieBatchOffForm.getMovieIdList();
+            List<Integer> movieIdList = movieBatchOffForm.getMovieIdList();
             ResponseVO responseVO = preCheck(movieIdList);
-            if(!responseVO.getSuccess()){
+            if (!responseVO.getSuccess()) {
                 return responseVO;
             }
             movieMapper.updateMovieStatusBatch(movieIdList);
@@ -106,12 +105,12 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
     public ResponseVO updateMovie(MovieForm updateMovieForm) {
         try {
             ResponseVO responseVO = preCheck(Arrays.asList(updateMovieForm.getId()));
-            if(!responseVO.getSuccess()){
+            if (!responseVO.getSuccess()) {
                 return responseVO;
             }
             movieMapper.updateMovie(updateMovieForm);
             return ResponseVO.buildSuccess();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
         }
@@ -121,7 +120,7 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
     public Movie getMovieById(int id) {
         try {
             return movieMapper.selectMovieById(id);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -130,17 +129,14 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
 
     /**
      * 下架和修改电影的前置检查
+     *
      * @param movieIdList
      * @return
      */
-    public ResponseVO preCheck(List<Integer> movieIdList){
-        Date thisTime = new Date();
-        List<ScheduleItem> scheduleItems = scheduleServiceForBl.getScheduleByMovieIdList(movieIdList);
-
-        // 检查是否有电影后续有排片及是否有观众购票未使用
-
-        for(ScheduleItem s : scheduleItems){
-            if(s.getEndTime().after(thisTime)){
+    public ResponseVO preCheck(List<Integer> movieIdList) {
+        for (Integer id : movieIdList) {
+            Movie movie = movieMapper.selectMovieHasScheduleById(id);
+            if (movie != null){
                 return ResponseVO.buildFailure(SCHEDULE_ERROR_MESSAGE);
             }
         }
@@ -148,9 +144,9 @@ public class MovieServiceImpl implements MovieService, MovieServiceForBl {
     }
 
 
-    private List<MovieVO> movieList2MovieVOList(List<Movie> movieList){
+    private List<MovieVO> movieList2MovieVOList(List<Movie> movieList) {
         List<MovieVO> movieVOList = new ArrayList<>();
-        for(Movie movie : movieList){
+        for (Movie movie : movieList) {
             movieVOList.add(new MovieVO(movie));
         }
         return movieVOList;

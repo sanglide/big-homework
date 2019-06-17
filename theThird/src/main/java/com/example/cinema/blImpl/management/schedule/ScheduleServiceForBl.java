@@ -22,5 +22,5 @@ public interface ScheduleServiceForBl {
      * @return
      */
     ScheduleItem getScheduleItemById(int id);
-    
+
 }
