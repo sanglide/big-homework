@@ -67,7 +67,7 @@ public class TicketController {
      * @return
      */
     @GetMapping("/{userId}/getSaleHistory")
-    private ResponseVO getSaleHistory(@PathVariable("userId") int userId){
+    public ResponseVO getSaleHistory(@PathVariable("userId") int userId){
         return ticketService.getSaleHistory(userId);
     }
 
@@ -134,7 +134,7 @@ public class TicketController {
      * 筛选消费达到一定金额的用户
      */
     @GetMapping("/allMember")
-    private ResponseVO getUserByConsume(@RequestParam("consume") double consume){
+    public ResponseVO getUserByConsume(@RequestParam("consume") double consume){
         return ticketService.getUserByConsume(consume);
     }
 }

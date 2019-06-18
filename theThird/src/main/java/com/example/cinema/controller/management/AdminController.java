@@ -32,7 +32,6 @@ public class AdminController {
 
     @RequestMapping(value = "account/delete/batch", method = RequestMethod.DELETE)
     public ResponseVO deleteAdminAccount(@RequestBody AccountBatchDeleteForm accountBatchDeleteForm){
-
         return adminService.deleteAdminAccount(accountBatchDeleteForm);
     }
 
