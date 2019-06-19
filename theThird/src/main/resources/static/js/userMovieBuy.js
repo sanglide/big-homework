@@ -215,8 +215,8 @@ function orderConfirmClick() {
 //会员卡支付，type=0
 //银行卡支付，type=1
 function switchPay(type) {
-    useVIP = (type == 0);
-    if (type == 0) {
+    useVIP = (type === 0);
+    if (type === 0) {
         $("#member-pay").addClass("active");
         $("#nonmember-pay").removeClass("active");
 
@@ -250,13 +250,14 @@ function renderOrder(orderInfo) {
 
     var couponTicketStr = "";
     //没有优惠券的情况
-    if (orderInfo.coupons.length == 0) {
+    if (orderInfo.coupons.length === 0) {
         $('#order-discount').text("优惠金额：无");
         $('#order-actual-total').text(" ¥" + total);
         $('#pay-amount').html("<div><b>金额：<movieName/b>" + total + "元</div>");
     } else {
         coupons = orderInfo.coupons;
         //coupon是CouponForm类型的
+        console.log(coupons);
         for (let coupon of coupons) {
             //增加选项
             couponTicketStr += "<option>满" + coupon.targetAmount + "减" + coupon.discountAmount + "</option>"
@@ -271,6 +272,7 @@ function renderOrder(orderInfo) {
 function changeCoupon(couponIndex) {
     couponIndexNow=couponIndex;
     order.couponId = coupons[couponIndex].id;
+    console.log(coupons[couponIndex].id);
     //保留两位小数
     $('#order-discount').text("优惠金额： ¥" + coupons[couponIndex].discountAmount.toFixed(2));
     var actualTotal = (parseFloat($('#order-total').text()) - parseFloat(coupons[couponIndex].discountAmount)).toFixed(2);
@@ -285,7 +287,7 @@ function payConfirmClick() {
     payOrder[1]=couponIndexNow;
     var postData={
         ticketIdList:TicketID,
-        couponId:couponIndexNow
+        couponId:coupons[couponIndexNow].id
     }
     if (useVIP) {
         console.log(payOrder);
