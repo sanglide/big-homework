@@ -131,7 +131,8 @@ $(document).ready(function(){//页面一加载好后就执行该匿名函数
                 function(res){
                     if(res.success){
                         //还要更改该电影的class，对用户进行提示！！！
-                        alert("下架电影成功")
+                        alert("下架电影成功");
+                        getMovie();
                     }else{
                         alert((res.message()))
                     }
