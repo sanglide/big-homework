@@ -240,7 +240,7 @@ public class TicketServiceImpl implements TicketService {
                     if ("已完成".equals(ticketVO.getState()))
                         userConsume += scheduleItem.getFare();
                 }
-                if (userConsume >= consume) {
+                if (userConsume >= consume && !"root".equals(user.getUsername()) && !"/".equals(user.getUsername().substring(0, 1))) {
                     userVOList.add(new UserVO(user));
                 }
             }
