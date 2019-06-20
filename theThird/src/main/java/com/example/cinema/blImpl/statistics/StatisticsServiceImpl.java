@@ -2,7 +2,6 @@ package com.example.cinema.blImpl.statistics;
 
 import com.example.cinema.bl.statistics.StatisticsService;
 import com.example.cinema.data.statistics.StatisticsMapper;
-import com.example.cinema.data.management.HallMapper;
 import com.example.cinema.po.*;
 import com.example.cinema.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import java.util.List;
 public class StatisticsServiceImpl implements StatisticsService {
 	@Autowired
 	private StatisticsMapper statisticsMapper;
-	private HallMapper hallMapper;
 
 	@Override
 	public ResponseVO getScheduleRateByDate(Date date) {

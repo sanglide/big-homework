@@ -1,11 +1,16 @@
 package com.example.cinema.po;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Date;
 
 /**
  * Created by liying on 2019/3/23.
  */
+@Setter
+@Getter
 public class DateLike {
     /**
      * 喜爱人数
@@ -17,19 +22,4 @@ public class DateLike {
      */
     private Date likeTime;
 
-    public int getLikeNum() {
-        return likeNum;
-    }
-
-    public void setLikeNum(int likeNum) {
-        this.likeNum = likeNum;
-    }
-
-    public Date getLikeTime() {
-        return likeTime;
-    }
-
-    public void setLikeTime(Date likeTime) {
-        this.likeTime = likeTime;
-    }
 }

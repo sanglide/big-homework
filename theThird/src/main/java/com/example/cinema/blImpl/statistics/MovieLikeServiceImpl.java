@@ -1,15 +1,16 @@
 package com.example.cinema.blImpl.statistics;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.example.cinema.bl.statistics.MovieLikeService;
-import com.example.cinema.blImpl.management.schedule.MovieServiceForBl;
+import com.example.cinema.blImpl.management.movie.MovieServiceForBl;
 import com.example.cinema.data.statistics.MovieLikeMapper;
 import com.example.cinema.po.DateLike;
 import com.example.cinema.vo.DateLikeVO;
 import com.example.cinema.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author fjj

@@ -47,6 +47,7 @@
 
     <select id="selectChargeHistoryByUserId" resultMap="VIPCardChargeHistory">
         select * from vip_charge_history where user_id = #{userId}
+        order by time desc
     </select>
 
     <resultMap id="VIPCardChargeHistory" type="com.example.cinema.po.VIPCardChargeHistory">

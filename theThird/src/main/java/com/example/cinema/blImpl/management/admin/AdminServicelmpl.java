@@ -1,12 +1,11 @@
 package com.example.cinema.blImpl.management.admin;
 
+import com.example.cinema.bl.management.AdminService;
 import com.example.cinema.data.management.AdminMapper;
-import com.example.cinema.po.MovieTotalBoxOffice;
-import com.example.cinema.vo.*;
 import com.example.cinema.po.User;
+import com.example.cinema.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.cinema.bl.management.AdminService;
 
 import java.util.ArrayList;
 import java.util.List;

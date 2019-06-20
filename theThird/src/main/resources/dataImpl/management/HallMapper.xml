@@ -28,21 +28,20 @@
         select * from hall where `name` = #{hallName}
     </select>
 
-    <select id="selectHallHasSchedule" resultType="com.example.cinema.po.HallHasSchedule">
-        select * from hall
+    <select id="selectHallHasSchedule" resultMap="Hall">
+        select * from hall h
         right join
-        (select hall_id as hallId ,end_time as date from schedule ) s
-        on( s.hallId = #{hallId} AND date>#{date})
-        where id=#{hallId}
+        (select hall_id, end_time from schedule) s
+        on s.hall_id = h.id and end_time > #{today}
+        where h.name = #{hallName}
     </select>
 
-
-
     <resultMap id="Hall" type="com.example.cinema.po.Hall">
+        <result column="id" property="id"></result>
+        <result column="name" property="name"></result>
+        <result column="row" property="row"></result>
+        <result column="column" property="column"></result>
     </resultMap>
-
-
-
 
 
 </mapper>

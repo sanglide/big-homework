@@ -33,6 +33,7 @@
 
     <select id="selectTicketByUser" resultMap="Ticket">
         select * from ticket where user_id=#{userId}
+        order by time desc
     </select>
 
     <update id="updateTicketState">
@@ -101,6 +102,7 @@
         on
         t.id = tor.ticket_id
         where t.user_id = #{userId}  and t.state!=2
+        order by t.time desc
     </select>
 
     <select id="selectTicketOrderById" resultMap="TicketOrder">
@@ -123,7 +125,12 @@
     </resultMap>
 
     <update id="cleanExpiredTicket">
-        update ticket SET state =2 WHERE UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(time)>900 and state=0;
+        update ticket t
+        right join schedule s
+        on s.id = t.schedule_id
+        SET state =2
+        WHERE (UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(t.time)>900 and state=0)
+        or UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(s.end_time)
     </update>
 
 </mapper>

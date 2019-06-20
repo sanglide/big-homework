@@ -1,8 +1,8 @@
 package com.example.cinema.blImpl.promotion.coupon;
 
-import java.util.List;
-
 import com.example.cinema.po.Coupon;
+
+import java.util.List;
 
 public interface CouponServiceForBl {
 
@@ -13,4 +13,5 @@ public interface CouponServiceForBl {
 	void insertCouponUser(int couponId, int userId);
 
 	void deleteCouponUser(int couponId, int userId);
+
 }

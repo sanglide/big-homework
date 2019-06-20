@@ -15,8 +15,6 @@
             where s.movie_id = m.movie_id and s.hall_id = h.hall_id
     </select>
 
-
-
     <select id="selectScheduleBeforeDate" resultMap="ScheduleItem">
         select * from
         (select * from schedule where hall_id = #{hallId} and (#{endDate}>=end_time)) s,
@@ -34,6 +32,11 @@
           and ((#{startTime} between start_time and end_time)
           or (#{endTime} between start_time and end_time)
           or (start_time between #{startTime} and #{endTime}))
+    </select>
+
+    <select id="selectScheduleByHallId" resultMap="ScheduleItem">
+        select * from schedule
+        where hall_id = #{hallId}
     </select>
 
     <select id="selectScheduleByMovieIdList" resultMap="ScheduleItem" parameterType="java.util.List">

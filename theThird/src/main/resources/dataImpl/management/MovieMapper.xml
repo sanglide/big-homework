@@ -38,6 +38,14 @@
         like concat('%',#{keyword},'%');
     </select>
 
+    <select id="selectMovieHasScheduleById" resultMap="Movie">
+        select * from movie m
+        right join
+        (select * from schedule) s
+        on s.movie_id = m.id and s.end_time > now()
+        where m.id=#{id}
+    </select>
+
     <update id="updateMovieStatusBatch" parameterType="java.util.List">
         update movie set status = 1 where id in
         <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">

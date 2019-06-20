@@ -68,4 +68,6 @@ public interface MovieMapper {
      * @return
      */
     int updateMovie(MovieForm updateMovieForm);
+
+    Movie selectMovieHasScheduleById(Integer id);
 }

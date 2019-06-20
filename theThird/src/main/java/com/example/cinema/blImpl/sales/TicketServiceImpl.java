@@ -1,23 +1,22 @@
 package com.example.cinema.blImpl.sales;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.cinema.blImpl.user.AccountServiceForBl;
-import com.example.cinema.po.*;
-import com.example.cinema.vo.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.example.cinema.bl.sales.TicketService;
 import com.example.cinema.blImpl.management.hall.HallServiceForBl;
 import com.example.cinema.blImpl.management.schedule.ScheduleServiceForBl;
 import com.example.cinema.blImpl.promotion.activity.ActivityServiceForBl;
 import com.example.cinema.blImpl.promotion.coupon.CouponServiceForBl;
 import com.example.cinema.blImpl.promotion.vipcard.VIPCardServiceForBl;
+import com.example.cinema.blImpl.user.AccountServiceForBl;
 import com.example.cinema.data.sales.TicketMapper;
+import com.example.cinema.po.*;
+import com.example.cinema.vo.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liying on 2019/4/16.
@@ -241,7 +240,7 @@ public class TicketServiceImpl implements TicketService {
                     if ("已完成".equals(ticketVO.getState()))
                         userConsume += scheduleItem.getFare();
                 }
-                if (userConsume >= consume) {
+                if (userConsume >= consume && !"root".equals(user.getUsername()) && !"/".equals(user.getUsername().substring(0, 1))) {
                     userVOList.add(new UserVO(user));
                 }
             }

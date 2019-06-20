@@ -2,10 +2,8 @@ package com.example.cinema.blImpl.management.hall;
 
 import com.example.cinema.bl.management.HallService;
 import com.example.cinema.data.management.HallMapper;
-import com.example.cinema.data.management.ScheduleMapper;
 import com.example.cinema.po.Hall;
 import com.example.cinema.vo.HallForm;
-import com.example.cinema.po.HallHasSchedule;
 import com.example.cinema.vo.HallVO;
 import com.example.cinema.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,6 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
     private final static String HALL_USED = "该影厅已经排片，暂时不可以删除";
     @Autowired
     private HallMapper hallMapper;
-    private ScheduleMapper scheduleMapper;
 
     @Override
     public ResponseVO searchAllHall() {
@@ -53,19 +50,18 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
     @Override
     public ResponseVO addHall(HallForm hallForm) {
         try {
-            List<Hall>allHall=hallMapper.selectAllHall();
-            for(int i=0;i<allHall.size();i++){
-                if(allHall.get(i).getName().equals(hallForm.getName())){
+            List<Hall> allHall = hallMapper.selectAllHall();
+            for (int i = 0; i < allHall.size(); i++) {
+                if (allHall.get(i).getName().equals(hallForm.getName())) {
                     return ResponseVO.buildFailure(HALL_EXIST);
                 }
             }
-            hallMapper.addHall(hallForm.getName(),hallForm.getColumn(),hallForm.getRow());
+            hallMapper.addHall(hallForm.getName(), hallForm.getColumn(), hallForm.getRow());
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
         }
-
 
 
     }
@@ -80,18 +76,17 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
             return ResponseVO.buildFailure("失败");
         }
     }
+
     @Override
     public ResponseVO deleteHall(HallForm hallForm) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date today = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
-            List<Hall> hall=hallMapper.selectHallByName(hallForm.getName());
-            for(int j=0;j<hall.size();j++){
-            List<HallHasSchedule>hallHasSchedule=hallMapper.selectHallHasSchedule(hall.get(j).getId(),today);
-            if(hallHasSchedule.size()!=0){
+            Hall hallHasSchedule = hallMapper.selectHallHasSchedule(hallForm.getName(), today);
+            if (hallHasSchedule != null) {
                 return ResponseVO.buildFailure(HALL_USED);
             }
-            hallMapper.deleteHall(hallForm.getName());}
+            hallMapper.deleteHall(hallForm.getName());
             return ResponseVO.buildSuccess();
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,9 +94,9 @@ public class HallServiceImpl implements HallService, HallServiceForBl {
         }
     }
 
-    private List<HallVO> hallList2HallVOList(List<Hall> hallList){
+    private List<HallVO> hallList2HallVOList(List<Hall> hallList) {
         List<HallVO> hallVOList = new ArrayList<>();
-        for(Hall hall : hallList){
+        for (Hall hall : hallList) {
             hallVOList.add(new HallVO(hall));
         }
         return hallVOList;

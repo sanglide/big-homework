@@ -126,6 +126,7 @@ function getCoupon() {
         '/coupon/' + sessionStorage.getItem('id') + '/get',
         function (res) {
             if (res.success) {
+                console.log(res);
                 var couponList = res.content;
                 var couponListContent = '';
                 for (let coupon of couponList) {

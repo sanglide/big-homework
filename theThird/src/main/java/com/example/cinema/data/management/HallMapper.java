@@ -1,8 +1,6 @@
 package com.example.cinema.data.management;
 
 import com.example.cinema.po.Hall;
-import com.example.cinema.vo.HallForm;
-import com.example.cinema.po.HallHasSchedule;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,10 +29,9 @@ public interface HallMapper {
      * 根据名字查询影厅
      * @return
      */
-    List<Hall> selectHallByName(@Param("hallName") String hallName);
+    Hall selectHallByName(@Param("hallName") String hallName);
 
-
-    List<HallHasSchedule> selectHallHasSchedule(@Param("hallId") int hallId,@Param("date") Date date);
+    Hall selectHallHasSchedule(@Param("hallName") String hallName, @Param("today") Date today);
 
     /**
      * 增加影厅
