@@ -85,8 +85,8 @@ $(document).ready(function() {
             endTime: $("#activity-end-date-input").val(),
             movieList: [...selectedMovieIds],
             couponForm: {
-                description: $("#coupon-name-input").val(),
-                name: $("#coupon-description-input").val(),
+                description: $("#coupon-description-input").val(),
+                name: $("#coupon-name-input").val(),
                 targetAmount: $("#coupon-target-input").val(),
                 discountAmount: $("#coupon-discount-input").val(),
                 startTime: $("#activity-start-date-input").val(),
@@ -173,7 +173,7 @@ $(document).ready(function() {
     $(document).on('click','.activity-container',function (e) {
         console.log("============");
         console.log(e);
-        //e.target是点击的元素，而不是一整块优惠券卡
+        //e.target是点击的元素，而不是一整块优惠券卡！！！
         //e.currentTarget范围比e.target大
         console.log(e.target);
         console.log(e.currentTarget);
@@ -217,8 +217,8 @@ $(document).ready(function() {
             endTime: $("#activity-edit-end-date-input").val(),
             movieList: [...selectedEditMovieIds],
             couponForm: {
-                description: $("#coupon-edit-name-input").text(),
-                name: $("#coupon-edit-description-input").text(),
+                description: $("#coupon-edit-description-input").text(),
+                name: $("#coupon-edit-name-input").text(),
                 targetAmount: $("#coupon-edit-target-input").val(),
                 discountAmount: $("#coupon-edit-discount-input").val(),
                 startTime: $("#activity-edit-start-date-input").val(),

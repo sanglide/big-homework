@@ -87,7 +87,7 @@
     </select>
 
     <update id="updateCoupon">
-        update coupon set target_amount=#{targetAmount},description=#{name},discount_amount=#{discountAmount},start_time=#{startTime},end_time=#{endTime} where `name`=#{description}
+        update coupon set target_amount=#{targetAmount},description=#{description},discount_amount=#{discountAmount},start_time=#{startTime},end_time=#{endTime} where `name`=#{name}
     </update>
 
     <update id="updateActivity">
