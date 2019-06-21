@@ -43,7 +43,7 @@
         left join
         (select movie_id as movieId,sum(fare) as boxOffice from schedule
         right join
-        (select schedule_id from ticket where state = 1) t
+        (select schedule_id from ticket where state = 2) t
         on (schedule.id = t.schedule_id AND( schedule.start_time >=#{startDate}  AND ( schedule.end_time between #{startDate} and #{endDate} )))group by movie_id) s
         on s.movieId = movie.id
         order by boxOffice desc
