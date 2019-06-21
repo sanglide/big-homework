@@ -287,7 +287,7 @@ function payConfirmClick() {
     payOrder[1]=couponIndexNow;
     var postData={
         ticketIdList:TicketID,
-        couponId:coupons[couponIndexNow].id
+        couponId:order.couponId
     }
     if (useVIP) {
         console.log(payOrder);
