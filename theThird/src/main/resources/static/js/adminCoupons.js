@@ -170,6 +170,7 @@ $(document).ready(function() {
             function (res) {
                 if(res.success){
                     alert("赠送成功");
+                    getCouponsList();
                 } else{
                     alert(res.message);
                 }

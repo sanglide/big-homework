@@ -247,6 +247,7 @@ $(document).ready(function() {
             //controller的生命线的url
             function (res) {
                 var data = res.content || [];
+                console.log(data);
                 var tableData = data.map(function (item) {
                     return item.boxOffice;
                     //

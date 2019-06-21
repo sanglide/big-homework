@@ -145,6 +145,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 				PopularMoviesVO popularMoviesVO = new PopularMoviesVO(popularMovies.get(i));
 				popularMoviesVOList.add(popularMoviesVO);
 
+//				System.out.println(popularMoviesVO.getName());
+//				System.out.println(popularMoviesVO.getBoxOffice());
 			}
 			return ResponseVO.buildSuccess(popularMoviesVOList);
 		} catch (Exception e) {
