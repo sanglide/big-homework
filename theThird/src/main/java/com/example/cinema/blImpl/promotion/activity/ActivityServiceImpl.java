@@ -30,7 +30,7 @@ public class ActivityServiceImpl implements ActivityService, ActivityServiceForB
             Coupon coupon = (Coupon) couponService.addCoupon(activityForm.getCouponForm()).getContent();
             Activity activity = new Activity();
             activity.setName(activityForm.getName());
-            activity.setDescription(activityForm.getName());
+            activity.setDescription(activityForm.getDescription());
             activity.setStartTime(activityForm.getStartTime());
             activity.setEndTime(activityForm.getEndTime());
             activity.setCoupon(coupon);

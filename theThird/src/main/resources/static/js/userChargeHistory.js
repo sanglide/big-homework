@@ -40,7 +40,7 @@ $(document).ready(function () {
         var ticketStr =
             "<tr>" +
             "   <td>" +
-            "       <div>"+getLocalTime(history.time)+"</div>" +
+            "       <div>"+history.time.toString().substring(0,10)+"</div>" +
             "   </td>" +
             "   <td >" +
             "       <div>"+history.balance+"</div>" +
